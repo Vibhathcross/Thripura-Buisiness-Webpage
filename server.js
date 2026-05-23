@@ -322,7 +322,7 @@ class FallbackCollection {
   }
 }
 
-const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017';
+const mongoUri = process.env.MONGO_URI || 'mongodb://vibhathcross_db_user:dMITEq9K2JszDuqp@ac-4ngm1dq-shard-00-00.ezjcbqg.mongodb.net:27017,ac-4ngm1dq-shard-00-01.ezjcbqg.mongodb.net:27017,ac-4ngm1dq-shard-00-02.ezjcbqg.mongodb.net:27017/thripura_db?ssl=true&authSource=admin&retryWrites=true&w=majority';
 const client = new MongoClient(mongoUri, { serverSelectionTimeoutMS: 5000 });
 let db;
 let servicesCol;
