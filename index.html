@@ -2568,6 +2568,482 @@
 
     <!-- --- APPLICATION FRAMEWORK SCRIPTING CORE --- -->
     <script>
+        // --- CLIENT-SIDE MOCK API ROUTER & LOCAL STORAGE DATABASE FALLBACK ---
+        // Enables full interactivity (login, admin dashboard, order routing, chat) on static hosts like GitHub Pages or file://
+        const originalFetch = window.fetch;
+        let useLocalMock = window.location.protocol === 'file:' || window.location.hostname.includes('github.io');
+        let probed = false;
+
+        async function probeBackend() {
+            if (useLocalMock || probed) return;
+            probed = true;
+            try {
+                const res = await originalFetch('/api/settings');
+                if (res.status === 404) {
+                    useLocalMock = true;
+                    console.log("⚠️ Backend returned 404, switching to local mock database");
+                }
+            } catch (e) {
+                useLocalMock = true;
+                console.log("⚠️ Backend connection failed, switching to local mock database");
+            }
+        }
+
+        const mockDb = {
+            get(key, defaultVal) {
+                try {
+                    const data = localStorage.getItem('thripura_' + key);
+                    return data ? JSON.parse(data) : defaultVal;
+                } catch(e) {
+                    return defaultVal;
+                }
+            },
+            set(key, val) {
+                try {
+                    localStorage.setItem('thripura_' + key, JSON.stringify(val));
+                } catch(e) {}
+            }
+        };
+
+        // Seed initial default mock data in LocalStorage if not present
+        if (!localStorage.getItem('thripura_settings')) {
+            mockDb.set('settings', {
+                heroTitle: "High-Fidelity Production Print Systems",
+                heroDesc: "Experience printing re-engineered for the future. From extreme-scale offset press runs to complex dimensional package solutions.",
+                aboutTitle: "Thripura Architectural Print Labs",
+                aboutBody: "Founded on the absolute bedrock principles of unmatched clarity and fine structural fidelity, Thripura Offset Printers integrates ultra-precise modern digital frameworks with high-volume mechanical arrays. We facilitate complex corporate production lines, custom dynamic packaging configurations, and premium-grade publication work.",
+                phone: "+91 94475 24601",
+                phone2: "",
+                email: "press@thripura.in",
+                location: "Ernakulam, Kerala"
+            });
+        }
+        if (!localStorage.getItem('thripura_users')) {
+            mockDb.set('users', [
+                { _id: "admin-id-madhu", name: "Madhu Sudhanan P K", role: "admin" }
+            ]);
+        }
+        if (!localStorage.getItem('thripura_services')) {
+            mockDb.set('services', [
+                {
+                    _id: "service-id-1",
+                    title: "High-Volume Offset Printing",
+                    description: "Mass production runs optimized for brochures, books, and flyers with precision alignment.",
+                    image: null
+                },
+                {
+                    _id: "service-id-2",
+                    title: "Digital Architectural Layouts",
+                    description: "Fine detailed premium architectural prints on dense card stock and specialized paper.",
+                    image: null
+                }
+            ]);
+        }
+        if (!localStorage.getItem('thripura_orders')) {
+            mockDb.set('orders', [
+                {
+                    _id: "order-id-1",
+                    client: "Vibhath (Verified User)",
+                    specifications: "Technical Research Compendium Glossy Run",
+                    volume: "50 Units",
+                    evaluationPrice: "₹3,450.00",
+                    status: "Processed/Paid",
+                    timestamp: Date.now() - 3600000
+                },
+                {
+                    _id: "order-id-2",
+                    client: "Ananthu K.R.",
+                    specifications: "Matte Corporate Portfolio Layout Packs",
+                    volume: "1200 Units",
+                    evaluationPrice: "Awaiting Allocation",
+                    status: "Pending Evaluation",
+                    timestamp: Date.now() - 7200000
+                }
+            ]);
+        }
+        if (!localStorage.getItem('thripura_messages')) {
+            mockDb.set('messages', [
+                {
+                    _id: "message-id-1",
+                    sender: "Elizabeth George",
+                    customerName: "Elizabeth George",
+                    role: "customer",
+                    routing: "elizabeth@edu.in",
+                    data: "Require custom parameters evaluation run for high-capacity geometric wedding layout prints.",
+                    reply: "Evaluation pipeline active. Custom pricing allocation sent to queue.",
+                    timestamp: Date.now() - 10000000
+                }
+            ]);
+        }
+
+        window.fetch = async function(url, options = {}) {
+            // Probe backend on first API call to check if real server is alive
+            if (url.startsWith('/api/') && !probed && !useLocalMock) {
+                await probeBackend();
+            }
+
+            if (!useLocalMock || !url.startsWith('/api/')) {
+                return originalFetch(url, options);
+            }
+
+            console.log(`[Mock API] Intercepted: ${options.method || 'GET'} ${url}`);
+
+            const method = (options.method || 'GET').toUpperCase();
+            const urlObj = new URL(url, window.location.origin);
+            const path = urlObj.pathname;
+
+            const jsonResponse = (data, status = 200) => {
+                return new Response(JSON.stringify(data), {
+                    status,
+                    headers: { 'Content-Type': 'application/json' }
+                });
+            };
+
+            let body = {};
+            if (options.body) {
+                if (options.body instanceof FormData) {
+                    for (const [key, value] of options.body.entries()) {
+                        if (value instanceof File && value.name) {
+                            if (value.type.startsWith('image/')) {
+                                try {
+                                    const dataUrl = await new Promise((resolve) => {
+                                        const reader = new FileReader();
+                                        reader.onloadend = () => resolve(reader.result);
+                                        reader.readAsDataURL(value);
+                                    });
+                                    body[key] = dataUrl;
+                                    if (key === 'image') body.imageUrl = dataUrl;
+                                } catch(e) {
+                                    body[key] = null;
+                                }
+                            } else {
+                                body[key] = `/uploads/mock-${value.name}`;
+                                if (key === 'document') {
+                                    body.docUrl = body[key];
+                                    body.docOriginalName = value.name;
+                                }
+                            }
+                        } else {
+                            body[key] = value;
+                        }
+                    }
+                } else {
+                    try {
+                        body = JSON.parse(options.body);
+                    } catch(e) {}
+                }
+            }
+
+            // --- ROUTES ---
+
+            // 1. SETTINGS
+            if (path === '/api/settings') {
+                if (method === 'GET') {
+                    return jsonResponse(mockDb.get('settings', {}));
+                }
+                if (method === 'POST') {
+                    const settings = mockDb.get('settings', {});
+                    const updated = { ...settings, ...body };
+                    mockDb.set('settings', updated);
+                    return jsonResponse({ success: true });
+                }
+            }
+
+            // 2. SERVICES
+            if (path === '/api/services') {
+                if (method === 'GET') {
+                    return jsonResponse(mockDb.get('services', []));
+                }
+                if (method === 'POST') {
+                    const services = mockDb.get('services', []);
+                    const newService = {
+                        _id: 'mock-srv-' + Math.random().toString(36).substr(2, 9),
+                        title: body.title,
+                        description: body.description,
+                        image: body.image || null
+                    };
+                    services.push(newService);
+                    mockDb.set('services', services);
+                    return jsonResponse(newService);
+                }
+            }
+            if (path.startsWith('/api/services/')) {
+                if (method === 'DELETE') {
+                    const id = path.split('/').pop();
+                    const services = mockDb.get('services', []);
+                    const filtered = services.filter(s => s._id !== id);
+                    mockDb.set('services', filtered);
+                    return jsonResponse({ success: true, deletedCount: services.length - filtered.length });
+                }
+            }
+
+            // 3. ORDERS
+            if (path === '/api/orders') {
+                if (method === 'GET') {
+                    return jsonResponse(mockDb.get('orders', []));
+                }
+                if (method === 'POST') {
+                    const orders = mockDb.get('orders', []);
+                    const newOrder = {
+                        _id: 'mock-ord-' + Math.random().toString(36).substr(2, 9),
+                        client: body.client || 'Anonymous',
+                        subject: body.subject || 'Standard Work Request',
+                        specifications: body.specifications || '',
+                        volume: body.volume || 'Unspecified',
+                        expectedTime: body.expectedTime || 'Not specified',
+                        evaluationPrice: "Pending Evaluation",
+                        status: "Pending Evaluation",
+                        imageUrl: body.imageUrl || null,
+                        imageDesc: body.imageDesc || '',
+                        docUrl: body.docUrl || null,
+                        docOriginalName: body.docOriginalName || null,
+                        docDesc: body.docDesc || '',
+                        timestamp: Date.now()
+                    };
+                    orders.push(newOrder);
+                    mockDb.set('orders', orders);
+                    return jsonResponse(newOrder);
+                }
+            }
+            if (path.startsWith('/api/orders/')) {
+                const parts = path.split('/');
+                const id = parts[3];
+                const orders = mockDb.get('orders', []);
+                const idx = orders.findIndex(o => o._id === id);
+
+                if (path.endsWith('/price') && method === 'PUT') {
+                    if (idx > -1) {
+                        orders[idx].evaluationPrice = body.price;
+                        mockDb.set('orders', orders);
+                    }
+                    return jsonResponse({ success: true });
+                }
+                if (path.endsWith('/complete') && method === 'PUT') {
+                    if (idx > -1) {
+                        orders[idx].status = 'Processed/Paid';
+                        mockDb.set('orders', orders);
+                    }
+                    return jsonResponse({ success: true });
+                }
+                if (method === 'DELETE') {
+                    const filtered = orders.filter(o => o._id !== id);
+                    mockDb.set('orders', filtered);
+                    return jsonResponse({ success: true });
+                }
+            }
+
+            // 4. MESSAGES
+            if (path === '/api/messages') {
+                if (method === 'GET') {
+                    return jsonResponse(mockDb.get('messages', []));
+                }
+                if (method === 'POST') {
+                    const messages = mockDb.get('messages', []);
+                    const newMessage = {
+                        _id: 'mock-msg-' + Math.random().toString(36).substr(2, 9),
+                        sender: body.sender,
+                        role: body.role || 'customer',
+                        customerName: body.customerName || body.sender,
+                        data: body.data || '',
+                        routing: body.routing || '',
+                        timestamp: Date.now(),
+                        imageUrl: body.imageUrl || null,
+                        docUrl: body.docUrl || null,
+                        docOriginalName: body.docOriginalName || null,
+                        imageDesc: body.imageDesc || ''
+                    };
+                    messages.push(newMessage);
+                    mockDb.set('messages', messages);
+                    return jsonResponse(newMessage);
+                }
+            }
+            if (path === '/api/messages/customers' && method === 'GET') {
+                const messages = mockDb.get('messages', []);
+                const customers = [];
+                const seen = new Set();
+                const sorted = [...messages].sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+                sorted.forEach(m => {
+                    const cName = m.customerName || m.sender;
+                    if (cName && !seen.has(cName) && cName !== "Madhu Sudhanan P K" && cName !== "admin") {
+                        seen.add(cName);
+                        customers.push({
+                            name: cName,
+                            routing: m.routing || '',
+                            lastMessage: m.data || '',
+                            timestamp: m.timestamp || 0
+                        });
+                    }
+                });
+                return jsonResponse(customers);
+            }
+            if (path.startsWith('/api/messages/thread/')) {
+                const customerName = decodeURIComponent(path.split('/').pop());
+                const messages = mockDb.get('messages', []);
+
+                if (method === 'GET') {
+                    const thread = [];
+                    messages.forEach(m => {
+                        const match = (m.customerName === customerName) || (m.sender === customerName) || (m.customerName === undefined && m.sender === customerName);
+                        if (match) {
+                            if (m.data) {
+                                thread.push({
+                                    _id: m._id,
+                                    sender: m.sender,
+                                    role: m.role || 'customer',
+                                    customerName: customerName,
+                                    data: m.data,
+                                    timestamp: m.timestamp || 0,
+                                    routing: m.routing,
+                                    imageUrl: m.imageUrl,
+                                    docUrl: m.docUrl,
+                                    docOriginalName: m.docOriginalName
+                                });
+                            }
+                            if (m.reply) {
+                                thread.push({
+                                    _id: m._id + '-reply',
+                                    sender: "Madhu Sudhanan P K",
+                                    role: 'admin',
+                                    customerName: customerName,
+                                    data: m.reply,
+                                    timestamp: (m.timestamp || 0) + 1,
+                                    isLegacyReply: true
+                                });
+                            }
+                        }
+                    });
+                    thread.sort((a, b) => a.timestamp - b.timestamp);
+                    return jsonResponse(thread);
+                }
+                if (method === 'DELETE') {
+                    const filtered = messages.filter(m => m.customerName !== customerName && m.sender !== customerName);
+                    mockDb.set('messages', filtered);
+                    return jsonResponse({ success: true });
+                }
+            }
+            if (path.startsWith('/api/messages/')) {
+                const id = path.split('/').pop();
+                const messages = mockDb.get('messages', []);
+                const idx = messages.findIndex(m => m._id === id || (id.endsWith('-reply') && m._id === id.replace('-reply', '')));
+
+                if (method === 'DELETE') {
+                    if (id.endsWith('-reply')) {
+                        if (idx > -1) {
+                            messages[idx].reply = null;
+                            mockDb.set('messages', messages);
+                        }
+                    } else {
+                        const filtered = messages.filter(m => m._id !== id);
+                        mockDb.set('messages', filtered);
+                    }
+                    return jsonResponse({ success: true });
+                }
+                if (method === 'PUT') {
+                    if (path.endsWith('/reply')) {
+                        if (idx > -1) {
+                            messages[idx].reply = body.reply;
+                            mockDb.set('messages', messages);
+                        }
+                    } else {
+                        if (id.endsWith('-reply')) {
+                            if (idx > -1) {
+                                messages[idx].reply = body.data;
+                                mockDb.set('messages', messages);
+                            }
+                        } else {
+                            if (idx > -1) {
+                                messages[idx].data = body.data;
+                                mockDb.set('messages', messages);
+                            }
+                        }
+                    }
+                    return jsonResponse({ success: true });
+                }
+            }
+
+            // 5. USERS
+            if (path === '/api/users') {
+                if (method === 'GET') {
+                    return jsonResponse(mockDb.get('users', []));
+                }
+            }
+            if (path === '/api/users/login' && method === 'POST') {
+                const { name, password } = body;
+                if (!name) {
+                    return jsonResponse({ error: 'Name is required' }, 400);
+                }
+
+                if (name === "Madhu Sudhanan P K") {
+                    if (password === "246Entry") {
+                        return jsonResponse({ name: "Madhu Sudhanan P K", role: "admin" });
+                    } else {
+                        return jsonResponse({ error: "Cryptographic mismatch token or empty authentication string detected." }, 401);
+                    }
+                }
+
+                const users = mockDb.get('users', []);
+                const user = users.find(u => u.name === name);
+                if (user) {
+                    if (user.password && user.password !== password) {
+                        return jsonResponse({ error: "Incorrect password credentials entered." }, 401);
+                    }
+                    return jsonResponse(user);
+                } else {
+                    if (password && password.length >= 4) {
+                        const newUser = {
+                            _id: 'mock-usr-' + Math.random().toString(36).substr(2, 9),
+                            name,
+                            email: '',
+                            phone: '',
+                            password,
+                            role: 'customer'
+                        };
+                        users.push(newUser);
+                        mockDb.set('users', users);
+                        return jsonResponse(newUser);
+                    }
+                    return jsonResponse({ error: "User not found and password too short." }, 401);
+                }
+            }
+            if (path === '/api/users/register' && method === 'POST') {
+                const { name, email, phone, password } = body;
+                if (!name) {
+                    return jsonResponse({ error: 'Name is required' }, 400);
+                }
+                const users = mockDb.get('users', []);
+                const existing = users.find(u => u.name === name);
+                if (existing) {
+                    return jsonResponse({ error: 'System Operator Identity Alias already registered!' }, 400);
+                }
+                const newUser = {
+                    _id: 'mock-usr-' + Math.random().toString(36).substr(2, 9),
+                    name,
+                    email: email || '',
+                    phone: phone || '',
+                    password: password || '',
+                    role: 'customer'
+                };
+                users.push(newUser);
+                mockDb.set('users', users);
+                return jsonResponse(newUser);
+            }
+            if (path.startsWith('/api/users/')) {
+                if (method === 'DELETE') {
+                    const id = path.split('/').pop();
+                    const users = mockDb.get('users', []);
+                    const user = users.find(u => u._id === id);
+                    if (user && user.role === 'admin') {
+                        return jsonResponse({ error: 'Deletion of root administrator is strictly prohibited!' }, 403);
+                    }
+                    const filtered = users.filter(u => u._id !== id);
+                    mockDb.set('users', filtered);
+                    return jsonResponse({ success: true, deletedCount: users.length - filtered.length });
+                }
+            }
+
+            return jsonResponse({ error: 'Route not found' }, 404);
+        };
+
         // CORE STATE DATABASE REPLICAS (DYNAMIC SYNC WITH MONGODB BACKEND)
         let activeSessionUser = null;
         let guestChatName = null;   // Name-only guest chat session (no login needed)
