@@ -6,22 +6,13 @@ A premium, modern, glassmorphic production portal for **Thripura Offset Printers
 
 ## ⚡ Deployment & Hosting Architecture
 
-This project is built to be extremely resilient and run seamlessly in two modes:
-
-### Mode 1: Static Client Fallback (GitHub Pages / No Server)
-If deployed as a static website (such as on **GitHub Pages**) or run by double-clicking `index.html`, the application automatically activates a transparent **client-side database proxy** using the browser's `localStorage`.
-- All features work instantly (admin dashboard, adding services, modifying portal details, submitting order requests, and customer-operator chat).
-- Data persists in the browser across page refreshes.
-- Default Admin credentials:
-  - **Username**: `Madhu Sudhanan P K`
-  - **Password**: `246Entry`
-
-### Mode 2: Fullstack Production Node.js & MongoDB Server
-When run with the Express server backend, it connects directly to the MongoDB Atlas database and enables rich-media uploads and Gmail confirmations.
+This project is built as a **Fullstack Production Node.js & MongoDB Server** application. 
+- It connects directly to the MongoDB Atlas database to store and manage services, user accounts, client order requests, and customer-operator communications.
+- Enables rich-media uploads (such as audio specs and reference files) and Gmail-based receipt notifications.
 
 ---
 
-## 🚀 Running the Fullstack Backend locally
+## 🚀 Running the Portal
 
 ### Prerequisites
 - Install [Node.js](https://nodejs.org/) (includes `npm`).
@@ -36,12 +27,13 @@ When run with the Express server backend, it connects directly to the MongoDB At
    ```bash
    npm install
    ```
-3. (Optional) Configure environment variables:
-   - Copy `.env.example` to `.env`:
-     ```bash
-     cp .env.example .env
-     ```
-   - *Note: If no `.env` file is present, the server automatically defaults to the cloud MongoDB Atlas instance specified in `server.js`.*
+
+### Configuration
+1. (Optional) Customize environment variables by copying `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+2. *Note: If no `.env` file is present, the server automatically defaults to the cloud MongoDB Atlas instance specified in `server.js` to ensure the project works out of the box.*
 
 ### Start Server
 - **Production Mode**:
@@ -54,3 +46,10 @@ When run with the Express server backend, it connects directly to the MongoDB At
   ```
 
 Once started, open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## 🔐 Credentials
+- Default Admin credentials:
+  - **Username**: `Madhu Sudhanan P K`
+  - **Password**: `246Entry`
