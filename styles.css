@@ -1,0 +1,240 @@
+/* styles.css - Premium design for Thripura Offset Printers */
+
+/* Import Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+  /* Color palette – deep teal & soft cyan */
+  --primary-h: 170; /* hue */
+  --primary-s: 55%;
+  --primary-l: 45%;
+  --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
+  --primary-light: hsl(var(--primary-h), var(--primary-s), 58%);
+  --bg-dark: hsl(210, 10%, 10%);
+  --bg-light: hsl(210, 12%, 96%);
+  --glass-bg: rgba(255, 255, 255, 0.12);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --accent: #00e5ff; /* bright accent for hover */
+  --transition: 0.3s ease;
+}
+
+/* Global reset and base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  color: #f0f0f0;
+  background: var(--bg-dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ================
+   Typography
+   ================ */
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+h1.logo {
+  font-size: 1.8rem;
+  color: var(--primary-light);
+}
+
+h1.logo .accent {
+  color: var(--accent);
+}
+
+nav .nav-links a {
+  color: #e0e0e0;
+  text-decoration: none;
+  margin-left: 1.5rem;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+nav .nav-links a:hover {
+  color: var(--accent);
+}
+
+.hero {
+  background: linear-gradient(135deg, hsl(170, 55%, 30%), hsl(170, 55%, 55%));
+  padding: 4rem 2rem 6rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15), transparent 70%);
+  pointer-events: none;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: #e5e5e5;
+  margin-bottom: 2rem;
+}
+
+.cta-button {
+  display: inline-block;
+  background: var(--accent);
+  color: #111;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--transition);
+  box-shadow: 0 4px 12px rgba(0, 229, 255, 0.3);
+}
+
+.cta-button:hover {
+  background: #00b3cc;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 229, 255, 0.4);
+}
+
+/* ================
+   Glass‑morphic sections
+   ================ */
+.section {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.glass-section {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transition: var(--transition);
+}
+
+.glass-section:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: var(--primary-light);
+}
+
+.cards {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  text-align: center;
+  transition: var(--transition);
+  backdrop-filter: blur(8px);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+}
+
+.card-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-title {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.card-text {
+  padding: 0 1rem 1.5rem;
+  color: #ddd;
+  font-size: 0.95rem;
+}
+
+/* Contact form */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 0.5rem;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  font-family: inherit;
+  resize: vertical;
+  transition: var(--transition);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(255,255,255,0.12);
+}
+
+footer.footer {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(0,0,0,0.4);
+  margin-top: auto;
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .hero {
+    padding: 3rem 1rem 4rem;
+  }
+  .hero-title {
+    font-size: 1.8rem;
+  }
+  .nav-links {
+    display: none; /* For simplicity; could add hamburger later */
+  }
+}

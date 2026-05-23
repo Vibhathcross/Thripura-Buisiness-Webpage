@@ -1,0 +1,4128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thripura Offset Printers | Next-Gen Platform</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg: #090a0f;
+            --surface: rgba(18, 20, 32, 0.7);
+            --surface-border: rgba(255, 255, 255, 0.08);
+            --primary: #6366f1;
+            /* Soft Indigo */
+            --primary-glow: rgba(99, 102, 241, 0.2);
+            --accent: #22d3ee;
+            /* Soft Cyan */
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --easing: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(34, 211, 238, 0.05) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        /* --- 1. SOFT TEXT REVEAL SPLASH --- */
+        #splash-screen {
+            position: fixed;
+            inset: 0;
+            background: #090a0f;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s var(--easing), visibility 0.8s;
+            gap: 40px;
+        }
+
+        .animated-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: softReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s;
+        }
+
+        @keyframes softReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .loader {
+            width: 48px;
+            height: 48px;
+            position: relative;
+        }
+
+        .loader:before {
+            content: '';
+            width: 48px;
+            height: 5px;
+            background: #f0808050;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            border-radius: 50%;
+            animation: shadow324 0.5s linear infinite;
+        }
+
+        .loader:after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            background: #f08080;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 4px;
+            animation: jump7456 0.5s linear infinite;
+        }
+
+        @keyframes jump7456 {
+            15% {
+                border-bottom-right-radius: 3px;
+            }
+
+            25% {
+                transform: translateY(9px) rotate(22.5deg);
+            }
+
+            50% {
+                transform: translateY(18px) scale(1, .9) rotate(45deg);
+                border-bottom-right-radius: 40px;
+            }
+
+            75% {
+                transform: translateY(9px) rotate(67.5deg);
+            }
+
+            100% {
+                transform: translateY(0) rotate(90deg);
+            }
+        }
+
+        @keyframes shadow324 {
+            0%, 100% {
+                transform: scale(1, 1);
+            }
+
+            50% {
+                transform: scale(1.2, 1);
+            }
+        }
+
+        /* --- 2. GLASSMORPHIC NAVIGATION --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 6%;
+            background: rgba(9, 10, 15, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--surface-border);
+            transition: all 0.3s var(--easing);
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s var(--easing);
+            cursor: pointer;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--text);
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s var(--easing);
+            box-shadow: 0 4px 20px var(--primary-glow);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--surface-border);
+            color: var(--text);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* --- 3. VIEWS CONTAINER MANAGEMENT --- */
+        .view-section {
+            display: none;
+            padding: 60px 6% 120px;
+            animation: fadeIn 0.6s var(--easing) forwards;
+        }
+
+        .view-section.active-view {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(0);
+            }
+
+            /* Safe structural fallback handling browser engine steps */
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- HOME VIEW ELEMENTS --- */
+
+        /* === RAIN BACKGROUND === */
+        .rain-bg {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            width: 100%;
+            height: 100%;
+            --c: #09f;
+            background-color: #000;
+            background-image:
+                radial-gradient(4px 100px at 0px 235px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 235px, var(--c), #0000),
+                radial-gradient(1.5px 1.5px at 150px 117.5px, var(--c) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 252px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 252px, var(--c), #0000),
+                radial-gradient(1.5px 1.5px at 150px 126px, var(--c) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 150px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 150px, var(--c), #0000),
+                radial-gradient(1.5px 1.5px at 150px 75px, var(--c) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 253px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 253px, var(--c), #0000),
+                radial-gradient(1.5px 1.5px at 150px 126.5px, var(--c) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 204px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 204px, var(--c), #0000),
+                radial-gradient(1.5px 1.5px at 150px 102px, var(--c) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 134px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 134px, var(--c), #0000),
+                radial-gradient(1.5px 1.5px at 150px 67px, var(--c) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 179px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 179px, var(--c), #0000),
+                radial-gradient(1.5px 1.5px at 150px 89.5px, var(--c) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 299px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 299px, var(--c), #0000),
+                radial-gradient(1.5px 1.5px at 150px 149.5px, var(--c) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 215px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 215px, var(--c), #0000),
+                radial-gradient(1.5px 1.5px at 150px 107.5px, var(--c) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 281px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 281px, var(--c), #0000),
+                radial-gradient(1.5px 1.5px at 150px 140.5px, var(--c) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 158px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 158px, var(--c), #0000),
+                radial-gradient(1.5px 1.5px at 150px 79px, var(--c) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 210px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 210px, var(--c), #0000),
+                radial-gradient(1.5px 1.5px at 150px 105px, var(--c) 100%, #0000 150%);
+            background-size:
+                300px 235px, 300px 235px, 300px 235px,
+                300px 252px, 300px 252px, 300px 252px,
+                300px 150px, 300px 150px, 300px 150px,
+                300px 253px, 300px 253px, 300px 253px,
+                300px 204px, 300px 204px, 300px 204px,
+                300px 134px, 300px 134px, 300px 134px,
+                300px 179px, 300px 179px, 300px 179px,
+                300px 299px, 300px 299px, 300px 299px,
+                300px 215px, 300px 215px, 300px 215px,
+                300px 281px, 300px 281px, 300px 281px,
+                300px 158px, 300px 158px, 300px 158px,
+                300px 210px, 300px 210px, 300px 210px;
+            animation: rainFall 150s linear infinite;
+            pointer-events: none;
+        }
+
+        .rain-bg::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background-image: radial-gradient(
+                circle at 50% 50%,
+                #0000 0,
+                #0000 2px,
+                hsl(0 0% 4%) 2px
+            );
+            background-size: 8px 8px;
+            --f: blur(1em) brightness(6);
+            animation: rainGlow 10s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rainGlow {
+            0%   { backdrop-filter: blur(1em) brightness(6) hue-rotate(0deg); }
+            to   { backdrop-filter: blur(1em) brightness(6) hue-rotate(360deg); }
+        }
+
+        @keyframes rainFall {
+            0% {
+                background-position:
+                    0px 220px,    3px 220px,    151.5px 337.5px,
+                    25px 24px,    28px 24px,    176.5px 150px,
+                    50px 16px,    53px 16px,    201.5px 91px,
+                    75px 224px,   78px 224px,   226.5px 350.5px,
+                    100px 19px,   103px 19px,   251.5px 121px,
+                    125px 120px,  128px 120px,  276.5px 187px,
+                    150px 31px,   153px 31px,   301.5px 120.5px,
+                    175px 235px,  178px 235px,  326.5px 384.5px,
+                    200px 121px,  203px 121px,  351.5px 228.5px,
+                    225px 224px,  228px 224px,  376.5px 364.5px,
+                    250px 26px,   253px 26px,   401.5px 105px,
+                    275px 75px,   278px 75px,   426.5px 180px;
+            }
+            to {
+                background-position:
+                    0px 6800px,    3px 6800px,    151.5px 6917.5px,
+                    25px 13632px,  28px 13632px,  176.5px 13758px,
+                    50px 5416px,   53px 5416px,   201.5px 5491px,
+                    75px 17175px,  78px 17175px,  226.5px 17301.5px,
+                    100px 5119px,  103px 5119px,  251.5px 5221px,
+                    125px 8428px,  128px 8428px,  276.5px 8495px,
+                    150px 9876px,  153px 9876px,  301.5px 9965.5px,
+                    175px 13391px, 178px 13391px, 326.5px 13540.5px,
+                    200px 14741px, 203px 14741px, 351.5px 14848.5px,
+                    225px 18770px, 228px 18770px, 376.5px 18910.5px,
+                    250px 5082px,  253px 5082px,  401.5px 5161px,
+                    275px 6375px,  278px 6375px,  426.5px 6480px;
+            }
+        }
+        /* === END RAIN BACKGROUND === */
+
+        body.home-active {
+            background: #000;
+        }
+
+        body.home-active .rain-bg {
+            display: block;
+        }
+
+        /* Ensure all home page content sits above the rain */
+        #view-home > *:not(.rain-bg) {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            border: 1px solid rgba(0, 153, 255, 0.2);
+            background: rgba(0, 5, 20, 0.55);
+            backdrop-filter: blur(16px);
+            margin: 40px auto 80px;
+            padding: 80px 40px;
+            box-shadow: 0 10px 60px rgba(0, 153, 255, 0.12), 0 0 0 1px rgba(0,153,255,0.08);
+            max-width: 1000px;
+        }
+
+        .hero {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 3.2rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero p {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            line-height: 1.75;
+            margin-bottom: 32px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            letter-spacing: 0.2px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: var(--surface);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--surface-border);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s var(--easing);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+
+        .card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px;
+            color: var(--text-muted);
+            border: 1px dashed var(--surface-border);
+            border-radius: 16px;
+        }
+
+        /* --- ABOUT WORKSPACE VIEW --- */
+        .about-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 24px;
+            padding: 48px;
+        }
+
+        .about-wrapper h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .about-content {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            line-height: 1.7;
+        }
+
+        /* --- 4. SEPARATED ADMIN WORKSPACE CONTAINER --- */
+
+        /* Admin page animated gradient background */
+        #view-admin {
+            position: relative;
+            background:
+                radial-gradient(ellipse 80% 60% at 15% 20%, rgba(37, 99, 235, 0.18) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 85% 75%, rgba(99, 102, 241, 0.14) 0%, transparent 55%),
+                radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0, 12, 40, 0.9) 0%, transparent 100%),
+                linear-gradient(135deg, #030712 0%, #050d1f 35%, #0a0e2a 65%, #030712 100%);
+            background-size: 300% 300%, 300% 300%, 100% 100%, 200% 200%;
+            animation: adminGradientShift 12s ease-in-out infinite alternate;
+            overflow: hidden;
+        }
+
+        #view-admin::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(circle 500px at var(--orb1-x, 20%) var(--orb1-y, 30%), rgba(37, 99, 235, 0.12) 0%, transparent 70%),
+                radial-gradient(circle 400px at var(--orb2-x, 75%) var(--orb2-y, 70%), rgba(99, 102, 241, 0.1) 0%, transparent 70%),
+                radial-gradient(circle 300px at 50% 10%, rgba(14, 165, 233, 0.06) 0%, transparent 60%);
+            animation: adminOrbsDrift 18s ease-in-out infinite alternate;
+        }
+
+        #view-admin > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes adminGradientShift {
+            0% {
+                background-position: 0% 0%, 100% 100%, center, 0% 50%;
+            }
+            33% {
+                background-position: 60% 20%, 40% 80%, center, 50% 50%;
+            }
+            66% {
+                background-position: 100% 60%, 0% 40%, center, 100% 50%;
+            }
+            100% {
+                background-position: 30% 100%, 70% 20%, center, 50% 100%;
+            }
+        }
+
+        @keyframes adminOrbsDrift {
+            0% {
+                --orb1-x: 15%; --orb1-y: 25%; --orb2-x: 80%; --orb2-y: 70%;
+                opacity: 0.8;
+            }
+            40% {
+                --orb1-x: 35%; --orb1-y: 50%; --orb2-x: 60%; --orb2-y: 40%;
+                opacity: 1;
+            }
+            70% {
+                --orb1-x: 70%; --orb1-y: 30%; --orb2-x: 25%; --orb2-y: 75%;
+                opacity: 0.7;
+            }
+            100% {
+                --orb1-x: 20%; --orb1-y: 75%; --orb2-x: 85%; --orb2-y: 20%;
+                opacity: 0.9;
+            }
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .admin-sidebar {
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            height: fit-content;
+        }
+
+        .admin-tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 12px 16px;
+            text-align: left;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s var(--easing);
+        }
+
+        .admin-tab-btn:hover,
+        .admin-tab-btn.active-tab {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .admin-tab-btn.active-tab {
+            color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .admin-panel {
+            display: none;
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .admin-panel.active-panel {
+            display: block;
+        }
+
+        .admin-panel h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* --- 5. MODERN FORMS & DATA REPOS --- */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--surface-border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: white;
+            font-size: 1rem;
+            transition: border-color 0.3s var(--easing);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+        }
+
+        th,
+        td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--surface-border);
+        }
+
+        th {
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .badge {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-pending {
+            background: rgba(234, 179, 8, 0.15);
+            color: #f59e0b;
+        }
+
+        .badge-done {
+            background: rgba(34, 197, 94, 0.15);
+            color: #22c55e;
+        }
+
+        /* --- MODAL (MODERN POPUP STYLE) --- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 6, 10, 0.8);
+            backdrop-filter: blur(16px);
+            z-index: 200;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s var(--easing);
+        }
+
+        .modal-overlay.modal-active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background: #121420;
+            border: 1px solid var(--surface-border);
+            border-radius: 24px;
+            width: 90%;
+            max-width: 540px;
+            padding: 40px;
+            transform: scale(0.95);
+            transition: transform 0.4s var(--easing);
+        }
+
+        .modal-overlay.modal-active .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-header h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* --- PREMIUM CHAT WIDGET STYLING --- */
+        #chat-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 105;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s var(--easing);
+        }
+        #chat-fab:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 12px 40px rgba(34, 211, 238, 0.6);
+        }
+        #chat-widget-window {
+            position: fixed;
+            bottom: 105px;
+            right: 30px;
+            width: 380px;
+            height: 520px;
+            background: rgba(18, 20, 32, 0.85);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--surface-border);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            z-index: 105;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: translateY(30px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s var(--easing);
+        }
+        #chat-widget-window.chat-active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+        .chat-header {
+            padding: 16px 20px;
+            background: rgba(9, 10, 15, 0.5);
+            border-bottom: 1px solid var(--surface-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-header-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .chat-status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #22c55e;
+        }
+        .chat-header-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+        }
+        .chat-history {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            scroll-behavior: smooth;
+        }
+        .chat-bubble {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            line-height: 1.5;
+            font-size: 0.95rem;
+            position: relative;
+            animation: bubbleReveal 0.3s var(--easing) forwards;
+            word-wrap: break-word;
+        }
+        @keyframes bubbleReveal {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chat-bubble-customer {
+            background: linear-gradient(135deg, var(--primary), rgba(99, 102, 241, 0.8));
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.25);
+        }
+        .chat-bubble-admin {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--surface-border);
+            color: var(--text);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        .chat-meta {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            display: block;
+            text-align: right;
+        }
+        .chat-bubble-admin .chat-meta {
+            text-align: left;
+        }
+        .chat-composer {
+            padding: 16px 20px;
+            background: rgba(9, 10, 15, 0.5);
+            border-top: 1px solid var(--surface-border);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .chat-composer input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--surface-border);
+            border-radius: 30px;
+            padding: 10px 18px;
+            color: white;
+            font-size: 0.95rem;
+            transition: all 0.3s var(--easing);
+        }
+        .chat-composer input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+        .chat-send-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: none;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s var(--easing);
+            box-shadow: 0 4px 12px var(--primary-glow);
+        }
+        .chat-send-btn:hover {
+            background: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(34, 211, 238, 0.4);
+        }
+        .chat-auth-prompt {
+            padding: 24px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            height: 100%;
+        }
+
+        /* --- ADMIN SPLIT-SCREEN CHAT STYLE --- */
+        .admin-chat-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 0;
+            border: 1px solid var(--surface-border);
+            border-radius: 16px;
+            background: rgba(9, 10, 15, 0.3);
+            height: 600px;
+            overflow: hidden;
+        }
+        .admin-chat-sidebar {
+            border-right: 1px solid var(--surface-border);
+            display: flex;
+            flex-direction: column;
+            background: rgba(18, 20, 32, 0.3);
+            overflow-y: auto;
+        }
+        .admin-chat-sidebar-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--surface-border);
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .admin-chat-user-item {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--surface-border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s var(--easing);
+        }
+        .admin-chat-user-item:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .admin-chat-user-item.active-chat-user {
+            background: rgba(99, 102, 241, 0.1);
+        }
+        .admin-chat-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 10px var(--primary-glow);
+        }
+        .admin-chat-user-info {
+            flex: 1;
+            overflow: hidden;
+        }
+        .admin-chat-user-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .admin-chat-user-snippet {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .admin-chat-main {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background: rgba(18, 20, 32, 0.15);
+        }
+        .admin-chat-main-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--surface-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(9, 10, 15, 0.2);
+        }
+        .admin-chat-main-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .admin-chat-main-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--surface-border);
+            background: rgba(9, 10, 15, 0.3);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .admin-chat-main-footer input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--surface-border);
+            border-radius: 8px;
+            padding: 12px 18px;
+            color: white;
+            font-size: 0.95rem;
+            transition: all 0.3s var(--easing);
+        }
+        .admin-chat-main-footer input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .admin-chat-empty-state {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            gap: 16px;
+            color: var(--text-muted);
+            padding: 40px;
+            text-align: center;
+        }
+        .message-action-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.75rem;
+            margin-left: 8px;
+            transition: color 0.2s var(--easing);
+        }
+        .message-action-btn:hover {
+            color: var(--text);
+        }
+        .message-action-btn.delete-btn:hover {
+            color: #ef4444;
+        }
+
+        /* --- RICH MEDIA CHAT STYLES --- */
+        .chat-media-image {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            display: block;
+            transition: transform 0.2s var(--easing);
+        }
+        .chat-media-image:hover { transform: scale(1.02); }
+        .chat-media-audio {
+            width: 100%;
+            margin-top: 8px;
+            border-radius: 8px;
+            height: 36px;
+            accent-color: var(--primary);
+        }
+        .chat-image-desc {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+            margin-top: 6px;
+            font-style: italic;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 6px;
+        }
+        .chat-bubble-admin .chat-image-desc {
+            color: var(--text-muted);
+            border-top-color: var(--surface-border);
+        }
+        /* Attachment preview zone */
+        .attachment-preview-zone {
+            padding: 12px 20px;
+            background: rgba(99,102,241,0.06);
+            border-top: 1px solid rgba(99,102,241,0.2);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            animation: slideUp 0.3s var(--easing);
+        }
+        @keyframes slideUp {
+            from { opacity:0; transform:translateY(8px); }
+            to { opacity:1; transform:translateY(0); }
+        }
+        .attachment-img-preview {
+            width: 72px;
+            height: 72px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+            border: 2px solid rgba(99,102,241,0.4);
+        }
+        .attachment-desc-input {
+            flex: 1;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--surface-border);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: white;
+            font-size: 0.85rem;
+            resize: none;
+            min-height: 56px;
+        }
+        .attachment-desc-input:focus { outline: none; border-color: var(--primary); }
+        /* Recording bar */
+        .recording-bar {
+            padding: 10px 20px;
+            background: rgba(239,68,68,0.1);
+            border-top: 1px solid rgba(239,68,68,0.25);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: recordingPulse 1.5s ease infinite;
+        }
+        @keyframes recordingPulse {
+            0%,100% { background: rgba(239,68,68,0.08); }
+            50% { background: rgba(239,68,68,0.18); }
+        }
+        .rec-dot {
+            width: 10px; height: 10px;
+            background: #ef4444;
+            border-radius: 50%;
+            animation: blinkDot 1s ease infinite;
+            flex-shrink: 0;
+        }
+        @keyframes blinkDot {
+            0%,100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+        /* Composer action buttons */
+        .composer-icon-btn {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--surface-border);
+            background: rgba(255,255,255,0.04);
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 0.9rem;
+            transition: all 0.25s var(--easing);
+            flex-shrink: 0;
+        }
+        .composer-icon-btn:hover {
+            background: rgba(99,102,241,0.15);
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: scale(1.05);
+        }
+        .composer-icon-btn.recording {
+            background: #ef4444;
+            border-color: #ef4444;
+            color: white;
+            animation: recordPulse 1s ease infinite;
+            box-shadow: 0 0 16px rgba(239,68,68,0.5);
+        }
+        @keyframes recordPulse {
+            0%,100% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+        }
+        /* Lightbox */
+        #image-lightbox {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 500;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer;
+        }
+        #image-lightbox img {
+            max-width: 90vw; max-height: 88vh;
+            border-radius: 12px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+        }
+
+        /* --- CUSTOMER PORTAL VIEWS --- */
+        .customer-dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        @media (max-width: 992px) {
+            .customer-dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .customer-card {
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 16px;
+            padding: 24px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        .stats-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-box {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--surface-border);
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .stat-val {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            font-family: 'Space Grotesk';
+            margin-bottom: 4px;
+        }
+        .stat-label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .work-request-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .work-request-form label {
+            font-weight: 500;
+            font-size: 0.88rem;
+            color: var(--text);
+            margin-bottom: 4px;
+            display: block;
+        }
+        .work-request-form input[type="text"],
+        .work-request-form input[type="number"],
+        .work-request-form textarea {
+            width: 100%;
+            background: rgba(0,0,0,0.35);
+            border: 1px solid var(--surface-border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: white;
+            font-size: 0.95rem;
+            transition: all 0.3s var(--easing);
+        }
+        .work-request-form input:focus,
+        .work-request-form textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.15);
+        }
+        .file-upload-block {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px dashed var(--surface-border);
+            border-radius: 10px;
+            padding: 14px;
+            margin-top: 4px;
+            transition: border-color 0.25s var(--easing);
+        }
+        .file-upload-block:hover {
+            border-color: var(--primary);
+        }
+        .file-input-wrapper {
+            position: relative;
+            margin-bottom: 8px;
+        }
+        .file-upload-desc-input {
+            width: 100%;
+            background: rgba(0,0,0,0.2) !important;
+            border: 1px solid var(--surface-border);
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: white;
+            font-size: 0.85rem;
+        }
+        .history-card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-height: 720px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+        .history-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--surface-border);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            transition: all 0.3s var(--easing);
+        }
+        .history-item:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            background: rgba(255, 255, 255, 0.03);
+            transform: translateY(-2px);
+        }
+        .history-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            gap: 12px;
+        }
+        .history-item-title {
+            font-family: 'Space Grotesk';
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: white;
+        }
+        .history-item-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            padding-top: 10px;
+        }
+        .history-item-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .history-item-attachments {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .attachment-tag {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s var(--easing);
+        }
+        .attachment-tag:hover {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: var(--primary);
+        }
+
+        /* --- ABOUT PARAMETERS INTERACTIVE CARDS --- */
+        .about-param-card {
+            background: rgba(255,255,255,0.02) !important;
+            border: 1px solid var(--surface-border) !important;
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.3s var(--easing);
+            user-select: none;
+        }
+        .about-param-card:hover {
+            background: rgba(255,255,255,0.04) !important;
+            border-color: var(--primary) !important;
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(99,102,241,0.15);
+        }
+        .about-param-value {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+        .about-param-card.expanded .about-param-value {
+            white-space: normal !important;
+            word-break: break-word !important;
+            word-wrap: break-word !important;
+            overflow: visible !important;
+            text-overflow: clip !important;
+        }
+        .card-expand-chevron {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            transition: transform 0.3s var(--easing), color 0.3s var(--easing);
+            flex-shrink: 0;
+            margin-left: auto;
+        }
+        .about-param-card.expanded .card-expand-chevron {
+            transform: rotate(180deg);
+            color: var(--accent) !important;
+        }
+        .qrcode-wrapper {
+            display: none;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .about-param-card.expanded .qrcode-wrapper {
+            display: block;
+        }
+
+        /* 1. Scoped Global Selectors */
+        .press * {
+            border: 0;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        .press {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-size: 16px;
+            color: #17181c;
+            font-family: serif;
+            line-height: 1.5;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.12; /* Subtle blending in the background */
+        }
+        .press-container {
+            display: block;
+        }
+        .press .sheet {
+            overflow: hidden;
+        }
+        .press .sheet,
+        .press .sheet:before,
+        .press .roll {
+            position: absolute;
+        }
+        .press .sheet,
+        .press .roll {
+            top: 50%;
+            left: 50%;
+        }
+        .press .sheet {
+            width: 4em;
+            height: 6em;
+            transform: translate(-50%, -50%) rotateX(-45deg) rotateZ(-45deg);
+        }
+        .press .sheet:before {
+            animation: print 0.5s ease-in-out infinite;
+            background:
+                linear-gradient(#0000 5.2em, currentColor 5.2em 5.3em, #0000 5.3em 5.5em)
+                    0.4em 0 / 3.2em 6em,
+                linear-gradient(#0000 5.5em, currentColor 5.5em 5.7em, #0000 5.7em) 0.6em 0 /
+                    2.8em 6em,
+                linear-gradient(
+                    90deg,
+                    #e3e4e8 0.4em,
+                    #0000 0.4em 1.9em,
+                    #e3e4e8 1.9em 2.1em,
+                    #0000 2.1em 3.6em,
+                    #e3e4e8 3.6em
+                )
+                0 0 / 4em 6em,
+                repeating-linear-gradient(
+                    #e3e4e8 0 0.4em,
+                    #0000 0.4em 5em,
+                    #e3e4e8 5em 6em,
+                    #0000 6em
+                )
+                0 0 / 4em 6em,
+                linear-gradient(#0000 3.4em, currentColor 3.4em) 100% 0 / 50% 6em,
+                repeating-linear-gradient(currentColor 0 0.2em, #e3e4e8 0.2em 0.4em) 0 0 /
+                    4em 6em;
+            background-repeat: repeat-y;
+            color: #17181c;
+            content: "";
+            display: block;
+            top: -6em;
+            left: 0;
+            width: 100%;
+            height: calc(100% + 6em);
+        }
+        .press .sheet:nth-child(1):before,
+        .press .sheet:nth-child(5):before {
+            color: #c7cad1;
+        }
+        .press .sheet:nth-child(n + 7):nth-child(-n + 9) {
+            height: 0.4em;
+        }
+        .press .sheet:nth-child(1) {
+            height: 42em;
+            transform: translate(-50%, -50%) rotateX(-45deg) rotateZ(-45deg)
+                translate(-17.4em, 9.4em) rotateX(-90deg);
+        }
+        .press .sheet:nth-child(3) {
+            transform: translate(-50%, -50%) rotateX(-45deg) rotateZ(-45deg)
+                translate(-2.5em, -2.5em);
+        }
+        .press .sheet:nth-child(5) {
+            transform: translate(-50%, -50%) rotateX(-45deg) rotateZ(-45deg)
+                translate(-0.5em, -0.7em) rotateX(-75deg);
+        }
+        .press .sheet:nth-child(7) {
+            transform: translate(-50%, -50%) rotateX(-45deg) rotateZ(-45deg)
+                translate(1.7em, -1.85em) rotateX(-15deg);
+        }
+        .press .sheet:nth-child(7):before {
+            background-position-y: 5.2em;
+        }
+        .press .sheet:nth-child(8) {
+            transform: translate(-50%, -50%) rotateX(-45deg) rotateZ(-45deg)
+                translate(1.7em, -1.5em) rotateX(15deg);
+        }
+        .press .sheet:nth-child(8):before {
+            background-position-y: 4.8em;
+        }
+        .press .sheet:nth-child(9) {
+            transform: translate(-50%, -50%) rotateX(-45deg) rotateZ(-45deg)
+                translate(1.6em, -1.05em) rotateX(45deg);
+        }
+        .press .sheet:nth-child(9):before {
+            background-position-y: 4.4em;
+        }
+        .press .sheet:nth-child(10):before,
+        .press .sheet:nth-child(11):before {
+            background-position-y: 4em;
+        }
+        .press .sheet:nth-child(10) {
+            transform: translate(-50%, -50%) rotateX(-45deg) rotateZ(-45deg)
+                translate(-0.5em, 1.95em) rotateX(75deg);
+        }
+        .press .sheet:nth-child(11) {
+            height: 29em;
+            transform: translate(-50%, -50%) rotateX(-45deg) rotateZ(-45deg)
+                translate(-2.5em, 19.25em);
+        }
+        .press .roll {
+            background-color: #2e3138;
+            background-image: radial-gradient(
+                1em 2em at 0.5em 50%,
+                #17181c 49%,
+                #17181c00 50%
+            );
+            border-radius: 0.5em 0.5em 0.5em 0.5em / 1em 1em 1em 1em;
+            width: 8em;
+            height: 2em;
+        }
+        .press .roll:nth-child(2) {
+            transform: translate(-50%, -50%) rotateX(-45deg) rotateZ(-45deg)
+                translate(-3em, -4.5em) skewX(-22.5deg);
+        }
+        .press .roll:nth-child(4) {
+            transform: translate(-50%, -50%) rotateX(-45deg) rotateZ(-45deg)
+                translate(-2em, -0.5em) skewX(-22.5deg);
+        }
+        .press .roll:nth-child(6) {
+            transform: translate(-50%, -50%) rotateX(-45deg) rotateZ(-45deg)
+                translate(1em, -1em) skewX(-22.5deg);
+        }
+        .press .roll:nth-child(12) {
+            transform: translate(-50%, -50%) rotateX(-45deg) rotateZ(-45deg)
+                translate(-2em, 4.45em) skewX(-22.5deg);
+        } /* Animations */
+        @keyframes print {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(6em);
+            }
+        }
+
+        /* --- DYNAMIC GLASS-PEARL BUTTONS --- */
+        .button {
+            --white: #ffe7ff;
+            --bg: #080808;
+            --radius: 100px;
+            outline: none;
+            cursor: pointer;
+            border: 0;
+            position: relative;
+            border-radius: var(--radius);
+            background-color: var(--bg);
+            transition: all 0.2s ease;
+            box-shadow:
+                inset 0 0.3rem 0.9rem rgba(255, 255, 255, 0.3),
+                inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.7),
+                inset 0 -0.4rem 0.9rem rgba(255, 255, 255, 0.5),
+                0 3rem 3rem rgba(0, 0, 0, 0.3),
+                0 1rem 1rem -0.6rem rgba(0, 0, 0, 0.8);
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .button .wrap {
+            font-size: 16px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 16px 28px;
+            border-radius: inherit;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .button .wrap p span:nth-child(2) {
+            display: none;
+        }
+
+        .button:hover .wrap p span:nth-child(1) {
+            display: none;
+        }
+
+        .button:hover .wrap p span:nth-child(2) {
+            display: inline-block;
+        }
+
+        .button .wrap p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 0;
+            transition: all 0.2s ease;
+            transform: translateY(2%);
+            mask-image: linear-gradient(to bottom, white 40%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, white 40%, transparent);
+        }
+
+        .button .wrap::before,
+        .button .wrap::after {
+            content: "";
+            position: absolute;
+            transition: all 0.3s ease;
+        }
+
+        .button .wrap::before {
+            left: -15%;
+            right: -15%;
+            bottom: 25%;
+            top: -100%;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .button .wrap::after {
+            left: 6%;
+            right: 6%;
+            top: 12%;
+            bottom: 40%;
+            border-radius: 22px 22px 0 0;
+            box-shadow: inset 0 10px 8px -10px rgba(255, 255, 255, 0.8);
+            background: linear-gradient(
+                180deg,
+                rgba(255, 255, 255, 0.3) 0%,
+                rgba(0, 0, 0, 0) 50%,
+                rgba(0, 0, 0, 0) 100%
+            );
+        }
+
+        .button:hover {
+            box-shadow:
+                inset 0 0.3rem 0.5rem rgba(255, 255, 255, 0.4),
+                inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.7),
+                inset 0 -0.4rem 0.9rem rgba(255, 255, 255, 0.7),
+                0 3rem 3rem rgba(0, 0, 0, 0.3),
+                0 1rem 1rem -0.6rem rgba(0, 0, 0, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .button:hover .wrap::before {
+            transform: translateY(-5%);
+        }
+
+        .button:hover .wrap::after {
+            opacity: 0.4;
+            transform: translateY(5%);
+        }
+
+        .button:hover .wrap p {
+            transform: translateY(-4%);
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .button:active {
+            transform: translateY(4px);
+            box-shadow:
+                inset 0 0.3rem 0.5rem rgba(255, 255, 255, 0.5),
+                inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.8),
+                inset 0 -0.4rem 0.9rem rgba(255, 255, 255, 0.4),
+                0 3rem 3rem rgba(0, 0, 0, 0.3),
+                0 1rem 1rem -0.6rem rgba(0, 0, 0, 0.8);
+        }
+
+        @media (max-width: 768px) {
+            .button .wrap {
+                font-size: 14px;
+                padding: 12px 20px;
+            }
+        }
+
+        /* --- 3D ROTATING FLIP SERVICES CARDS --- */
+        .service-3d-card {
+            overflow: visible;
+            height: 380px;
+            perspective: 1000px;
+            width: 100%;
+        }
+
+        .service-3d-content {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            position: relative;
+        }
+
+        .service-3d-front, .service-3d-back {
+            background-color: #12131a;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--surface-border);
+        }
+
+        .service-3d-back {
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .service-3d-back::before {
+            position: absolute;
+            content: ' ';
+            display: block;
+            width: 160px;
+            height: 160%;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--accent), var(--primary), transparent);
+            animation: rotation_481 5000ms infinite linear;
+        }
+
+        .service-3d-back-content {
+            position: absolute;
+            width: 98%;
+            height: 98%;
+            background-color: #0b0c10;
+            border-radius: 14px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            z-index: 3;
+        }
+
+        .service-3d-card:hover .service-3d-content {
+            transform: rotateY(180deg);
+        }
+
+        @keyframes rotation_481 {
+            0% {
+                transform: rotateZ(0deg);
+            }
+            100% {
+                transform: rotateZ(360deg);
+            }
+        }
+
+        .service-3d-front {
+            transform: rotateY(180deg);
+            color: white;
+            z-index: 1;
+        }
+
+        .service-3d-front .service-3d-front-content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 4;
+        }
+
+        .service-3d-front-content .service-3d-badge {
+            background-color: rgba(99, 102, 241, 0.25);
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            padding: 4px 12px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+            width: fit-content;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--accent);
+        }
+
+        .service-3d-description {
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.6);
+            width: 100%;
+            padding: 16px;
+            background-color: rgba(9, 10, 15, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 12px;
+            border: 1px solid var(--surface-border);
+        }
+
+        .service-3d-title {
+            font-size: 1.1rem;
+            max-width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .service-3d-card-footer {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .service-3d-front .service-3d-img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .service-3d-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: rgba(99, 102, 241, 0.25);
+            position: absolute;
+            filter: blur(25px);
+            animation: floating_3d 4000ms infinite linear;
+        }
+
+        #service-3d-bottom {
+            background-color: rgba(34, 211, 238, 0.25);
+            left: 60px;
+            top: 120px;
+            width: 180px;
+            height: 180px;
+            animation-delay: -800ms;
+        }
+
+        #service-3d-right {
+            background-color: rgba(239, 68, 68, 0.2);
+            left: 180px;
+            top: -40px;
+            width: 80px;
+            height: 80px;
+            animation-delay: -1800ms;
+        }
+
+        @keyframes floating_3d {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(15px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+    </style>
+</head>
+
+<body class="home-active">
+
+    <!-- SVG GLOW FILTERS -->
+    <svg style="position: absolute; width: 0; height: 0;">
+      <filter width="300%" x="-100%" height="300%" y="-100%" id="unopaq">
+        <feColorMatrix
+          values="1 0 0 0 0 
+                0 1 0 0 0 
+                0 0 1 0 0 
+                0 0 0 9 0"
+        ></feColorMatrix>
+      </filter>
+      <filter width="300%" x="-100%" height="300%" y="-100%" id="unopaq2">
+        <feColorMatrix
+          values="1 0 0 0 0 
+                0 1 0 0 0 
+                0 0 1 0 0 
+                0 0 0 3 0"
+        ></feColorMatrix>
+      </filter>
+      <filter width="300%" x="-100%" height="300%" y="-100%" id="unopaq3">
+        <feColorMatrix
+          values="1 0 0 0.2 0 
+                0 1 0 0.2 0 
+                0 0 1 0.2 0 
+                0 0 0 2 0"
+        ></feColorMatrix>
+      </filter>
+    </svg>
+
+    <!-- INTRO SPLASH SCREEN -->
+    <div id="splash-screen">
+        <div class="loader"></div>
+        <h1 class="animated-title">Thripura Offset Printers</h1>
+    </div>
+
+    <header>
+        <a class="logo" onclick="navigateTo('home')" style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
+            <img id="app-logo-display" src="" alt="" style="display: none; height: 36px; object-fit: contain; border-radius: 4px;">
+            <span>Thripura Offset Printers<span>.</span></span>
+        </a>
+        <nav>
+            <a onclick="navigateTo('home')" id="nav-home" class="active">Home Services</a>
+            <a onclick="navigateTo('about')" id="nav-about">About Press</a>
+            <a onclick="navigateTo('customer')" id="nav-customer" style="display: none;"><i class="fa-solid fa-cubes"></i> My Portal</a>
+            <a onclick="navigateTo('admin')" id="nav-admin" style="display: none;"><i class="fa-solid fa-user-gear"></i>
+                Control Panel</a>
+            <button class="btn btn-secondary" id="auth-trigger-btn" onclick="openModal('auth-modal')">Access
+                Gateway</button>
+            <button class="btn" id="logout-btn" onclick="processLogout()"
+                style="display:none; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); color:#ef4444; gap:6px;">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </button>
+        </nav>
+    </header>
+
+    <!-- CONTAINER VIEWS -->
+
+    <!-- 1. HOME VIEW SECTION -->
+    <main id="view-home" class="view-section active-view">
+        <!-- Rain Background Layer -->
+        <div class="rain-bg"></div>
+
+        <div class="hero-container">
+            <!-- Animated Printing Press Background -->
+            <div class="press">
+                <div class="sheet"></div>
+                <div class="roll"></div>
+                <div class="sheet"></div>
+                <div class="roll"></div>
+                <div class="sheet"></div>
+                <div class="roll"></div>
+                <div class="sheet"></div>
+                <div class="sheet"></div>
+                <div class="sheet"></div>
+                <div class="sheet"></div>
+                <div class="sheet"></div>
+                <div class="roll"></div>
+            </div>
+
+            <!-- Foreground Hero Contents -->
+            <div class="hero">
+                <h1 id="hero-display-title">High-Fidelity Production Print Systems</h1>
+                <p id="hero-display-desc">Experience printing re-engineered for the future. From extreme-scale offset press
+                    runs to complex dimensional package solutions.</p>
+                <div style="display: flex; gap: 24px; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 10px; position: relative; z-index: 5;">
+                    <!-- Initialize Production Run Pearl Button -->
+                    <button class="button" onclick="openOrderModal()">
+                        <div class="wrap">
+                            <p>
+                                <span>✧</span>
+                                <span>✦</span>
+                                Initialize Run
+                            </p>
+                        </div>
+                    </button>
+
+                    <!-- Send Direct Inquiry Pearl Button -->
+                    <button class="button" onclick="toggleFloatingChat()">
+                        <div class="wrap">
+                            <p>
+                                <span>✧</span>
+                                <span>✦</span>
+                                Send Inquiry
+                            </p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h2 style="font-family:'Space Grotesk'; font-size: 2rem; margin-bottom: 8px;">Industrial Print Solutions &amp; Capabilities</h2>
+            <p style="color: var(--text-muted); margin-bottom: 24px;">Active high-capacity offset press runs and digital production systems configured in real-time.</p>
+            <div class="grid-container" id="services-target-grid">
+                <!-- Dynamically injected exclusively through admin actions -->
+                <div class="empty-state">No operations loaded into the core display grid yet. System awaiting
+                    administrator population parameters.</div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- 2. ABOUT VIEW SECTION -->
+    <section id="view-about" class="view-section">
+        <div class="about-wrapper">
+            <h2 id="about-display-title">Our Operational Heritage</h2>
+            <div class="about-content" id="about-display-body">
+                <p>System profile text configuration pending submission from the central workspace terminal dashboard
+                    environments.</p>
+            </div>
+
+            <div style="margin-top: 40px; border-top: 1px solid var(--surface-border); padding-top: 30px;">
+                <h3 style="font-family:'Space Grotesk'; font-size: 1.4rem; margin-bottom: 20px;">Contact & Operational Parameters</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                    <div class="about-param-card" onclick="this.classList.toggle('expanded')" title="Click to view full text">
+                        <i class="fa-solid fa-phone" style="color: var(--accent); font-size: 1.5rem; flex-shrink: 0;"></i>
+                        <div style="min-width: 0; overflow: hidden; flex: 1;">
+                            <div style="font-size: 0.85rem; color: var(--text-muted);">Hotline Routing</div>
+                            <strong id="about-display-phone" class="about-param-value">+91 94475 24601</strong>
+                        </div>
+                        <i class="fa-solid fa-chevron-down card-expand-chevron"></i>
+                    </div>
+                    <div class="about-param-card" onclick="this.classList.toggle('expanded')" title="Click to view full text">
+                        <i class="fa-solid fa-mobile-screen-button" style="color: var(--accent); font-size: 1.5rem; flex-shrink: 0;"></i>
+                        <div style="min-width: 0; overflow: hidden; flex: 1;">
+                            <div style="font-size: 0.85rem; color: var(--text-muted);">Hotline Routing 2</div>
+                            <strong id="about-display-phone2" class="about-param-value">+91 98460 74015</strong>
+                        </div>
+                        <i class="fa-solid fa-chevron-down card-expand-chevron"></i>
+                    </div>
+                    <div class="about-param-card" onclick="this.classList.toggle('expanded')" title="Click to view full text">
+                        <i class="fa-solid fa-envelope" style="color: var(--accent); font-size: 1.5rem; flex-shrink: 0;"></i>
+                        <div style="min-width: 0; overflow: hidden; flex: 1;">
+                            <div style="font-size: 0.85rem; color: var(--text-muted);">Email Node</div>
+                            <strong id="about-display-email" class="about-param-value">press@thripura.in</strong>
+                        </div>
+                        <i class="fa-solid fa-chevron-down card-expand-chevron"></i>
+                    </div>
+                    <div class="about-param-card" onclick="this.classList.toggle('expanded')" title="Click to view full text">
+                        <i class="fa-solid fa-location-dot" style="color: var(--accent); font-size: 1.5rem; flex-shrink: 0;"></i>
+                        <div style="min-width: 0; overflow: hidden; flex: 1;">
+                            <div style="font-size: 0.85rem; color: var(--text-muted);">Operations Base</div>
+                            <strong id="about-display-location" class="about-param-value">Ernakulam, Kerala</strong>
+                            <div id="about-display-qrcode-wrapper" class="qrcode-wrapper" onclick="event.stopPropagation()">
+                                <div style="font-size: 0.75rem; color: var(--text-muted); margin: 8px 0 6px 0; font-weight: 500; text-align: left;">
+                                    <i class="fa-solid fa-qrcode"></i> Scan for Location Navigation
+                                </div>
+                                <img id="about-display-qrcode" src="" alt="Location QR Code" style="max-width: 140px; display: block; border-radius: 8px; border: 2px solid var(--surface-border); background: white; padding: 4px; margin: 0 auto 4px;">
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down card-expand-chevron"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. ISOLATED CONTROL CORE WORKSPACE (ADMIN AREA) -->
+    <section id="view-admin" class="view-section">
+        <h2 style="font-family:'Space Grotesk'; font-size: 2.2rem; margin-bottom: 6px;">Admin Dashboard</h2>
+        <p style="color: var(--text-muted); margin-bottom: 30px;">Madhu Sudhanan P K // Administrator Access</p>
+
+        <div class="admin-grid">
+            <!-- Sidebar controls selector -->
+            <div class="admin-sidebar">
+                <button class="admin-tab-btn active-tab" onclick="switchAdminPanel('panel-home', this)"><i class="fa-solid fa-pen-to-square"></i> Home Content</button>
+                <button class="admin-tab-btn" onclick="switchAdminPanel('panel-about', this)"><i class="fa-solid fa-info-circle"></i> About Content</button>
+                <button class="admin-tab-btn" onclick="switchAdminPanel('panel-services', this)"><i class="fa-solid fa-layer-group"></i> Manage Services</button>
+                <button class="admin-tab-btn" onclick="switchAdminPanel('panel-orders', this)"><i class="fa-solid fa-receipt"></i> Manage Orders</button>
+                <button class="admin-tab-btn" onclick="switchAdminPanel('panel-messages', this)"><i class="fa-solid fa-envelope"></i> Customer Messages</button>
+                <button class="admin-tab-btn" onclick="switchAdminPanel('panel-users', this)"><i class="fa-solid fa-users"></i> Registered Customers</button>
+            </div>
+
+            <!-- Home Content Panel -->
+<div class="admin-panel active-panel" id="panel-home">
+    <h3>Home Page Text</h3>
+    <div class="form-group">
+        <label>Hero Headline Text</label>
+        <input type="text" id="adm-hero-title" value="High-Fidelity Production Print Systems">
+    </div>
+    <div class="form-group">
+        <label>Hero Description</label>
+        <textarea id="adm-hero-desc" rows="3">Experience printing re-engineered for the future. From extreme-scale offset press runs to complex dimensional package solutions.</textarea>
+    </div>
+    <div class="form-group">
+        <label>Brand Logo Image (JPEG/PNG)</label>
+        <input type="file" id="adm-brand-logo" accept="image/*">
+        <div id="adm-brand-logo-preview-container" style="margin-top: 10px; display: none;">
+            <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Current Brand Logo:</span>
+            <img id="adm-brand-logo-preview" src="" alt="Brand Logo Preview" style="max-height: 40px; border-radius: 4px; border: 1px solid var(--surface-border); background: rgba(255,255,255,0.05); padding: 4px;">
+        </div>
+    </div>
+    <button class="btn" onclick="commitGlobalContent()">Save Changes</button>
+</div>
+
+<!-- About Content Panel -->
+<div class="admin-panel" id="panel-about">
+    <h3>About Page Content</h3>
+    <div class="form-group">
+        <label>About Title</label>
+        <input type="text" id="adm-about-title" value="Thripura Architectural Print Labs">
+    </div>
+    <div class="form-group">
+        <label>About Description / History Text</label>
+        <textarea id="adm-about-body" rows="6">Founded on the absolute bedrock principles of unmatched clarity and fine structural fidelity, Thripura Offset Printers integrates ultra-precise modern digital frameworks with high-volume mechanical arrays. We facilitate complex corporate production lines, custom dynamic packaging configurations, and premium-grade publication work.</textarea>
+    </div>
+    <div class="form-group">
+        <label>Phone Number</label>
+        <input type="text" id="adm-about-phone" value="+91 94475 24601">
+    </div>
+    <div class="form-group">
+        <label>Secondary Phone Number</label>
+        <input type="text" id="adm-about-phone2" value="+91 98460 74015">
+    </div>
+    <div class="form-group">
+        <label>Email Address</label>
+        <input type="text" id="adm-about-email" value="press@thripura.in">
+    </div>
+    <div class="form-group">
+        <label>Location</label>
+        <input type="text" id="adm-about-location" value="Ernakulam, Kerala">
+    </div>
+    <div class="form-group">
+        <label>Location QR Code (JPEG/PNG)</label>
+        <input type="file" id="adm-about-qrcode" accept="image/*">
+        <div id="adm-about-qrcode-preview-container" style="margin-top: 10px; display: none;">
+            <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Current QR Code:</span>
+            <img id="adm-about-qrcode-preview" src="" alt="QR Code Preview" style="max-height: 80px; border-radius: 4px; border: 1px solid var(--surface-border);">
+        </div>
+    </div>
+    <button class="btn" onclick="commitGlobalContent()">Save Changes</button>
+</div>
+
+            <!-- Services Management Panel -->
+            <div class="admin-panel" id="panel-services">
+                <h3>Manage Printing Services</h3>
+                <div
+                    style="background: rgba(0,0,0,0.15); padding: 24px; border-radius: 12px; border: 1px solid var(--surface-border); margin-bottom: 30px;">
+                    <h4 style="margin-bottom: 16px; font-size: 1.1rem;">Add New Service</h4>
+                    <div class="form-group">
+                        <label>Service Title</label>
+                        <input type="text" id="srv-name" placeholder="e.g., High-Volume Offset Array">
+                    </div>
+<div class="form-group">
+    <label>Service Description</label>
+    <textarea id="srv-desc" rows="2" placeholder="Describe layout speeds, volume targets, card stocks..."></textarea>
+</div>
+<div class="form-group">
+    <label>Service Image (optional, JPEG/PNG)</label>
+    <input type="file" id="srv-img-file" accept="image/jpeg, image/png">
+</div>
+<button class="btn" onclick="addNewService()">Add Service</button>
+                </div>
+
+                <h4>Currently Displayed Services</h4>
+                <div id="admin-services-list"
+                    style="margin-top: 16px; display: flex; flex-direction: column; gap: 12px;">
+                    <!-- Appended iteratively dynamically via Javascript -->
+                </div>
+            </div>
+
+            <!-- Operations Pipeline Orders Management -->
+            <div class="admin-panel" id="panel-orders">
+                <h3>Live Client Production Inflow Queue</h3>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Client Identity Details</th>
+                                <th>Operational Specifications</th>
+                                <th>Assigned Value Token</th>
+                                <th>Workflow Matrix State</th>
+                                <th>Action Updates</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-orders-tbody">
+                            <!-- Loop injection -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Customer Messages Panel -->
+            <div class="admin-panel" id="panel-messages" style="padding: 24px;">
+                <h3 style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <span><i class="fa-solid fa-comments"></i> Direct Client Communications Matrix</span>
+                    <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem; display: none; color: #ef4444;" id="admin-clear-chat-btn" onclick="clearSelectedChatThread()">
+                        <i class="fa-solid fa-trash-can"></i> Clear Chat History
+                    </button>
+                </h3>
+                
+                <div class="admin-chat-layout">
+                    <!-- Left Sidebar: Customer threads list -->
+                    <div class="admin-chat-sidebar">
+                        <div class="admin-chat-sidebar-header">Active Threads</div>
+                        <div id="admin-chat-threads-list" style="display: flex; flex-direction: column; flex: 1;">
+                            <!-- Injected dynamically via customers list API -->
+                        </div>
+                    </div>
+                    
+                    <!-- Right Main Pane: Chronological timeline for selected customer -->
+                    <div class="admin-chat-main" id="admin-chat-pane">
+                        <div class="admin-chat-empty-state" id="admin-chat-empty-view">
+                            <i class="fa-solid fa-message" style="font-size: 3rem; color: var(--text-muted); opacity: 0.5;"></i>
+                            <h4 style="font-family:'Space Grotesk'; font-size: 1.2rem;">Secure Link Offline</h4>
+                            <p style="color:var(--text-muted); font-size: 0.9rem; max-width: 320px;">Select a customer from the thread list to establish a direct communication link.</p>
+                        </div>
+                        
+                        <div style="display: none; flex-direction: column; flex: 1; overflow: hidden;" id="admin-chat-active-view">
+                            <div class="admin-chat-main-header">
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <div class="admin-chat-avatar" id="admin-active-chat-avatar">U</div>
+                                    <div>
+                                        <strong id="admin-active-chat-name">User Name</strong>
+                                        <div style="font-size: 0.75rem; color: var(--text-muted);" id="admin-active-chat-contact">user@domain.com</div>
+                                    </div>
+                                </div>
+                                <div class="chat-status-dot"></div>
+                            </div>
+                            
+                            <div class="admin-chat-main-body" id="admin-chat-history">
+                                <!-- Chronological messages -->
+                            </div>
+                            
+                            <!-- Admin attachment preview zone -->
+                            <div id="admin-chat-preview-zone" style="display: none; padding: 10px 20px; background: rgba(99,102,241,0.06); border-top: 1px solid rgba(99,102,241,0.2); justify-content: space-between; align-items: center;">
+                                <div style="font-size: 0.8rem; display: flex; align-items: center; gap: 8px;">
+                                    <i id="admin-chat-preview-icon" class="fa-solid fa-file-pdf"></i>
+                                    <span id="admin-chat-preview-name" style="color: var(--accent); font-weight: 500;">document.pdf</span>
+                                </div>
+                                <button onclick="clearAdminChatFile()" style="background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1.1rem; line-height: 1;">&times;</button>
+                            </div>
+
+                            <div class="admin-chat-main-footer">
+                                <input type="file" id="admin-chat-file-input" accept="image/*,.pdf,.doc,.docx" style="display: none;" onchange="handleAdminChatFileSelect()">
+                                <button class="composer-icon-btn" onclick="document.getElementById('admin-chat-file-input').click()" title="Attach Image or PDF" style="width: 38px; height: 38px; border-radius: 50%; display: flex; justify-content: center; align-items: center; background: rgba(255,255,255,0.04); border: 1px solid var(--surface-border); color: var(--text-muted); cursor: pointer;"><i class="fa-solid fa-paperclip"></i></button>
+                                <input type="text" id="admin-chat-input" placeholder="Type administrative reply..." onkeypress="handleAdminChatKey(event)" style="flex: 1; margin-left: 8px;">
+                                <button class="btn" style="padding: 10px 20px;" onclick="sendAdminChatMessage()">
+                                    <i class="fa-solid fa-paper-plane"></i> Transmit
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registered Customers Panel -->
+            <div class="admin-panel" id="panel-users">
+                <h3>Registered System Operators / Customers</h3>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Customer Signature Name</th>
+                                <th>E-Mail Address Connection</th>
+                                <th>Mobile Number Connection</th>
+                                <th>Designated Role</th>
+                                <th>Database Ident Profile</th>
+                                <th>Action Panel</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-users-tbody">
+                            <!-- Injected from registered users database -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. ISOLATED CUSTOMER PRODUCTION PORTAL WORKSPACE -->
+    <section id="view-customer" class="view-section">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 24px; flex-wrap: wrap; gap:16px;">
+            <div>
+                <h2 style="font-family:'Space Grotesk'; font-size: 2.2rem; margin: 0 0 4px;" id="customer-portal-title">Client Workspace</h2>
+                <p style="color: var(--text-muted); margin: 0;" id="customer-portal-subtitle">Production Dashboard &amp; Work Requests</p>
+            </div>
+            <button class="btn" style="background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); color:#ef4444; display:flex; align-items:center; gap:8px;" onclick="processLogout()">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout of Portal
+            </button>
+        </div>
+
+        <div class="customer-dashboard-grid">
+            <!-- Left Pane: Work request form -->
+            <div class="customer-card">
+                <h3 style="font-family:'Space Grotesk'; font-size: 1.3rem; margin-bottom: 16px; display:flex; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-file-invoice" style="color:var(--accent);"></i> Request New Production Work
+                </h3>
+                <form id="customer-work-form" class="work-request-form" onsubmit="submitCustomerWorkRequest(event)">
+                    <div class="form-group">
+                        <label for="c-work-subject">Subject Title <span style="color:#ef4444;">*</span></label>
+                        <input type="text" id="c-work-subject" placeholder="e.g. Corporate Catalogue Glossy Print" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="c-work-desc">Work Description &amp; Specifications <span style="color:#ef4444;">*</span></label>
+                        <textarea id="c-work-desc" rows="4" placeholder="Enter sizing, material thickness, layout specs, structural requests..." required></textarea>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+                        <div class="form-group">
+                            <label for="c-work-time">Expected Needed Time</label>
+                            <input type="text" id="c-work-time" placeholder="e.g. Next Monday, 5:00 PM">
+                        </div>
+                        <div class="form-group">
+                            <label for="c-work-qty">Quantity / Volume</label>
+                            <input type="text" id="c-work-qty" placeholder="e.g. 500 Books, 1000 Units">
+                        </div>
+                    </div>
+
+                    <!-- Image attachment block -->
+                    <div class="file-upload-block">
+                        <label style="font-weight: 600; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-image" style="color:var(--primary);"></i> Reference Image <small style="color:var(--text-muted); font-weight:normal;">(Optional)</small></label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="c-work-img" accept="image/*" style="width:100%; font-size:0.85rem;">
+                        </div>
+                        <input type="text" id="c-work-img-desc" class="file-upload-desc-input" placeholder="Image description comments...">
+                    </div>
+
+                    <!-- PDF/Word document attachment block -->
+                    <div class="file-upload-block">
+                        <label style="font-weight: 600; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-file-pdf" style="color:#ef4444;"></i> Document (PDF / Word) <small style="color:var(--text-muted); font-weight:normal;">(Optional)</small></label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="c-work-doc" accept=".pdf,.doc,.docx" style="width:100%; font-size:0.85rem;">
+                        </div>
+                        <input type="text" id="c-work-doc-desc" class="file-upload-desc-input" placeholder="Document description comments...">
+                    </div>
+
+                    <button type="submit" class="btn" style="width: 100%; margin-top: 10px; display:flex; justify-content:center; align-items:center; gap:10px;">
+                        <i class="fa-solid fa-paper-plane"></i> Transmit Work Request
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right Pane: Queue, history, status -->
+            <div class="customer-card" style="display:flex; flex-direction:column;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                    <h3 style="font-family:'Space Grotesk'; font-size: 1.3rem; margin:0;">
+                        <i class="fa-solid fa-clock-rotate-left" style="color:var(--accent); margin-right:6px;"></i> Active Requests &amp; Production Status
+                    </h3>
+                    <button class="btn btn-secondary" style="padding:6px 12px; font-size:0.8rem;" onclick="loadApplicationData()"><i class="fa-solid fa-rotate"></i> Refresh</button>
+                </div>
+
+                <div class="stats-strip">
+                    <div class="stat-box">
+                        <div class="stat-val" id="cust-stat-total">0</div>
+                        <div class="stat-label">Total Jobs</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-val" id="cust-stat-pending">0</div>
+                        <div class="stat-label">Evaluating</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-val" id="cust-stat-active">0</div>
+                        <div class="stat-label">Processed</div>
+                    </div>
+                </div>
+
+                <div class="history-card-list" id="cust-history-list">
+                    <div style="text-align:center; color:var(--text-muted); padding:60px 20px;">
+                        <i class="fa-solid fa-receipt" style="font-size:3rem; opacity:0.25; margin-bottom:12px;"></i>
+                        <div>No work requests active in your queue yet.</div>
+                        <small>Use the form on the left to request your first print job.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTION MODAL BOX LAYERS -->
+
+    <!-- AUTHENTICATION FORM MODAL -->
+    <div class="modal-overlay" id="auth-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="auth-modal-title">Account Login</h3>
+                <button class="modal-close" onclick="closeModal('auth-modal')">&times;</button>
+            </div>
+
+            <div id="box-login">
+                <div class="form-group">
+                    <label>Username / Name</label>
+                    <input type="text" id="login-user" placeholder="Enter username...">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="login-pass" placeholder="••••••••">
+                </div>
+                <button class="btn style-submit" style="width: 100%;" onclick="processLogin()">Login</button>
+                <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 20px;">
+                    New customer? <a style="color: var(--primary); cursor: pointer;"
+                        onclick="toggleAuthBoxes(true)">Create an Account</a>
+                </p>
+            </div>
+
+            <div id="box-register" style="display: none;">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="reg-name" placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="reg-email" placeholder="name@domain.com" oninput="validateEmailField(this)">
+                    <small style="color: var(--text-muted); display: block; margin-top: 4px; font-size: 0.75rem;" id="email-format-hint">Format Rule: standard email (e.g., name@domain.com)</small>
+                </div>
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <input type="text" id="reg-phone" placeholder="10-digit mobile number" oninput="validatePhoneField(this)">
+                    <small style="color: var(--text-muted); display: block; margin-top: 4px; font-size: 0.75rem;" id="phone-format-hint">Format Rule: 10-digit Indian mobile format (e.g., 9447524601)</small>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="reg-pass" placeholder="••••••••">
+                </div>
+                <button class="btn style-submit" style="width: 100%;" onclick="processRegistration()">Register Account</button>
+                <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 20px;">
+                    Already have an account? <a style="color: var(--primary); cursor: pointer;"
+                        onclick="toggleAuthBoxes(false)">Login here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ORDER CREATION FLOW PIPELINE MODAL -->
+    <div class="modal-overlay" id="order-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Start Print Production</h3>
+                <button class="modal-close" onclick="closeModal('order-modal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>Select Printing Service</label>
+                <select id="ord-spec-type">
+                    <!-- Loaded dynamically from admin-approved configurations list instantly -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Order Quantity</label>
+                <input type="number" id="ord-quantity" value="250">
+            </div>
+
+            <div
+                style="background: rgba(255,255,255,0.03); border: 1px solid var(--surface-border); padding: 20px; border-radius: 12px; margin-bottom: 24px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom: 6px;"><span
+                        style="color:var(--text-muted);">Estimated Price Quote</span><span style="font-weight:600;"
+                        id="order-modal-calc-cost">Processing...</span></div>
+                <small style="color: var(--text-muted)">Final price adjustment and layout validation will be reviewed and assigned by the administrator.</small>
+            </div>
+
+            <button class="btn"
+                style="width: 100%; background: linear-gradient(to right, var(--primary), var(--accent));"
+                onclick="submitPipelineOrder()">Submit Production Order</button>
+        </div>
+    </div>
+
+    <!-- ADMINISTRATOR CALCULATOR MODAL -->
+    <div class="modal-overlay" id="calculator-modal">
+        <div class="modal-card" style="max-width: 320px; padding: 24px; background: #121420; border-radius: 20px;">
+            <div class="modal-header" style="margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="font-size: 1.2rem; display:flex; align-items:center; gap:8px; margin: 0;"><i class="fa-solid fa-calculator" style="color:var(--accent);"></i> Valuation Calc</h3>
+                <button class="modal-close" onclick="closeModal('calculator-modal')" style="background:none; border:none; color:var(--text-muted); font-size:1.5rem; cursor:pointer;">&times;</button>
+            </div>
+            
+            <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="calc-target-label">
+                Target: <strong>Client Order</strong>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--surface-border); border-radius: 10px; padding: 16px; margin-bottom: 16px; text-align: right; min-height: 72px; display: flex; flex-direction: column; justify-content: center;">
+                <div id="calc-expression" style="font-size: 0.75rem; color: var(--text-muted); min-height: 14px; word-break: break-all; margin-bottom: 4px; font-family: monospace;"></div>
+                <div id="calc-screen" style="font-size: 1.6rem; font-weight: 700; color: white; word-break: break-all; font-family: 'Space Grotesk';">0</div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
+                <!-- Row 1 -->
+                <button class="btn btn-secondary" onclick="pressCalcKey('C')" style="padding: 12px 0; font-weight: 600; color: #ef4444; min-width:0;">C</button>
+                <button class="btn btn-secondary" onclick="pressCalcKey('(')" style="padding: 12px 0; min-width:0;">(</button>
+                <button class="btn btn-secondary" onclick="pressCalcKey(')')" style="padding: 12px 0; min-width:0;">)</button>
+                <button class="btn btn-secondary" onclick="pressCalcKey('/')" style="padding: 12px 0; color: var(--accent); min-width:0;">÷</button>
+                
+                <!-- Row 2 -->
+                <button class="btn btn-secondary" onclick="pressCalcKey('7')" style="padding: 12px 0; min-width:0;">7</button>
+                <button class="btn btn-secondary" onclick="pressCalcKey('8')" style="padding: 12px 0; min-width:0;">8</button>
+                <button class="btn btn-secondary" onclick="pressCalcKey('9')" style="padding: 12px 0; min-width:0;">9</button>
+                <button class="btn btn-secondary" onclick="pressCalcKey('*')" style="padding: 12px 0; color: var(--accent); min-width:0;">×</button>
+                
+                <!-- Row 3 -->
+                <button class="btn btn-secondary" onclick="pressCalcKey('4')" style="padding: 12px 0; min-width:0;">4</button>
+                <button class="btn btn-secondary" onclick="pressCalcKey('5')" style="padding: 12px 0; min-width:0;">5</button>
+                <button class="btn btn-secondary" onclick="pressCalcKey('6')" style="padding: 12px 0; min-width:0;">6</button>
+                <button class="btn btn-secondary" onclick="pressCalcKey('-')" style="padding: 12px 0; color: var(--accent); min-width:0;">-</button>
+                
+                <!-- Row 4 -->
+                <button class="btn btn-secondary" onclick="pressCalcKey('1')" style="padding: 12px 0; min-width:0;">1</button>
+                <button class="btn btn-secondary" onclick="pressCalcKey('2')" style="padding: 12px 0; min-width:0;">2</button>
+                <button class="btn btn-secondary" onclick="pressCalcKey('3')" style="padding: 12px 0; min-width:0;">3</button>
+                <button class="btn btn-secondary" onclick="pressCalcKey('+')" style="padding: 12px 0; color: var(--accent); min-width:0;">+</button>
+                
+                <!-- Row 5 -->
+                <button class="btn btn-secondary" onclick="pressCalcKey('0')" style="padding: 12px 0; grid-column: span 2; min-width:0;">0</button>
+                <button class="btn btn-secondary" onclick="pressCalcKey('.')" style="padding: 12px 0; min-width:0;">.</button>
+                <button class="btn" onclick="pressCalcKey('=')" style="padding: 12px 0; background: var(--primary); font-weight: 700; min-width:0;">=</button>
+            </div>
+
+            <button class="btn" style="width: 100%; margin-top: 16px; background: linear-gradient(135deg, var(--primary), var(--accent)); font-weight: 600; display: flex; justify-content: center; align-items: center; gap: 8px;" onclick="assignCalculatedPrice()">
+                <i class="fa-solid fa-check"></i> Assign Value to Order
+            </button>
+        </div>
+    </div>
+
+    <!-- FLOATING CHAT WIDGET CORE -->
+    <button id="chat-fab" onclick="toggleFloatingChat()"><i class="fa-solid fa-comments"></i></button>
+    <div id="chat-widget-window">
+        <div class="chat-header">
+            <div class="chat-header-info">
+                <div class="chat-status-dot"></div>
+                <div class="chat-header-title">Thripura Support Link</div>
+            </div>
+            <button class="modal-close" style="font-size: 1rem; color: var(--text-muted);" onclick="toggleFloatingChat()"><i class="fa-solid fa-chevron-down"></i></button>
+        </div>
+        
+        <!-- Viewport Container -->
+        <div style="flex: 1; display: flex; flex-direction: column; overflow: hidden;" id="chat-widget-viewports">
+            <!-- Toggled dynamically between name prompt, chat view, and admin redirect -->
+        </div>
+    </div>
+
+    <!-- IMAGE LIGHTBOX -->
+    <div id="image-lightbox" style="display:none;" onclick="document.getElementById('image-lightbox').style.display='none'">
+        <img id="lightbox-img" src="" alt="Full size image">
+    </div>
+
+
+    <!-- --- APPLICATION FRAMEWORK SCRIPTING CORE --- -->
+    <script>
+        // CORE STATE DATABASE REPLICAS (DYNAMIC SYNC WITH MONGODB BACKEND)
+        let activeSessionUser = null;
+        let guestChatName = null;   // Name-only guest chat session (no login needed)
+        let dynamicServices = [];
+        let productionOrders = [];
+        let internalMessages = [];
+        let registeredUsers = [];
+
+        // Simple helper to launch full size images in responsive lightbox modal
+        function openLightboxImage(url) {
+            const lightbox = document.getElementById('image-lightbox');
+            const img = document.getElementById('lightbox-img');
+            if (lightbox && img) {
+                img.src = url;
+                lightbox.style.display = 'flex';
+            }
+        }
+
+        // Returns the effective chat user name (logged-in customer OR guest)
+        function getEffectiveChatName() {
+            if (activeSessionUser && activeSessionUser.role !== 'admin') return activeSessionUser.name;
+            if (guestChatName) return guestChatName;
+            return null;
+        }
+
+        // Submit rich work requests from Customer Workspace Form
+        async function submitCustomerWorkRequest(e) {
+            e.preventDefault();
+            if (!activeSessionUser) {
+                alert("Security Clearance required. Please re-authenticate your session.");
+                return;
+            }
+
+            const subject = document.getElementById('c-work-subject').value.trim();
+            const specifications = document.getElementById('c-work-desc').value.trim();
+            const expectedTime = document.getElementById('c-work-time').value.trim();
+            const volume = document.getElementById('c-work-qty').value.trim();
+            const imgFile = document.getElementById('c-work-img').files[0];
+            const imageDesc = document.getElementById('c-work-img-desc').value.trim();
+            const docFile = document.getElementById('c-work-doc').files[0];
+            const docDesc = document.getElementById('c-work-doc-desc').value.trim();
+
+            if (!subject || !specifications) {
+                alert("Please fill in all mandatory fields (Subject title & Work description).");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('client', activeSessionUser.name);
+            formData.append('subject', subject);
+            formData.append('specifications', specifications);
+            formData.append('volume', volume || 'Unspecified');
+            formData.append('expectedTime', expectedTime || 'Not specified');
+            if (imgFile) {
+                formData.append('image', imgFile);
+                formData.append('imageDesc', imageDesc);
+            }
+            if (docFile) {
+                formData.append('document', docFile);
+                formData.append('docDesc', docDesc);
+            }
+
+            try {
+                const res = await fetch('/api/orders', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!res.ok) {
+                    const err = await res.json().catch(() => ({}));
+                    throw new Error(err.error || 'Request submission rejected.');
+                }
+
+                alert("Print production work request successfully transmitted and registered!");
+                
+                // Clear input elements
+                document.getElementById('customer-work-form').reset();
+                
+                // Reload dataset and update views
+                await loadApplicationData();
+            } catch (err) {
+                console.error(err);
+                alert(`Submission Failed: ${err.message}`);
+            }
+        }
+
+        // Load all data from MongoDB backend
+        async function loadApplicationData() {
+            try {
+                // Fetch Settings (Branding & Layout)
+                const resSettings = await fetch('/api/settings');
+                const settings = await resSettings.json();
+                if (settings) {
+                    document.getElementById('adm-hero-title').value = settings.heroTitle || "";
+                    document.getElementById('adm-hero-desc').value = settings.heroDesc || "";
+                    document.getElementById('adm-about-title').value = settings.aboutTitle || "";
+                    document.getElementById('adm-about-body').value = settings.aboutBody || "";
+                    document.getElementById('adm-about-phone').value = settings.phone || "";
+                    document.getElementById('adm-about-phone2').value = settings.phone2 || "";
+                    document.getElementById('adm-about-email').value = settings.email || "";
+                    document.getElementById('adm-about-location').value = settings.location || "";
+                    
+                    // Display it live
+                    document.getElementById('hero-display-title').innerText = settings.heroTitle || "";
+                    document.getElementById('hero-display-desc').innerText = settings.heroDesc || "";
+                    document.getElementById('about-display-title').innerText = settings.aboutTitle || "";
+                    document.getElementById('about-display-body').innerHTML = `<p>${(settings.aboutBody || "").replace(/\n/g, '<br>')}</p>`;
+                    document.getElementById('about-display-phone').innerText = settings.phone || "";
+                    document.getElementById('about-display-phone2').innerText = settings.phone2 || "";
+                    document.getElementById('about-display-email').innerText = settings.email || "";
+                    document.getElementById('about-display-location').innerText = settings.location || "";
+
+                    if (settings.qrCodeUrl) {
+                        document.getElementById('adm-about-qrcode-preview').src = settings.qrCodeUrl;
+                        document.getElementById('adm-about-qrcode-preview-container').style.display = 'block';
+                        
+                        document.getElementById('about-display-qrcode').src = settings.qrCodeUrl;
+                        document.getElementById('about-display-qrcode-wrapper').style.setProperty('display', ''); // let CSS handle
+                    } else {
+                        document.getElementById('adm-about-qrcode-preview-container').style.display = 'none';
+                        document.getElementById('about-display-qrcode-wrapper').style.setProperty('display', 'none', 'important'); // force hide
+                    }
+
+                    if (settings.logoUrl) {
+                        document.getElementById('adm-brand-logo-preview').src = settings.logoUrl;
+                        document.getElementById('adm-brand-logo-preview-container').style.display = 'block';
+                        
+                        document.getElementById('app-logo-display').src = settings.logoUrl;
+                        document.getElementById('app-logo-display').style.display = 'block';
+                    } else {
+                        document.getElementById('adm-brand-logo-preview-container').style.display = 'none';
+                        document.getElementById('app-logo-display').style.display = 'none';
+                    }
+                }
+
+                // Fetch Services
+                const resServices = await fetch('/api/services');
+                dynamicServices = await resServices.json();
+
+                // Fetch Orders
+                const resOrders = await fetch('/api/orders');
+                productionOrders = await resOrders.json();
+
+                // Fetch Messages
+                const resMessages = await fetch('/api/messages');
+                internalMessages = await resMessages.json();
+
+                // Fetch Registered Users
+                const resUsers = await fetch('/api/users');
+                registeredUsers = await resUsers.json();
+
+                renderApplicationState();
+            } catch (e) {
+                console.error('Failed to load application data from database:', e);
+            }
+        }
+
+        // APPS LIFECYCLE CONTROLS
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                splash.style.opacity = '0';
+                setTimeout(() => splash.style.display = 'none', 800);
+            }, 2200);
+
+            // Load live data from database
+            loadApplicationData();
+
+            // Initialize chat viewport layout
+            renderFloatingChatViewport();
+
+            // Show inline hub if there is any effective chat identity
+            const effectiveName = getEffectiveChatName();
+            if (effectiveName) {
+                document.getElementById('customer-communications-hub').style.display = 'block';
+                loadInlineChatHistory();
+                if (!inlineChatPollingInterval) {
+                    inlineChatPollingInterval = setInterval(loadInlineChatHistory, 4000);
+                }
+            }
+        });
+
+        // VIEW NAVIGATION CONTROLLER
+        function navigateTo(targetViewId) {
+            document.querySelectorAll('.view-section').forEach(view => view.classList.remove('active-view'));
+            document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+
+            document.getElementById(`view-${targetViewId}`).classList.add('active-view');
+            const targetNavLink = document.getElementById(`nav-${targetViewId}`);
+            if (targetNavLink) targetNavLink.classList.add('active');
+
+            // Show rain background only on the home page
+            document.body.classList.toggle('home-active', targetViewId === 'home');
+        }
+
+        // POPUP WINDOW COMPONENT CONTROLLER
+        function openModal(id) { document.getElementById(id).classList.add('modal-active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('modal-active'); }
+        function toggleAuthBoxes(showRegister) {
+            document.getElementById('box-login').style.display = showRegister ? 'none' : 'block';
+            document.getElementById('box-register').style.display = showRegister ? 'block' : 'none';
+        }
+
+        function openOrderModal() {
+            if (!activeSessionUser) {
+                alert("Security handshake check required. Please login or register an active account node first.");
+                openModal('auth-modal');
+                return;
+            }
+            // Populate selector option variants using available services array
+            const selector = document.getElementById('ord-spec-type');
+            if (dynamicServices.length === 0) {
+                selector.innerHTML = `<option value="Standard Base Print Run">Standard Structural Matte Base Run</option>`;
+            } else {
+                selector.innerHTML = dynamicServices.map(s => `<option value="${s.title}">${s.title}</option>`).join('');
+            }
+            document.getElementById('order-modal-calc-cost').innerText = "₹" + (document.getElementById('ord-quantity').value * 18).toLocaleString('en-IN') + ".00";
+            openModal('order-modal');
+        }
+
+        // AUTH CONTROL ENGINE (PERSISTED TO MONGODB ATLAS)
+        async function processLogin() {
+            const user = document.getElementById('login-user').value;
+            const pass = document.getElementById('login-pass').value;
+
+            if (!user || !pass) {
+                alert("Please fill in both name and credential inputs.");
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/users/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: user, password: pass })
+                });
+
+                if (!res.ok) {
+                    const err = await res.json().catch(() => ({}));
+                    throw new Error(err.error || 'Authentication mismatch.');
+                }
+
+                const data = await res.json();
+                activeSessionUser = data;
+
+                // Render chat widget and app state instantly
+                renderFloatingChatViewport();
+
+                if (data.role === 'admin') {
+                    alert("Root Clearance Authenticated. Welcome to the Central Command Terminal, Commander Madhu Sudhanan.");
+                    document.getElementById('nav-admin').style.display = 'block';
+                    document.getElementById('auth-trigger-btn').innerHTML = `<i class="fa-solid fa-unlock-keyhole"></i> Owner Console`;
+                    document.getElementById('auth-trigger-btn').onclick = () => navigateTo('admin');
+                    document.getElementById('logout-btn').style.display = 'flex';
+                    closeModal('auth-modal');
+                    navigateTo('admin');
+                } else {
+                    alert(`Security Session instantiated for Client Profile node [${data.name}].`);
+                    document.getElementById('auth-trigger-btn').innerHTML = `<i class="fa-solid fa-circle-user"></i> ${data.name}`;
+                    document.getElementById('auth-trigger-btn').onclick = () => navigateTo('customer');
+                    document.getElementById('logout-btn').style.display = 'flex';
+                    closeModal('auth-modal');
+                    // Auto navigate/map to customer workspace immediately
+                    navigateTo('customer');
+                }
+
+                renderApplicationState();
+            } catch (e) {
+                alert(`Authentication Failed: ${e.message}`);
+            }
+        }
+
+        // LOGOUT CONTROLLER
+        function processLogout() {
+            // Clear session
+            activeSessionUser = null;
+            guestChatName = null;
+
+            // Stop all polling
+            if (chatPollingInterval) { clearInterval(chatPollingInterval); chatPollingInterval = null; }
+            if (adminChatPollingInterval) { clearInterval(adminChatPollingInterval); adminChatPollingInterval = null; }
+
+            // Reset nav
+            document.getElementById('auth-trigger-btn').innerHTML = `<i class="fa-solid fa-fingerprint"></i> Access Gateway`;
+            document.getElementById('auth-trigger-btn').onclick = () => openModal('auth-modal');
+            document.getElementById('logout-btn').style.display = 'none';
+            document.getElementById('nav-admin').style.display = 'none';
+            
+            const navCustomer = document.getElementById('nav-customer');
+            if (navCustomer) navCustomer.style.display = 'none';
+
+            // Reset chat widget
+            closeFloatingChat();
+            renderFloatingChatViewport();
+
+            // Return to home
+            navigateTo('home');
+            renderApplicationState();
+        }
+
+        // FORMAT RULES VALIDATION MODULE
+        function validateEmailField(input) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const hint = document.getElementById('email-format-hint');
+            if (!input.value) {
+                input.style.borderColor = 'var(--surface-border)';
+                hint.style.color = 'var(--text-muted)';
+                hint.innerText = "Format Rule: standard email (e.g., operator@thripura.in)";
+                return false;
+            }
+            if (emailRegex.test(input.value)) {
+                input.style.borderColor = '#22c55e'; // Green
+                hint.style.color = '#22c55e';
+                hint.innerHTML = `<i class="fa-solid fa-circle-check"></i> Email format conforms to parameters!`;
+                return true;
+            } else {
+                input.style.borderColor = '#ef4444'; // Red
+                hint.style.color = '#ef4444';
+                hint.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> Invalid email structure (must include @ and domain)`;
+                return false;
+            }
+        }
+
+        function validatePhoneField(input) {
+            const phoneRegex = /^[6-9]\d{9}$/;
+            const hint = document.getElementById('phone-format-hint');
+            if (!input.value) {
+                input.style.borderColor = 'var(--surface-border)';
+                hint.style.color = 'var(--text-muted)';
+                hint.innerText = "Format Rule: 10-digit Indian mobile format (e.g., 9447524601)";
+                return false;
+            }
+            if (phoneRegex.test(input.value)) {
+                input.style.borderColor = '#22c55e'; // Green
+                hint.style.color = '#22c55e';
+                hint.innerHTML = `<i class="fa-solid fa-circle-check"></i> Mobile format conforms to parameters!`;
+                return true;
+            } else {
+                input.style.borderColor = '#ef4444'; // Red
+                hint.style.color = '#ef4444';
+                hint.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> Must be a valid 10-digit Indian number starting with 6-9`;
+                return false;
+            }
+        }
+
+        async function processRegistration() {
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const phone = document.getElementById('reg-phone').value;
+            const pass = document.getElementById('reg-pass').value;
+
+            if (!name) {
+                alert("Name cannot be left blank.");
+                return;
+            }
+
+            // Enforce format rules on submit
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const phoneRegex = /^[6-9]\d{9}$/;
+
+            if (email && !emailRegex.test(email)) {
+                alert("E-Mail connection node does not match format parameters (e.g. name@domain.com)!");
+                return;
+            }
+            if (phone && !phoneRegex.test(phone)) {
+                alert("Mobile number does not conform to the 10-digit format rules (starting with 6-9)!");
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/users/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, phone, password: pass })
+                });
+
+                if (!res.ok) {
+                    const errData = await res.json().catch(() => ({}));
+                    throw new Error(errData.error || 'Registration failed.');
+                }
+
+                alert(`Client Account [${name}] successfully registered inside database. Returning to login layout.`);
+                toggleAuthBoxes(false);
+                document.getElementById('login-user').value = name;
+                document.getElementById('login-pass').value = pass;
+            } catch (e) {
+                console.error(e);
+                alert(`Failed to register customer: ${e.message}`);
+            }
+        }
+
+        // BACKEND CONTROLS MODIFICATIONS HANDLERS
+        // BACKEND CONTROLS MODIFICATIONS HANDLERS
+        function switchAdminPanel(panelId, eventOriginButton) {
+            document.querySelectorAll('.admin-panel').forEach(panel => panel.classList.remove('active-panel'));
+            document.querySelectorAll('.admin-tab-btn').forEach(btn => btn.classList.remove('active-tab'));
+
+            document.getElementById(panelId).classList.add('active-panel');
+            eventOriginButton.classList.add('active-tab');
+
+            if (panelId === 'panel-messages') {
+                loadAdminChatThreads();
+            } else {
+                if (adminChatPollingInterval) {
+                    clearInterval(adminChatPollingInterval);
+                    adminChatPollingInterval = null;
+                }
+            }
+        }
+
+        // --- DYNAMIC REAL-TIME CHAT ENGINE ---
+        let chatPollingInterval = null;
+        let inlineChatPollingInterval = null;
+        let adminSelectedCustomer = null;
+        let adminChatPollingInterval = null;
+
+        // Start guest chat from the name-prompt form inside the floating widget
+        function startGuestChat() {
+            const input = document.getElementById('guest-name-input');
+            const name = input ? input.value.trim() : '';
+            if (!name) {
+                input && (input.style.borderColor = '#ef4444');
+                return;
+            }
+            guestChatName = name;
+            renderFloatingChatViewport();
+            loadChatWidgetHistory();
+            if (!chatPollingInterval) {
+                chatPollingInterval = setInterval(loadChatWidgetHistory, 4000);
+            }
+        }
+
+        function handleGuestNameKey(e) {
+            if (e.key === 'Enter') startGuestChat();
+        }
+
+        // Removed inline direct inquiry chat scripts to keep workspace modular
+
+        function toggleFloatingChat() {
+            const win = document.getElementById('chat-widget-window');
+            const isActive = win.classList.toggle('chat-active');
+            if (isActive) {
+                renderFloatingChatViewport();
+                const name = getEffectiveChatName();
+                if (name) {
+                    loadChatWidgetHistory();
+                    if (!chatPollingInterval) chatPollingInterval = setInterval(loadChatWidgetHistory, 4000);
+                }
+            } else {
+                closeFloatingChat();
+            }
+        }
+
+        function closeFloatingChat() {
+            const win = document.getElementById('chat-widget-window');
+            win.classList.remove('chat-active');
+            if (chatPollingInterval) {
+                clearInterval(chatPollingInterval);
+                chatPollingInterval = null;
+            }
+        }
+
+        function renderFloatingChatViewport() {
+            const container = document.getElementById('chat-widget-viewports');
+            const effectiveName = getEffectiveChatName();
+
+            if (activeSessionUser && activeSessionUser.role === 'admin') {
+                // Admin: redirect to admin panel
+                container.innerHTML = `
+                    <div class="chat-auth-prompt" id="chat-viewport-admin">
+                        <i class="fa-solid fa-user-shield" style="font-size: 3rem; color: var(--accent); margin-bottom: 8px;"></i>
+                        <h4 style="font-family:'Space Grotesk'; font-size: 1.2rem;">Console Uplink Active</h4>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5;">Logged in as Administrator. Manage conversations from the Admin Panel.</p>
+                        <button class="btn btn-secondary" style="width: 100%;" onclick="closeFloatingChat(); navigateTo('admin'); switchAdminPanel('panel-messages', document.querySelector('[onclick*=\'panel-messages\']'));">Open Communications Panel</button>
+                    </div>
+                `;
+            } else if (effectiveName) {
+                const isLoggedInCustomer = activeSessionUser && activeSessionUser.role !== 'admin';
+                const attachmentButtonHtml = isLoggedInCustomer ? `
+                    <input type="file" id="chat-widget-file-input" accept="image/*,.pdf,.doc,.docx" style="display: none;" onchange="handleChatWidgetFileSelect()">
+                    <button class="composer-icon-btn" onclick="document.getElementById('chat-widget-file-input').click()" title="Attach Image or PDF" style="width: 36px; height: 36px; border-radius: 50%; display: flex; justify-content: center; align-items: center; background: rgba(255,255,255,0.04); border: 1px solid var(--surface-border); color: var(--text-muted); cursor: pointer;"><i class="fa-solid fa-paperclip"></i></button>
+                ` : '';
+                
+                const previewZoneHtml = isLoggedInCustomer ? `
+                    <div id="chat-widget-preview-zone" class="attachment-preview-zone" style="display: none; padding: 10px 16px; background: rgba(99,102,241,0.06); border-top: 1px solid rgba(99,102,241,0.2); justify-content: space-between; align-items: center; border-radius: 4px;">
+                        <div style="font-size: 0.8rem; display: flex; align-items: center; gap: 8px;">
+                            <i id="chat-widget-preview-icon" class="fa-solid fa-file-pdf"></i>
+                            <span id="chat-widget-preview-name" style="color: var(--accent); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 200px;">document.pdf</span>
+                        </div>
+                        <button onclick="clearChatWidgetFile()" style="background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1.1rem; line-height: 1;">&times;</button>
+                    </div>
+                ` : '';
+
+                // Customer or guest with a name: show live chat
+                container.innerHTML = `
+                    <div style="flex: 1; display: flex; flex-direction: column; overflow: hidden;" id="chat-viewport-auth">
+                        <div style="padding: 10px 16px; background: rgba(99,102,241,0.08); border-bottom: 1px solid var(--surface-border); font-size: 0.8rem; color: var(--text-muted);">
+                            <i class="fa-solid fa-circle-user" style="color:var(--primary); margin-right:6px;"></i>Chatting as <strong style="color:var(--text);">${effectiveName}</strong>
+                        </div>
+                        <div class="chat-history" id="chat-widget-history">
+                            <div style="text-align: center; color: var(--text-muted); margin-top: 50px;">Loading messages...</div>
+                        </div>
+                        ${previewZoneHtml}
+                        <div class="chat-composer">
+                            ${attachmentButtonHtml}
+                            <input type="text" id="chat-widget-input" placeholder="Type your inquiry..." onkeypress="handleChatWidgetKey(event)" style="flex: 1; margin-left: ${isLoggedInCustomer ? '8px' : '0'};">
+                            <button class="chat-send-btn" onclick="sendChatWidgetMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                // No session, no guest name: show a simple name prompt
+                container.innerHTML = `
+                    <div class="chat-auth-prompt" id="chat-viewport-unauth">
+                        <i class="fa-solid fa-comments" style="font-size: 2.8rem; background: linear-gradient(135deg,var(--primary),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom: 4px;"></i>
+                        <h4 style="font-family:'Space Grotesk'; font-size: 1.15rem;">Start a Conversation</h4>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin-bottom: 4px;">Just enter your name and start chatting — no account needed.</p>
+                        <input
+                            type="text"
+                            id="guest-name-input"
+                            placeholder="Your name..."
+                            onkeypress="handleGuestNameKey(event)"
+                            style="width:100%; background:rgba(0,0,0,0.3); border:1px solid var(--surface-border); border-radius:8px; padding:10px 14px; color:white; font-size:0.95rem; margin-bottom:4px; transition:all 0.3s;"
+                            autofocus
+                        >
+                        <button class="btn" style="width: 100%; background: linear-gradient(135deg, var(--primary), var(--accent));" onclick="startGuestChat()">
+                            <i class="fa-solid fa-arrow-right"></i> Start Chat
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        async function loadChatWidgetHistory() {
+            const name = getEffectiveChatName();
+            if (!name) return;
+            const historyDiv = document.getElementById('chat-widget-history');
+            if (!historyDiv) return;
+
+            try {
+                const res = await fetch(`/api/messages/thread/${encodeURIComponent(name)}`);
+                const messages = await res.json();
+                
+                const wasScrolledBottom = historyDiv.scrollHeight - historyDiv.clientHeight <= historyDiv.scrollTop + 20;
+
+                if (messages.length === 0) {
+                    historyDiv.innerHTML = `
+                        <div style="text-align: center; color: var(--text-muted); padding: 40px 20px; line-height: 1.6;">
+                            <i class="fa-solid fa-message" style="font-size: 2.2rem; color: var(--primary); margin-bottom: 12px; opacity: 0.5;"></i>
+                            <div>Channel Open.</div>
+                            <small>Send your inquiry below — we'll respond as soon as possible.</small>
+                        </div>
+                    `;
+                    return;
+                }
+
+                historyDiv.innerHTML = messages.map(m => {
+                    const isAdmin = m.role === 'admin' || m.sender === 'admin' || m.sender === 'Madhu Sudhanan P K';
+                    const timeStr = m.timestamp ? new Date(m.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+                    
+                    let mediaHtml = '';
+                    if (m.imageUrl) {
+                        mediaHtml += `
+                            <img src="${m.imageUrl}" class="chat-media-image" onclick="openLightboxImage('${m.imageUrl}')" style="max-width: 100%; border-radius: 8px; margin-bottom: 6px; cursor: pointer; display: block;">
+                        `;
+                    }
+                    if (m.docUrl) {
+                        mediaHtml += `
+                            <a href="${m.docUrl}" download="${m.docOriginalName || 'document'}" style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); padding: 8px 12px; border-radius: 8px; color: var(--accent); text-decoration: none; font-size: 0.85rem; margin-bottom: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'" onclick="event.stopPropagation()">
+                                <i class="fa-solid fa-file-pdf" style="font-size: 1.1rem; color: #ef4444; flex-shrink: 0;"></i>
+                                <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;">${m.docOriginalName || 'Download PDF'}</span>
+                                <i class="fa-solid fa-download" style="font-size: 0.8rem; color: var(--text-muted); flex-shrink: 0;"></i>
+                            </a>
+                        `;
+                    }
+
+                    return `
+                        <div class="chat-bubble ${isAdmin ? 'chat-bubble-admin' : 'chat-bubble-customer'}">
+                            ${mediaHtml}
+                            <div>${m.data}</div>
+                            <span class="chat-meta">${isAdmin ? '<i class="fa-solid fa-shield-halved" style="font-size:0.6rem;"></i> ' : ''}${timeStr}</span>
+                        </div>
+                    `;
+                }).join('');
+
+                if (wasScrolledBottom) historyDiv.scrollTop = historyDiv.scrollHeight;
+            } catch (e) {
+                console.error('Failed to load chat history:', e);
+            }
+        }
+
+        let chatWidgetSelectedFile = null;
+
+        function handleChatWidgetFileSelect() {
+            const fileInput = document.getElementById('chat-widget-file-input');
+            const file = fileInput ? fileInput.files[0] : null;
+            if (!file) return;
+
+            chatWidgetSelectedFile = file;
+            
+            document.getElementById('chat-widget-preview-name').innerText = file.name;
+            const icon = document.getElementById('chat-widget-preview-icon');
+            if (file.type.startsWith('image/')) {
+                icon.className = "fa-solid fa-file-image";
+                icon.style.color = "var(--accent)";
+            } else {
+                icon.className = "fa-solid fa-file-pdf";
+                icon.style.color = "#ef4444";
+            }
+            
+            document.getElementById('chat-widget-preview-zone').style.display = 'flex';
+        }
+
+        function clearChatWidgetFile() {
+            chatWidgetSelectedFile = null;
+            const input = document.getElementById('chat-widget-file-input');
+            if (input) input.value = '';
+            document.getElementById('chat-widget-preview-zone').style.display = 'none';
+        }
+
+        async function sendChatWidgetMessage() {
+            const name = getEffectiveChatName();
+            const input = document.getElementById('chat-widget-input');
+            if (!input || !name) return;
+            const val = input.value.trim();
+            if (!val && !chatWidgetSelectedFile) return;
+            
+            input.value = '';
+
+            const formData = new FormData();
+            formData.append('sender', name);
+            formData.append('role', 'customer');
+            formData.append('customerName', name);
+            formData.append('data', val);
+            formData.append('routing', activeSessionUser ? (activeSessionUser.email || activeSessionUser.phone || '') : '');
+            
+            if (chatWidgetSelectedFile) {
+                if (chatWidgetSelectedFile.type.startsWith('image/')) {
+                    formData.append('image', chatWidgetSelectedFile);
+                } else {
+                    formData.append('document', chatWidgetSelectedFile);
+                }
+            }
+
+            try {
+                await fetch('/api/messages', {
+                    method: 'POST',
+                    body: formData
+                });
+                clearChatWidgetFile();
+                loadChatWidgetHistory();
+            } catch (e) {
+                console.error('Failed to send message:', e);
+            }
+        }
+
+        function handleChatWidgetKey(e) {
+            if (e.key === 'Enter') {
+                sendChatWidgetMessage();
+            }
+        }
+
+        function openChatForOrder(orderSubject, orderId) {
+            const win = document.getElementById('chat-widget-window');
+            if (!win.classList.contains('chat-active')) {
+                toggleFloatingChat();
+            }
+            setTimeout(() => {
+                const input = document.getElementById('chat-widget-input');
+                if (input) {
+                    input.value = `[Regarding Order "${orderSubject}"]: `;
+                    input.focus();
+                }
+            }, 300);
+        }
+
+        // --- ADMIN SIDE CHAT METHODS ---
+        async function loadAdminChatThreads() {
+            try {
+                const res = await fetch('/api/messages/customers');
+                const customers = await res.json();
+                
+                const threadsList = document.getElementById('admin-chat-threads-list');
+                if (!threadsList) return;
+                
+                if (customers.length === 0) {
+                    threadsList.innerHTML = `<div style="text-align:center; padding:24px; color:var(--text-muted); font-size:0.85rem;">No active communications found.</div>`;
+                    return;
+                }
+
+                threadsList.innerHTML = customers.map(c => {
+                    const isActive = adminSelectedCustomer && adminSelectedCustomer.name === c.name;
+                    const initials = c.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+                    const timeStr = c.timestamp ? new Date(c.timestamp).toLocaleDateString([], { month: 'short', day: 'numeric' }) : '';
+                    return `
+                        <div class="admin-chat-user-item ${isActive ? 'active-chat-user' : ''}" onclick="selectAdminChatUser('${c.name}', '${c.routing}')">
+                           <div class="admin-chat-avatar">${initials}</div>
+                           <div class="admin-chat-user-info">
+                               <div class="admin-chat-user-name">${c.name}</div>
+                               <div class="admin-chat-user-snippet">${c.lastMessage}</div>
+                           </div>
+                           <div style="font-size: 0.7rem; color: var(--text-muted); align-self: flex-start;">${timeStr}</div>
+                       </div>
+                    `;
+                }).join('');
+            } catch (e) {
+                console.error('Failed to load admin threads:', e);
+            }
+        }
+
+        function selectAdminChatUser(name, routing) {
+            adminSelectedCustomer = { name, routing };
+            
+            document.getElementById('admin-chat-empty-view').style.display = 'none';
+            document.getElementById('admin-chat-active-view').style.display = 'flex';
+            document.getElementById('admin-clear-chat-btn').style.display = 'block';
+
+            document.getElementById('admin-active-chat-name').innerText = name;
+            document.getElementById('admin-active-chat-contact').innerText = routing || 'Customer clearance active';
+            
+            const initials = name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+            document.getElementById('admin-active-chat-avatar').innerText = initials;
+
+            // Highlight sidebar
+            loadAdminChatThreads();
+            
+            loadAdminChatHistory();
+
+            if (adminChatPollingInterval) clearInterval(adminChatPollingInterval);
+            adminChatPollingInterval = setInterval(loadAdminChatHistory, 3000);
+        }
+
+        async function loadAdminChatHistory() {
+            if (!adminSelectedCustomer) return;
+            const historyDiv = document.getElementById('admin-chat-history');
+            if (!historyDiv) return;
+
+            try {
+                const res = await fetch(`/api/messages/thread/${encodeURIComponent(adminSelectedCustomer.name)}`);
+                const messages = await res.json();
+                
+                const wasScrolledBottom = historyDiv.scrollHeight - historyDiv.clientHeight <= historyDiv.scrollTop + 20;
+
+                if (messages.length === 0) {
+                    historyDiv.innerHTML = `<div style="text-align:center; color:var(--text-muted); margin-top:50px;">Direct link open. Type a message to reply.</div>`;
+                    return;
+                }
+
+                historyDiv.innerHTML = messages.map(m => {
+                    const isAdmin = m.role === 'admin' || m.sender === 'admin' || m.sender === 'Madhu Sudhanan P K';
+                    const timeStr = m.timestamp ? new Date(m.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+                    
+                    let actionControls = '';
+                    if (isAdmin) {
+                        const escapedText = m.data.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                        actionControls = `
+                            <button class="message-action-btn" onclick="editAdminChatMessage('${m._id}', '${escapedText}')"><i class="fa-solid fa-pen"></i></button>
+                            <button class="message-action-btn delete-btn" onclick="deleteAdminChatMessage('${m._id}')"><i class="fa-solid fa-trash-can"></i></button>
+                        `;
+                    }
+
+                    let mediaHtml = '';
+                    if (m.imageUrl) {
+                        mediaHtml += `
+                            <img src="${m.imageUrl}" class="chat-media-image" onclick="openLightboxImage('${m.imageUrl}')" style="max-width: 100%; border-radius: 8px; margin-bottom: 6px; cursor: pointer; display: block;">
+                        `;
+                    }
+                    if (m.docUrl) {
+                        mediaHtml += `
+                            <a href="${m.docUrl}" download="${m.docOriginalName || 'document'}" style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); padding: 8px 12px; border-radius: 8px; color: var(--accent); text-decoration: none; font-size: 0.85rem; margin-bottom: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'" onclick="event.stopPropagation()">
+                                <i class="fa-solid fa-file-pdf" style="font-size: 1.1rem; color: #ef4444; flex-shrink: 0;"></i>
+                                <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;">${m.docOriginalName || 'Download PDF'}</span>
+                                <i class="fa-solid fa-download" style="font-size: 0.8rem; color: var(--text-muted); flex-shrink: 0;"></i>
+                            </a>
+                        `;
+                    }
+
+                    return `
+                        <div class="chat-bubble ${isAdmin ? 'chat-bubble-admin' : 'chat-bubble-customer'}">
+                            ${mediaHtml}
+                            <div>${m.data}</div>
+                            <span class="chat-meta" style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+                                <span>${timeStr}</span>
+                                <span>${actionControls}</span>
+                            </span>
+                        </div>
+                    `;
+                }).join('');
+
+                if (wasScrolledBottom || historyDiv.innerHTML.includes('Direct link open')) {
+                    historyDiv.scrollTop = historyDiv.scrollHeight;
+                }
+            } catch (e) {
+                console.error('Failed to load admin chat history:', e);
+            }
+        }
+
+        let adminChatSelectedFile = null;
+
+        function handleAdminChatFileSelect() {
+            const fileInput = document.getElementById('admin-chat-file-input');
+            const file = fileInput ? fileInput.files[0] : null;
+            if (!file) return;
+
+            adminChatSelectedFile = file;
+            
+            document.getElementById('admin-chat-preview-name').innerText = file.name;
+            const icon = document.getElementById('admin-chat-preview-icon');
+            if (file.type.startsWith('image/')) {
+                icon.className = "fa-solid fa-file-image";
+                icon.style.color = "var(--accent)";
+            } else {
+                icon.className = "fa-solid fa-file-pdf";
+                icon.style.color = "#ef4444";
+            }
+            
+            document.getElementById('admin-chat-preview-zone').style.display = 'flex';
+        }
+
+        function clearAdminChatFile() {
+            adminChatSelectedFile = null;
+            const input = document.getElementById('admin-chat-file-input');
+            if (input) input.value = '';
+            document.getElementById('admin-chat-preview-zone').style.display = 'none';
+        }
+
+        async function sendAdminChatMessage() {
+            const input = document.getElementById('admin-chat-input');
+            if (!input || !adminSelectedCustomer) return;
+            const val = input.value.trim();
+            if (!val && !adminChatSelectedFile) return;
+            
+            input.value = '';
+
+            const formData = new FormData();
+            formData.append('sender', "Madhu Sudhanan P K");
+            formData.append('role', 'admin');
+            formData.append('customerName', adminSelectedCustomer.name);
+            formData.append('data', val);
+            
+            if (adminChatSelectedFile) {
+                if (adminChatSelectedFile.type.startsWith('image/')) {
+                    formData.append('image', adminChatSelectedFile);
+                } else {
+                    formData.append('document', adminChatSelectedFile);
+                }
+            }
+
+            try {
+                await fetch('/api/messages', {
+                    method: 'POST',
+                    body: formData
+                });
+                clearAdminChatFile();
+                loadAdminChatHistory();
+                loadAdminChatThreads();
+            } catch (e) {
+                console.error('Failed to send admin message:', e);
+            }
+        }
+
+        function handleAdminChatKey(e) {
+            if (e.key === 'Enter') {
+                sendAdminChatMessage();
+            }
+        }
+
+        async function editAdminChatMessage(msgId, currentText) {
+            const newText = prompt("Edit your administrative response:", currentText);
+            if (newText === null || newText.trim() === "" || newText === currentText) return;
+
+            try {
+                const res = await fetch(`/api/messages/${msgId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ data: newText.trim() })
+                });
+                if (!res.ok) throw new Error('Failed to update message');
+                loadAdminChatHistory();
+                loadAdminChatThreads();
+            } catch (e) {
+                alert(`Failed to edit message: ${e.message}`);
+            }
+        }
+
+        async function deleteAdminChatMessage(msgId) {
+            if (!confirm("Are you sure you want to delete this administrative reply? This action is permanent.")) return;
+
+            try {
+                const res = await fetch(`/api/messages/${msgId}`, {
+                    method: 'DELETE'
+                });
+                if (!res.ok) throw new Error('Failed to delete message');
+                loadAdminChatHistory();
+                loadAdminChatThreads();
+            } catch (e) {
+                alert(`Failed to delete message: ${e.message}`);
+            }
+        }
+
+        async function clearSelectedChatThread() {
+            if (!adminSelectedCustomer) return;
+            if (!confirm(`Are you sure you want to completely purge and clear the entire chat history with [${adminSelectedCustomer.name}]? This action will expunge all communications from both the Administrator and Customer views permanently.`)) return;
+
+            try {
+                const res = await fetch(`/api/messages/thread/${encodeURIComponent(adminSelectedCustomer.name)}`, {
+                    method: 'DELETE'
+                });
+                if (!res.ok) throw new Error('Failed to clear chat thread');
+                
+                alert("Chat history successfully purged.");
+                
+                adminSelectedCustomer = null;
+                if (adminChatPollingInterval) {
+                    clearInterval(adminChatPollingInterval);
+                    adminChatPollingInterval = null;
+                }
+                
+                document.getElementById('admin-chat-empty-view').style.display = 'flex';
+                document.getElementById('admin-chat-active-view').style.display = 'none';
+                document.getElementById('admin-clear-chat-btn').style.display = 'none';
+                
+                loadAdminChatThreads();
+            } catch (e) {
+                alert(`Failed to clear thread: ${e.message}`);
+            }
+        }
+
+        async function commitGlobalContent() {
+            // Read admin text input frameworks values
+            const hTitle = document.getElementById('adm-hero-title').value;
+            const hDesc = document.getElementById('adm-hero-desc').value;
+            const aTitle = document.getElementById('adm-about-title').value;
+            const aBody = document.getElementById('adm-about-body').value;
+            const aPhone = document.getElementById('adm-about-phone').value;
+            const aPhone2 = document.getElementById('adm-about-phone2').value;
+            const aEmail = document.getElementById('adm-about-email').value;
+            const aLocation = document.getElementById('adm-about-location').value;
+            const qrCodeFile = document.getElementById('adm-about-qrcode').files[0];
+            const brandLogoFile = document.getElementById('adm-brand-logo').files[0];
+
+            const formData = new FormData();
+            formData.append('heroTitle', hTitle);
+            formData.append('heroDesc', hDesc);
+            formData.append('aboutTitle', aTitle);
+            formData.append('aboutBody', aBody);
+            formData.append('phone', aPhone);
+            formData.append('phone2', aPhone2);
+            formData.append('email', aEmail);
+            formData.append('location', aLocation);
+            if (qrCodeFile) {
+                formData.append('qrCode', qrCodeFile);
+            }
+            if (brandLogoFile) {
+                formData.append('brandLogo', brandLogoFile);
+            }
+
+            try {
+                const res = await fetch('/api/settings', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!res.ok) throw new Error('Server error');
+
+                // Map and project values safely onto the user-facing home and about layout nodes
+                document.getElementById('hero-display-title').innerText = hTitle;
+                document.getElementById('hero-display-desc').innerText = hDesc;
+                document.getElementById('about-display-title').innerText = aTitle;
+                document.getElementById('about-display-body').innerHTML = `<p>${aBody.replace(/\n/g, '<br>')}</p>`;
+                document.getElementById('about-display-phone').innerText = aPhone;
+                document.getElementById('about-display-phone2').innerText = aPhone2;
+                document.getElementById('about-display-email').innerText = aEmail;
+                document.getElementById('about-display-location').innerText = aLocation;
+                
+                // Clear file inputs
+                document.getElementById('adm-about-qrcode').value = '';
+                document.getElementById('adm-brand-logo').value = '';
+
+                // Reload layout settings to fetch new image path
+                await loadApplicationData();
+
+                alert("Content system published and securely saved to database.");
+            } catch (e) {
+                console.error(e);
+                alert(`Failed to save changes: ${e.message}`);
+            }
+        }
+
+        async function addNewService() {
+            const name = document.getElementById('srv-name').value;
+            const desc = document.getElementById('srv-desc').value;
+            const imgFile = document.getElementById('srv-img-file').files[0];
+
+            if (!name || !desc) {
+                alert("Operational Service parameters cannot be injected blank.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('title', name);
+            formData.append('description', desc);
+            if (imgFile) {
+                formData.append('image', imgFile);
+            }
+
+            try {
+                const res = await fetch('/api/services', {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!res.ok) {
+                    const errData = await res.json().catch(() => ({}));
+                    throw new Error(errData.error || `Server responded with status ${res.status}`);
+                }
+                const saved = await res.json();
+                dynamicServices.push(saved);
+                document.getElementById('srv-name').value = "";
+                document.getElementById('srv-desc').value = "";
+                document.getElementById('srv-img-file').value = "";
+                alert(`"${name}" successfully authorized and committed to database.`);
+                renderApplicationState();
+            } catch (e) {
+                console.error(e);
+                alert(`Failed to add service: ${e.message}`);
+            }
+        }
+
+        async function deleteService(index) {
+            const service = dynamicServices[index];
+            if (!service || !service._id) {
+                alert("Cannot delete a service without a database reference.");
+                return;
+            }
+            try {
+                const res = await fetch(`/api/services/${service._id}`, {
+                    method: 'DELETE'
+                });
+                if (!res.ok) throw new Error('Server error');
+                dynamicServices.splice(index, 1);
+                alert("Service successfully purged from system nodes.");
+                renderApplicationState();
+            } catch (e) {
+                console.error(e);
+                alert(`Failed to delete service: ${e.message}`);
+            }
+        }
+
+        // Safe customer account removal trigger for administrators
+        async function deleteCustomerUser(userId, userName) {
+            if (!confirm(`Are you sure you want to completely purge and remove the registered customer account [${userName}]? This action will expunge their access privileges permanently.`)) return;
+
+            try {
+                const res = await fetch(`/api/users/${userId}`, {
+                    method: 'DELETE'
+                });
+                
+                if (!res.ok) {
+                    const err = await res.json().catch(() => ({}));
+                    throw new Error(err.error || 'Server rejected request');
+                }
+
+                alert(`Customer [${userName}] successfully removed from the system registry.`);
+                
+                // Reload live data and re-render
+                await loadApplicationData();
+            } catch (err) {
+                console.error(err);
+                alert(`Purge Failed: ${err.message}`);
+            }
+        }
+
+        // QUEUE ADJUSTMENT UTILITIES FOR THE OWNER ACTIONS
+        async function markOrderAsDone(orderId) {
+            try {
+                const res = await fetch(`/api/orders/${orderId}/complete`, {
+                    method: 'PUT'
+                });
+                if (!res.ok) throw new Error('Server error');
+                const match = productionOrders.find(o => (o._id === orderId || o.id === orderId));
+                if (match) {
+                    match.status = "Processed/Paid";
+                    renderApplicationState();
+                }
+            } catch (e) {
+                console.error(e);
+                alert(`Failed to update status: ${e.message}`);
+            }
+        }
+
+        async function assignOrderPrice(orderId) {
+            const requestedAmount = prompt("Enter the custom system production valuation profile parameter (e.g., ₹12,500.00):");
+            if (requestedAmount) {
+                try {
+                    const res = await fetch(`/api/orders/${orderId}/price`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ price: requestedAmount })
+                    });
+                    if (!res.ok) throw new Error('Server error');
+                    const match = productionOrders.find(o => (o._id === orderId || o.id === orderId));
+                    if (match) {
+                        match.evaluationPrice = requestedAmount;
+                        renderApplicationState();
+                    }
+                } catch (e) {
+                    console.error(e);
+                    alert(`Failed to update order price: ${e.message}`);
+                }
+            }
+        }
+
+        async function deleteOrder(orderId, orderSubject) {
+            const confirmed = confirm(`Are you sure you want to permanently delete the order:\n\n"${orderSubject}"?\n\nThis action cannot be undone.`);
+            if (!confirmed) return;
+            try {
+                const res = await fetch(`/api/orders/${orderId}`, { method: 'DELETE' });
+                if (!res.ok) throw new Error('Server error');
+                // Remove from local list and refresh UI
+                const idx = productionOrders.findIndex(o => (o._id === orderId || o.id === orderId));
+                if (idx !== -1) productionOrders.splice(idx, 1);
+                renderApplicationState();
+            } catch (e) {
+                console.error(e);
+                alert(`Failed to delete order: ${e.message}`);
+            }
+        }
+
+        // --- DYNAMIC GLASSMORPHIC CALCULATOR MATRIX ---
+        let activeCalcOrderId = null;
+        let calcExpressionStr = "";
+        let calcScreenValue = "0";
+
+        function safeEval(str) {
+            if (/^[0-9+\-*/().\s]+$/.test(str)) {
+                try {
+                    return Function(`"use strict"; return (${str})`)();
+                } catch (e) {
+                    return "Error";
+                }
+            }
+            return "Error";
+        }
+
+        function openAdminCalculator(orderId) {
+            activeCalcOrderId = orderId;
+            const match = productionOrders.find(o => (o._id === orderId || o.id === orderId));
+            const clientName = match ? match.client : "Client";
+            const volumeStr = match ? match.volume : "Unspecified";
+            
+            document.getElementById('calc-target-label').innerHTML = `Target: <strong style="color:var(--accent);">${clientName}</strong> (${volumeStr})`;
+            
+            // Always start with a blank slate — no pre-seeded default values
+            calcExpressionStr = "";
+            calcScreenValue = "0";
+            
+            updateCalcDisplay();
+            openModal('calculator-modal');
+        }
+
+        function updateCalcDisplay() {
+            document.getElementById('calc-expression').innerText = calcExpressionStr;
+            document.getElementById('calc-screen').innerText = calcScreenValue;
+        }
+
+        function pressCalcKey(key) {
+            if (key === 'C') {
+                calcExpressionStr = "";
+                calcScreenValue = "0";
+            } else if (key === '=') {
+                if (calcExpressionStr) {
+                    const finalExpr = calcExpressionStr + calcScreenValue;
+                    const res = safeEval(finalExpr);
+                    calcScreenValue = res.toString();
+                    calcExpressionStr = "";
+                } else {
+                    const res = safeEval(calcScreenValue);
+                    calcScreenValue = res.toString();
+                }
+            } else if (['+', '-', '*', '/'].includes(key)) {
+                calcExpressionStr += calcScreenValue + " " + key + " ";
+                calcScreenValue = "0";
+            } else {
+                if (calcScreenValue === "0" && key !== '.') {
+                    calcScreenValue = key;
+                } else {
+                    calcScreenValue += key;
+                }
+            }
+            updateCalcDisplay();
+        }
+
+        async function assignCalculatedPrice() {
+            if (!activeCalcOrderId) return;
+            
+            // Auto evaluate if expression is pending
+            if (calcExpressionStr) {
+                pressCalcKey('=');
+            }
+            
+            if (calcScreenValue === "Error") {
+                alert("Cannot assign an invalid calculator evaluation result!");
+                return;
+            }
+            
+            const numericVal = parseFloat(calcScreenValue);
+            if (isNaN(numericVal)) {
+                alert("Please calculate a valid number before assignment.");
+                return;
+            }
+            
+            // Format calculated price nicely
+            const formattedPrice = "₹" + numericVal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            
+            try {
+                const res = await fetch(`/api/orders/${activeCalcOrderId}/price`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ price: formattedPrice })
+                });
+                if (!res.ok) throw new Error('Server error');
+                
+                const match = productionOrders.find(o => (o._id === activeCalcOrderId || o.id === activeCalcOrderId));
+                if (match) {
+                    match.evaluationPrice = formattedPrice;
+                    renderApplicationState();
+                }
+                
+                closeModal('calculator-modal');
+                alert(`Successfully evaluated and assigned value: ${formattedPrice}`);
+            } catch (e) {
+                console.error(e);
+                alert(`Failed to update order price: ${e.message}`);
+            }
+        }
+
+        // CLIENT INTERACTION TRANSFERS DATA
+        async function submitPipelineOrder() {
+            const spec = document.getElementById('ord-spec-type').value;
+            const qty = document.getElementById('ord-quantity').value;
+
+            const trackingPayload = {
+                client: activeSessionUser.name,
+                specifications: spec,
+                volume: `${qty} Units`
+            };
+
+            try {
+                const res = await fetch('/api/orders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(trackingPayload)
+                });
+                if (!res.ok) throw new Error('Server error');
+                const saved = await res.json();
+                productionOrders.unshift(saved);
+                alert("Order handshakes completed. Task routing allocated to the administration pipeline database workspace.");
+                closeModal('order-modal');
+                renderApplicationState();
+            } catch (e) {
+                console.error(e);
+                alert(`Failed to place order: ${e.message}`);
+            }
+        }
+
+        async function submitClientMessage() {
+            const name = document.getElementById('msg-sender').value;
+            const contact = document.getElementById('msg-contact').value;
+            const body = document.getElementById('msg-body').value;
+
+            if (!name || !body) {
+                alert("Message transmission configuration demands sender parameters.");
+                return;
+            }
+
+            const payload = { sender: name, routing: contact, data: body };
+
+            try {
+                const res = await fetch('/api/messages', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!res.ok) throw new Error('Server error');
+                const saved = await res.json();
+                internalMessages.unshift(saved);
+                alert("Transmission secure. Data bundle deposited inside central system messaging logs.");
+
+                document.getElementById('msg-sender').value = "";
+                document.getElementById('msg-contact').value = "";
+                document.getElementById('msg-body').value = "";
+                closeModal('message-modal');
+                renderApplicationState();
+            } catch (e) {
+                console.error(e);
+                alert(`Failed to transmit message: ${e.message}`);
+            }
+        }
+
+        async function replyToMessage(messageId) {
+            const replyText = prompt("Enter official administrative response routing payload:");
+            if (replyText === null) return; // cancelled
+            
+            try {
+                const res = await fetch(`/api/messages/${messageId}/reply`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ reply: replyText })
+                });
+
+                if (!res.ok) throw new Error('Server error');
+                
+                alert("Administrative reply secured and transmitted successfully.");
+                
+                // Reload data to reflect live responses
+                await loadApplicationData();
+            } catch (e) {
+                console.error(e);
+                alert(`Failed to transmit reply: ${e.message}`);
+            }
+        }
+
+        // APPLICATION SYNCHRONIZED DISPLAY VIEW RENDERER
+        function renderApplicationState() {
+            // A. Update live services presentation on user home grid views
+            const homeGrid = document.getElementById('services-target-grid');
+            if (dynamicServices.length === 0) {
+                homeGrid.innerHTML = `<div class="empty-state">No operations loaded into the core display grid yet. System awaiting administrator population parameters.</div>`;
+            } else {
+                homeGrid.innerHTML = dynamicServices.map(s => {
+                    const badgeText = s.title.toLowerCase().includes('offset') ? 'Offset Tech' : 
+                                      s.title.toLowerCase().includes('digital') ? 'Digital Lab' : 'Printing';
+                    
+                    const frontImgStyle = s.image ? 
+                        `background-image: url('${s.image}'); background-size: cover; background-position: center;` : 
+                        `background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(34,211,238,0.1) 100%);`;
+
+                    return `
+                    <div class="service-3d-card">
+                        <div class="service-3d-content">
+                            <!-- Back Side: Default visible state (rotating border aura) -->
+                            <div class="service-3d-back">
+                                <div class="service-3d-back-content">
+                                    <svg stroke="var(--accent)" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" height="50px" width="50px" fill="none">
+                                        <g stroke-width="1.5">
+                                            <path d="M20.84375 0.03125C20.191406 0.0703125 19.652344 0.425781 19.21875 1.53125C18.988281 2.117188 18.5 3.558594 18.03125 4.9375C17.792969 5.636719 17.570313 6.273438 17.40625 6.75C17.390625 6.796875 17.414063 6.855469 17.40625 6.90625C17.398438 6.925781 17.351563 6.949219 17.34375 6.96875L17.25 7.25C18.566406 7.65625 19.539063 8.058594 19.625 8.09375C22.597656 9.21875 28.351563 11.847656 33.28125 16.78125C38.5 22 41.183594 28.265625 42.09375 30.71875C42.113281 30.761719 42.375 31.535156 42.75 32.84375C42.757813 32.839844 42.777344 32.847656 42.78125 32.84375C43.34375 32.664063 44.953125 32.09375 46.3125 31.625C47.109375 31.351563 47.808594 31.117188 48.15625 31C49.003906 30.714844 49.542969 30.292969 49.8125 29.6875C50.074219 29.109375 50.066406 28.429688 49.75 27.6875C49.605469 27.347656 49.441406 26.917969 49.25 26.4375C47.878906 23.007813 45.007813 15.882813 39.59375 10.46875C33.613281 4.484375 25.792969 1.210938 22.125 0.21875C21.648438 0.0898438 21.234375 0.0078125 20.84375 0.03125 Z M 16.46875 9.09375L0.0625 48.625C-0.09375 48.996094 -0.00390625 49.433594 0.28125 49.71875C0.472656 49.910156 0.738281 50 1 50C1.128906 50 1.253906 49.988281 1.375 49.9375L40.90625 33.59375C40.523438 32.242188 40.222656 31.449219 40.21875 31.4375C39.351563 29.089844 36.816406 23.128906 31.875 18.1875C27.035156 13.34375 21.167969 10.804688 18.875 9.9375C18.84375 9.925781 17.8125 9.5 16.46875 9.09375 Z M 17 16C19.761719 16 22 18.238281 22 21C22 23.761719 19.761719 26 17 26C15.140625 26 13.550781 24.972656 12.6875 23.46875L15.6875 16.1875C16.101563 16.074219 16.550781 16 17 16 Z M 31 22C32.65625 22 34 23.34375 34 25C34 25.917969 33.585938 26.730469 32.9375 27.28125L32.90625 27.28125C33.570313 27.996094 34 28.949219 34 30C34 32.210938 32.210938 34 30 34C27.789063 34 26 32.210938 26 30C26 28.359375 26.996094 26.960938 28.40625 26.34375L28.3125 26.3125C28.117188 25.917969 28 25.472656 28 25C28 23.34375 29.34375 22 31 22 Z M 21 32C23.210938 32 25 33.789063 25 36C25 36.855469 24.710938 37.660156 24.25 38.3125L20.3125 39.9375C18.429688 39.609375 17 37.976563 17 36C17 33.789063 18.789063 32 21 32 Z M 9 34C10.65625 34 12 35.34375 12 37C12 38.65625 10.65625 40 9 40C7.902344 40 6.960938 39.414063 6.4375 38.53125L8.25 34.09375C8.488281 34.03125 8.742188 34 9 34Z" fill="var(--accent)" stroke="var(--accent)"></path>
+                                        </g>
+                                    </svg>
+                                    <h3 style="font-family:'Space Grotesk'; font-size:1.35rem; font-weight:700; color:white; text-align:center; padding: 0 15px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">${s.title}</h3>
+                                    <span style="font-size:0.75rem; color:var(--accent); font-weight:600; text-transform:uppercase; letter-spacing:1px; display:flex; align-items:center; gap:8px;">
+                                        Hover to Inspect <i class="fa-solid fa-arrow-rotate-right" style="animation: rotation_481 2.5s infinite linear;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <!-- Front Side: Reveal details on flip -->
+                            <div class="service-3d-front">
+                                <div class="service-3d-img" style="${frontImgStyle}">
+                                    <!-- Dynamic blurry background bubbles -->
+                                    <div class="service-3d-circle"></div>
+                                    <div class="service-3d-circle" id="service-3d-right"></div>
+                                    <div class="service-3d-circle" id="service-3d-bottom"></div>
+                                </div>
+                                <div class="service-3d-front-content">
+                                    <small class="service-3d-badge">${badgeText}</small>
+                                    <div class="service-3d-description">
+                                        <div class="service-3d-title">
+                                            <p style="width:100%; font-family:'Space Grotesk'; font-weight:700; font-size:1.2rem; color:white; line-height:1.2; text-shadow: 0 2px 4px rgba(0,0,0,0.8); display:flex; justify-content:space-between; align-items:center;">
+                                                <span>${s.title}</span>
+                                                <svg fill-rule="nonzero" height="15px" width="15px" viewBox="0,0,256,256" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g style="mix-blend-mode: normal" text-anchor="none" font-size="none" font-weight="none" font-family="none" stroke-dashoffset="0" stroke-dasharray="" stroke-miterlimit="10" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="1" stroke="none" fill-rule="nonzero" fill="#20c997"><g transform="scale(8,8)"><path d="M25,27l-9,-6.75l-9,6.75v-23h18z"></path></g></g></svg>
+                                            </p>
+                                        </div>
+                                        <p class="service-3d-card-footer">
+                                            ${s.description}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                }).join('');
+            }
+
+            // B. Update admin configuration view component list
+            const adminServicesListView = document.getElementById('admin-services-list');
+            adminServicesListView.innerHTML = dynamicServices.map((s, idx) => `
+                <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.02); padding:12px 20px; border-radius:8px; border:1px solid var(--surface-border)">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        ${s.image ? `<img src="${s.image}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;" alt="">` : ''}
+                        <div><strong>${s.title}</strong><br><small style="color:var(--text-muted);">${s.description}</small></div>
+                    </div>
+                    <button class="btn btn-secondary" style="padding:6px 12px; color:#ef4444;" onclick="deleteService(${idx})"><i class="fa-solid fa-trash-can"></i> Remove</button>
+                </div>
+            `).join('');
+
+            // C. Populate Admin Pipeline Task Rows Tables Matrix
+            const ordersTbody = document.getElementById('admin-orders-tbody');
+            ordersTbody.innerHTML = productionOrders.map(o => {
+                let attachmentHtml = '';
+                if (o.imageUrl) {
+                    attachmentHtml += `
+                        <div class="attachment-tag" onclick="openLightboxImage('${o.imageUrl}')" style="display:inline-flex; padding:4px 8px; font-size:0.75rem; margin-top:6px;">
+                            <i class="fa-solid fa-image"></i> View Image Reference
+                        </div>
+                    `;
+                }
+                if (o.docUrl) {
+                    attachmentHtml += `
+                        <a class="attachment-tag" href="${o.docUrl}" download="${o.docOriginalName || 'document'}" style="display:inline-flex; padding:4px 8px; font-size:0.75rem; margin-top:6px;">
+                            <i class="fa-solid fa-file-lines"></i> Download Document (${o.docOriginalName || 'Doc'})
+                        </a>
+                    `;
+                }
+
+                return `
+                <tr>
+                    <td>
+                        <strong>${o.client}</strong>
+                        ${o.subject ? `<div style="font-size:0.78rem; color:var(--accent); font-weight:600; margin-top:4px;">${o.subject}</div>` : ''}
+                    </td>
+                    <td>
+                        <div style="font-size:0.88rem; max-width: 400px; white-space: pre-wrap; line-height: 1.5; color:#cbd5e1;">${o.specifications || ''}</div>
+                        ${o.imageDesc ? `<div style="font-size:0.78rem; color:var(--text-muted); font-style:italic; margin-top:4px;"><strong style="color:var(--primary);">Image comment:</strong> ${o.imageDesc}</div>` : ''}
+                        ${o.docDesc ? `<div style="font-size:0.78rem; color:var(--text-muted); font-style:italic; margin-top:4px;"><strong style="color:var(--primary);">Doc comment:</strong> ${o.docDesc}</div>` : ''}
+                        
+                        <div style="display:flex; gap:12px; margin-top:8px; font-size:0.78rem; color:var(--text-muted);">
+                            <span><i class="fa-solid fa-boxes-stacked"></i> Qty: <strong>${o.volume || 'Unspecified'}</strong></span>
+                            <span><i class="fa-solid fa-calendar-alt"></i> Needed: <strong>${o.expectedTime || 'Not specified'}</strong></span>
+                        </div>
+                        
+                        ${attachmentHtml ? `<div style="display:flex; gap:8px; margin-top:6px;">${attachmentHtml}</div>` : ''}
+                    </td>
+                    <td><span style="color:var(--accent); font-weight:600;">${o.evaluationPrice}</span></td>
+                    <td><span class="badge ${o.status === 'Processed/Paid' ? 'badge-done' : 'badge-pending'}">${o.status}</span></td>
+                    <td>
+                        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                            <button class="btn btn-secondary" style="padding:6px 10px; font-size:0.85rem; background:rgba(34,211,238,0.08); border-color:rgba(34,211,238,0.25); color:var(--accent);" onclick="openAdminCalculator('${o._id || o.id}')" title="Valuation Calculator"><i class="fa-solid fa-calculator"></i></button>
+                            <button class="btn btn-secondary" style="padding:6px 10px; font-size:0.85rem;" onclick="assignOrderPrice('${o._id || o.id}')"><i class="fa-solid fa-tags"></i> Price</button>
+                            ${o.status !== 'Processed/Paid' ? `<button class="btn" style="padding:6px 10px; font-size:0.85rem;" onclick="markOrderAsDone('${o._id || o.id}')"><i class="fa-solid fa-check"></i> Complete</button>` : ''}
+                            <button class="btn btn-secondary" style="padding:6px 10px; font-size:0.85rem; color:#ef4444; border-color:rgba(239,68,68,0.3); background:rgba(239,68,68,0.07);" onclick="deleteOrder('${o._id || o.id}', '${(o.subject || 'this order').replace(/'/g, "\\'")}')" title="Delete Order"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                `;
+            }).join('');
+
+            // D. Admin Split-Screen Sidebar Updates
+            if (activeSessionUser && activeSessionUser.role === 'admin') {
+                loadAdminChatThreads();
+            }
+
+            // E. Populate Admin Registered Customers Table
+            const usersTbody = document.getElementById('admin-users-tbody');
+            usersTbody.innerHTML = registeredUsers.map(u => {
+                const isAdmin = u.role === 'admin' || u.name === 'Madhu Sudhanan P K';
+                const actionButton = isAdmin ? 
+                    `<span style="color:var(--text-muted); font-size:0.8rem; font-style:italic;">Protected</span>` : 
+                    `<button class="btn btn-secondary" style="padding:6px 10px; font-size:0.82rem; color:#ef4444;" onclick="deleteCustomerUser('${u._id || u.id}', '${u.name.replace(/'/g, "\\'")}')">
+                        <i class="fa-solid fa-user-xmark"></i> Remove
+                     </button>`;
+                
+                return `
+                <tr>
+                    <td><strong>${u.name}</strong></td>
+                    <td>${u.email ? u.email : '<em style="color:var(--text-muted)">Not provided</em>'}</td>
+                    <td>${u.phone ? u.phone : '<em style="color:var(--text-muted)">Not provided</em>'}</td>
+                    <td><span class="badge" style="background: rgba(99, 102, 241, 0.15); color: var(--accent);">${u.role}</span></td>
+                    <td><small style="color:var(--text-muted);">${u._id || u.id}</small></td>
+                    <td>${actionButton}</td>
+                </tr>
+                `;
+            }).join('');
+
+            // F. Admin messaging active check handles console updates
+
+            // G. Update Customer Portal Dashboard, metrics indicators & active request history queue
+            const navCustomer = document.getElementById('nav-customer');
+            if (activeSessionUser && activeSessionUser.role !== 'admin') {
+                if (navCustomer) navCustomer.style.display = 'block';
+                
+                document.getElementById('customer-portal-title').innerText = `${activeSessionUser.name}'s Workspace`;
+                
+                const myOrders = productionOrders.filter(o => o.client === activeSessionUser.name);
+                
+                document.getElementById('cust-stat-total').innerText = myOrders.length;
+                document.getElementById('cust-stat-pending').innerText = myOrders.filter(o => o.status !== 'Processed/Paid').length;
+                document.getElementById('cust-stat-active').innerText = myOrders.filter(o => o.status === 'Processed/Paid').length;
+                
+                const custHistoryList = document.getElementById('cust-history-list');
+                if (myOrders.length === 0) {
+                    custHistoryList.innerHTML = `
+                        <div style="text-align:center; color:var(--text-muted); padding:60px 20px;">
+                            <i class="fa-solid fa-receipt" style="font-size:3rem; opacity:0.25; margin-bottom:12px;"></i>
+                            <div>No work requests active in your queue yet.</div>
+                            <small>Use the form on the left to request your first print job.</small>
+                        </div>
+                    `;
+                } else {
+                    custHistoryList.innerHTML = myOrders.map(o => {
+                        const dateStr = o.timestamp ? new Date(o.timestamp).toLocaleDateString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'Unknown Date';
+                        const statusClass = o.status === 'Processed/Paid' ? 'badge-done' : 'badge-pending';
+                        
+                        let attachmentHtml = '';
+                        if (o.imageUrl) {
+                            attachmentHtml += `
+                                <div class="attachment-tag" onclick="openLightboxImage('${o.imageUrl}')">
+                                    <i class="fa-solid fa-image"></i> Image Reference
+                                </div>
+                            `;
+                        }
+                        if (o.docUrl) {
+                            attachmentHtml += `
+                                <a class="attachment-tag" href="${o.docUrl}" download="${o.docOriginalName || 'document'}">
+                                    <i class="fa-solid fa-file-lines"></i> Download: ${o.docOriginalName || 'Document'}
+                                </a>
+                            `;
+                        }
+                        
+                        return `
+                            <div class="history-item">
+                                <div class="history-item-header">
+                                    <div>
+                                        <div class="history-item-title">${o.subject || 'Print Production Work'}</div>
+                                        <small style="color:var(--text-muted);">${dateStr}</small>
+                                    </div>
+                                    <span class="badge ${statusClass}">${o.status}</span>
+                                </div>
+                                <div style="font-size: 0.92rem; color: #cbd5e1; margin-bottom: 12px; line-height:1.6; white-space: pre-wrap;">${o.specifications || ''}</div>
+                                
+                                ${o.imageDesc ? `<div style="font-size: 0.8rem; color: var(--text-muted); font-style:italic; margin-bottom:6px;"><strong style="color:var(--primary);">Image comment:</strong> ${o.imageDesc}</div>` : ''}
+                                ${o.docDesc ? `<div style="font-size: 0.8rem; color: var(--text-muted); font-style:italic; margin-bottom:6px;"><strong style="color:var(--primary);">Doc comment:</strong> ${o.docDesc}</div>` : ''}
+                                
+                                <div class="history-item-meta">
+                                    <span><i class="fa-solid fa-tags" style="color:var(--accent);"></i> Valuation: <strong style="color:white;">${o.evaluationPrice || 'Pending Evaluation'}</strong></span>
+                                    <span><i class="fa-solid fa-cubes"></i> Qty: <strong>${o.volume || 'Unspecified'}</strong></span>
+                                    <span><i class="fa-solid fa-calendar-day"></i> Due: <strong>${o.expectedTime || 'Not specified'}</strong></span>
+                                </div>
+                                
+                                ${attachmentHtml ? `<div class="history-item-attachments">${attachmentHtml}</div>` : ''}
+                                
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; border-top:1px solid rgba(255,255,255,0.04); padding-top:10px;">
+                                    <button class="btn btn-secondary" style="padding:6px 12px; font-size:0.8rem; display:flex; align-items:center; gap:6px; background:rgba(99,102,241,0.05); border-color:rgba(99,102,241,0.2);" onclick="openChatForOrder('${o.subject || 'Print Job'}', '${o._id || o.id}')">
+                                        <i class="fa-solid fa-comments" style="color:var(--primary);"></i> Chat regarding order
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+            } else {
+                if (navCustomer) navCustomer.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>

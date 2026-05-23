@@ -1,0 +1,21 @@
+{
+  "name": "thripura-offset-printers",
+  "version": "1.0.0",
+  "description": "Fullstack Web App for Thripura Offset Printers with MongoDB Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongodb": "^6.6.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^8.0.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

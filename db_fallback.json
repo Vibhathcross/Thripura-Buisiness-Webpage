@@ -1,0 +1,111 @@
+{
+  "settings": {
+    "heroTitle": "guh",
+    "heroDesc": "Experience printing re-engineered for the future. From extreme-scale offset press runs to complex dimensional package solutions.",
+    "logoUrl": "/uploads/1779542670377-92426697.png",
+    "aboutTitle": "Thripura Architectural Print Labs",
+    "aboutBody": "Founded on the absolute bedrock principles of unmatched clarity and fine structural fidelity, Thripura Offset Printers integrates ultra-precise modern digital frameworks with high-volume mechanical arrays. We facilitate complex corporate production lines, custom dynamic packaging configurations, and premium-grade publication work.",
+    "phone": "+91 94475 24601",
+    "phone2": "",
+    "email": "sfssssssssssssssssssssss",
+    "location": "Ernakulam, Kerala"
+  },
+  "users": [
+    {
+      "_id": "admin-id-madhu",
+      "name": "Madhu Sudhanan P K",
+      "role": "admin"
+    },
+    {
+      "_id": "6a11600ca7e2ce384ef4ba2a",
+      "name": "Vibhath T K",
+      "email": "vibhathcross@gmail.com",
+      "phone": "8593891820",
+      "password": "scarydoors",
+      "role": "customer"
+    }
+  ],
+  "services": [],
+  "orders": [
+    {
+      "_id": "6a1197c762e5a92c6f3d869f",
+      "client": "Vibhath T K",
+      "subject": "printout of a book",
+      "specifications": "hard page lbum book",
+      "volume": "300books",
+      "expectedTime": "next monday 5 pm",
+      "evaluationPrice": "₹209.00",
+      "status": "Processed/Paid",
+      "imageUrl": "/uploads/1779537863613-561598742.png",
+      "imageDesc": "its the model",
+      "docUrl": null,
+      "docOriginalName": null,
+      "docDesc": "",
+      "timestamp": 1779537863631
+    }
+  ],
+  "messages": [
+    {
+      "_id": "6a119c14993954b34b9d0d52",
+      "sender": "vibhath",
+      "role": "customer",
+      "customerName": "vibhath",
+      "data": "hey",
+      "routing": "",
+      "timestamp": 1779538964087,
+      "imageUrl": null,
+      "audioUrl": null,
+      "imageDesc": ""
+    },
+    {
+      "_id": "6a11a5b5993954b34b9d0d54",
+      "sender": "vibhath",
+      "role": "customer",
+      "customerName": "vibhath",
+      "data": "hey",
+      "routing": "",
+      "timestamp": 1779541429445,
+      "imageUrl": null,
+      "audioUrl": null,
+      "imageDesc": ""
+    },
+    {
+      "_id": "6a11a5d3993954b34b9d0d55",
+      "sender": "Madhu Sudhanan P K",
+      "role": "admin",
+      "customerName": "vibhath",
+      "data": "hvhjb",
+      "routing": "",
+      "timestamp": 1779541459080,
+      "imageUrl": null,
+      "audioUrl": null,
+      "imageDesc": ""
+    },
+    {
+      "_id": "6a11b454d1c5b6121e5556ae",
+      "sender": "Vibhath T K",
+      "role": "customer",
+      "customerName": "Vibhath T K",
+      "data": "[Regarding Order \"printout of a book\"]: payment is done",
+      "routing": "vibhathcross@gmail.com",
+      "timestamp": 1779545172888,
+      "imageUrl": null,
+      "docUrl": null,
+      "docOriginalName": null,
+      "imageDesc": ""
+    },
+    {
+      "_id": "6a11b54dd1c5b6121e5556af",
+      "sender": "Madhu Sudhanan P K",
+      "role": "admin",
+      "customerName": "Vibhath T K",
+      "data": "okay",
+      "routing": "",
+      "timestamp": 1779545421395,
+      "imageUrl": null,
+      "docUrl": null,
+      "docOriginalName": null,
+      "imageDesc": ""
+    }
+  ]
+}
