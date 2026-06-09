@@ -539,8 +539,8 @@ docker run -p 3000:3000 \
 
 ## Default Admin Credentials
 
-- **Username**: `Madhu Sudhanan P K` (or value of `ADMIN_NAME` in .env)
-- **Password**: `246Entry` (or value of `ADMIN_PASSWORD` in .env)
+- **Username**: `<admin name>` (or value of `ADMIN_NAME` in .env)
+- **Password**: `<password>` (or value of `ADMIN_PASSWORD` in .env)
 
 > **Important**: Change these credentials immediately after first login for security.
 
