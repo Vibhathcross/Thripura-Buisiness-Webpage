@@ -1,14 +1,21 @@
 {
   "settings": {
-    "heroTitle": "guh",
-    "heroDesc": "Experience printing re-engineered for the future. From extreme-scale offset press runs to complex dimensional package solutions.",
-    "logoUrl": "/uploads/1779542670377-92426697.png",
-    "aboutTitle": "Thripura Architectural Print Labs",
-    "aboutBody": "Founded on the absolute bedrock principles of unmatched clarity and fine structural fidelity, Thripura Offset Printers integrates ultra-precise modern digital frameworks with high-volume mechanical arrays. We facilitate complex corporate production lines, custom dynamic packaging configurations, and premium-grade publication work.",
-    "phone": "+91 94475 24601",
+    "heroTitle": "High-Fidelity Production Print Systems",
+    "logoUrl": "/uploads/1779629852646-49543035.png",
+    "showcase1Title": "Heavy CMYK Pressing",
+    "showcase1Points": "CMYK Ink Density Scan|18,000 sheets/hour|Micro-Alignment|Active Recalibration",
+    "heroDesc": "",
+    "aboutTitle": "",
+    "aboutBody": "",
+    "phone": "",
     "phone2": "",
-    "email": "sfssssssssssssssssssssss",
-    "location": "Ernakulam, Kerala"
+    "email": "",
+    "location": "",
+    "showcase1Desc": "Heavy-duty offset lithography.",
+    "showcase2Title": "Precision Carton scoring",
+    "showcase2Desc": "Automatic board folding scores.",
+    "showcase2Points": "Laser Scoring|Gold/Silver Foil Press|Single-Pass Scoring|Multi-Layer Board Fold",
+    "showcase1ImageUrl": "/uploads/1779765527249-57066838.png"
   },
   "users": [
     {
@@ -25,25 +32,27 @@
       "role": "customer"
     }
   ],
-  "services": [],
-  "orders": [
+  "services": [
     {
-      "_id": "6a1197c762e5a92c6f3d869f",
-      "client": "Vibhath T K",
-      "subject": "printout of a book",
-      "specifications": "hard page lbum book",
-      "volume": "300books",
-      "expectedTime": "next monday 5 pm",
-      "evaluationPrice": "₹209.00",
-      "status": "Processed/Paid",
-      "imageUrl": "/uploads/1779537863613-561598742.png",
-      "imageDesc": "its the model",
-      "docUrl": null,
-      "docOriginalName": null,
-      "docDesc": "",
-      "timestamp": 1779537863631
+      "_id": "serv-offset-press",
+      "title": "Heavy-Duty Offset Press",
+      "description": "Perfect for extreme-scale commercial runs, high-fidelity publications, brochures, and packaging configurations.",
+      "image": null
+    },
+    {
+      "_id": "serv-fineart-layouts",
+      "title": "Fine Art & Architectural Layouts",
+      "description": "Ultra-precise digital large-format layout printing on dense card stocks, matte architectural rolls, and specialized textures.",
+      "image": null
+    },
+    {
+      "_id": "serv-dimensional-pkg",
+      "title": "Dynamic Dimensional Packaging",
+      "description": "Custom structural package designs, heavy-duty carton pressings, and die-cut boxes optimized for high-volume retail logistics.",
+      "image": null
     }
   ],
+  "orders": [],
   "messages": [
     {
       "_id": "6a119c14993954b34b9d0d52",

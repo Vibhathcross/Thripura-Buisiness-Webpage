@@ -158,7 +158,15 @@ class FallbackCollection {
         aboutBody: "Founded on the absolute bedrock principles of unmatched clarity and fine structural fidelity, Thripura Offset Printers integrates ultra-precise modern digital frameworks with high-volume mechanical arrays. We facilitate complex corporate production lines, custom dynamic packaging configurations, and premium-grade publication work.",
         phone: "+91 94475 24601",
         email: "press@thripura.in",
-        location: "Ernakulam, Kerala"
+        location: "Ernakulam, Kerala",
+        showcase1Title: "Extreme Scale CMYK Lithography",
+        showcase1Desc: "Our primary high-volume press utilizes advanced mechanical micro-alignment arrays to run continuous printing plates at up to 18,000 sheets per hour. With fully automated ink density scanning and active color spectrum recalibration, we guarantee absolute color accuracy and sharp geometric layouts on any stock thickness.",
+        showcase1Points: "CMYK Ink Density Scan|18,000 sheets/hour|Micro-Alignment|Active Recalibration",
+        showcase1ImageUrl: "/uploads/industrial_offset_press.png",
+        showcase2Title: "Precision Structural & Foil Pressing",
+        showcase2Desc: "Designed for luxury packaging and dimensional die-cut configurations, our automated carton pressing lines support multi-layer board folding, laser scoring, and thermal gold/silver foil embossing in a single pass. This ensures extreme seam precision and logistics resilience for premium retail brands.",
+        showcase2Points: "Laser Scoring|Gold/Silver Foil Press|Single-Pass Scoring|Multi-Layer Board Fold",
+        showcase2ImageUrl: "/uploads/packaging_production_line.png"
       },
       users: [
         { _id: "admin-id-madhu", name: "Madhu Sudhanan P K", role: "admin" }
@@ -322,7 +330,7 @@ class FallbackCollection {
   }
 }
 
-const mongoUri = process.env.MONGO_URI || 'mongodb://vibhathcross_db_user:dMITEq9K2JszDuqp@ac-4ngm1dq-shard-00-00.ezjcbqg.mongodb.net:27017,ac-4ngm1dq-shard-00-01.ezjcbqg.mongodb.net:27017,ac-4ngm1dq-shard-00-02.ezjcbqg.mongodb.net:27017/thripura_db?ssl=true&authSource=admin&retryWrites=true&w=majority';
+const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017';
 const client = new MongoClient(mongoUri, { serverSelectionTimeoutMS: 5000 });
 let db;
 let servicesCol;
@@ -352,7 +360,15 @@ async function startServer() {
         aboutBody: "Founded on the absolute bedrock principles of unmatched clarity and fine structural fidelity, Thripura Offset Printers integrates ultra-precise modern digital frameworks with high-volume mechanical arrays. We facilitate complex corporate production lines, custom dynamic packaging configurations, and premium-grade publication work.",
         phone: "+91 94475 24601",
         email: "press@thripura.in",
-        location: "Ernakulam, Kerala"
+        location: "Ernakulam, Kerala",
+        showcase1Title: "Extreme Scale CMYK Lithography",
+        showcase1Desc: "Our primary high-volume press utilizes advanced mechanical micro-alignment arrays to run continuous printing plates at up to 18,000 sheets per hour. With fully automated ink density scanning and active color spectrum recalibration, we guarantee absolute color accuracy and sharp geometric layouts on any stock thickness.",
+        showcase1Points: "CMYK Ink Density Scan|18,000 sheets/hour|Micro-Alignment|Active Recalibration",
+        showcase1ImageUrl: "/uploads/industrial_offset_press.png",
+        showcase2Title: "Precision Structural & Foil Pressing",
+        showcase2Desc: "Designed for luxury packaging and dimensional die-cut configurations, our automated carton pressing lines support multi-layer board folding, laser scoring, and thermal gold/silver foil embossing in a single pass. This ensures extreme seam precision and logistics resilience for premium retail brands.",
+        showcase2Points: "Laser Scoring|Gold/Silver Foil Press|Single-Pass Scoring|Multi-Layer Board Fold",
+        showcase2ImageUrl: "/uploads/packaging_production_line.png"
       });
       console.log('🌱 Seeded default page settings in Atlas');
     }
@@ -468,6 +484,26 @@ async function startServer() {
       res.json({ success: true, deletedCount: result.deletedCount });
     } catch (e) {
       res.status(500).json({ error: 'Failed to delete service' });
+    }
+  });
+
+  app.put('/api/services/:id', upload.single('image'), async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { title, description } = req.body;
+      if (!title || !description) {
+        return res.status(400).json({ error: 'Title and description are required fields' });
+      }
+      
+      const updateFields = { title, description };
+      if (req.file) {
+        updateFields.image = `/uploads/${req.file.filename}`;
+      }
+      
+      const result = await servicesCol.updateOne(makeIdQuery(id), { $set: updateFields });
+      res.json({ success: true, modifiedCount: result.modifiedCount });
+    } catch (e) {
+      res.status(500).json({ error: 'Failed to update service' });
     }
   });
 
@@ -725,19 +761,32 @@ async function startServer() {
     }
   });
 
-  app.post('/api/settings', upload.fields([{ name: 'qrCode', maxCount: 1 }, { name: 'brandLogo', maxCount: 1 }]), async (req, res) => {
+  app.post('/api/settings', upload.fields([
+    { name: 'qrCode', maxCount: 1 },
+    { name: 'brandLogo', maxCount: 1 },
+    { name: 'showcase1Image', maxCount: 1 },
+    { name: 'showcase2Image', maxCount: 1 }
+  ]), async (req, res) => {
     try {
-      const { heroTitle, heroDesc, aboutTitle, aboutBody, phone, phone2, email, location } = req.body;
-      const updateData = { heroTitle, heroDesc, aboutTitle, aboutBody, phone, phone2, email, location };
+      const { heroTitle, heroDesc, aboutTitle, aboutBody, phone, phone2, email, location, showcase1Title, showcase1Desc, showcase2Title, showcase2Desc, showcase1Points, showcase2Points } = req.body;
+      const updateData = { heroTitle, heroDesc, aboutTitle, aboutBody, phone, phone2, email, location, showcase1Title, showcase1Desc, showcase2Title, showcase2Desc, showcase1Points, showcase2Points };
       
       const qrFile = req.files && req.files['qrCode'] ? req.files['qrCode'][0] : null;
       const logoFile = req.files && req.files['brandLogo'] ? req.files['brandLogo'][0] : null;
+      const s1File = req.files && req.files['showcase1Image'] ? req.files['showcase1Image'][0] : null;
+      const s2File = req.files && req.files['showcase2Image'] ? req.files['showcase2Image'][0] : null;
 
       if (qrFile) {
         updateData.qrCodeUrl = `/uploads/${qrFile.filename}`;
       }
       if (logoFile) {
         updateData.logoUrl = `/uploads/${logoFile.filename}`;
+      }
+      if (s1File) {
+        updateData.showcase1ImageUrl = `/uploads/${s1File.filename}`;
+      }
+      if (s2File) {
+        updateData.showcase2ImageUrl = `/uploads/${s2File.filename}`;
       }
 
       await settingsCol.updateOne(
@@ -812,10 +861,13 @@ async function startServer() {
         return res.status(400).json({ error: 'Name is required' });
       }
 
-      // Hardcoded check for admin
-      if (name === "Madhu Sudhanan P K") {
-        if (password === "246Entry") {
-          return res.json({ name: "Madhu Sudhanan P K", role: "admin" });
+      // Admin check from environment variables
+      const adminName = process.env.ADMIN_NAME || "Madhu Sudhanan P K";
+      const adminPassword = process.env.ADMIN_PASSWORD || "246Entry";
+      
+      if (name === adminName) {
+        if (password === adminPassword) {
+          return res.json({ name: adminName, role: "admin" });
         } else {
           return res.status(401).json({ error: "Cryptographic mismatch token or empty authentication string detected." });
         }

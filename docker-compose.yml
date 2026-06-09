@@ -1,0 +1,83 @@
+version: '3.8'
+
+# Thripura Offset Printers - Docker Compose Configuration
+# This file provides a complete development and production setup with MongoDB
+
+services:
+  # Main Application
+  app:
+    build: .
+    container_name: thripura-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://mongo:27017/thripura_db
+      - PORT=3000
+      - MAIL_USER=${MAIL_USER:-}
+      - MAIL_PASS=${MAIL_PASS:-}
+      - ADMIN_NAME=${ADMIN_NAME:-Madhu Sudhanan P K}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-246Entry}
+    depends_on:
+      mongo:
+        condition: service_healthy
+    volumes:
+      # Persist uploads across container restarts
+      - ./uploads:/app/uploads
+    restart: unless-stopped
+    networks:
+      - thripura-network
+
+  # MongoDB Database
+  mongo:
+    image: mongo:6.6
+    container_name: thripura-mongo
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=thripura_db
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USER:-root}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD:-rootpassword}
+    volumes:
+      # Persist MongoDB data across container restarts
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - thripura-network
+
+  # Optional: MongoDB Express (Web UI for database management)
+  mongo-express:
+    image: mongo-express:1.0.2
+    container_name: thripura-mongo-express
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_BASICAUTH_USERNAME=${MONGO_EXPRESS_USER:-admin}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${MONGO_EXPRESS_PASSWORD:-admin123}
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+    depends_on:
+      mongo:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - thripura-network
+    profiles:
+      - dev
+
+# Named volumes for persistent data
+volumes:
+  mongo-data:
+    driver: local
+
+# Custom network for communication between services
+networks:
+  thripura-network:
+    driver: bridge

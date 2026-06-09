@@ -14,7 +14,7 @@
     <style>
         :root {
             --bg: #090a0f;
-            --surface: rgba(18, 20, 32, 0.7);
+            --surface: rgba(13, 14, 26, 0.48);
             --surface-border: rgba(255, 255, 255, 0.08);
             --primary: #6366f1;
             /* Soft Indigo */
@@ -33,8 +33,12 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
-        body {
+        html {
             background-color: var(--bg);
+        }
+
+        body {
+            background-color: transparent;
             color: var(--text);
             overflow-x: hidden;
             background-image:
@@ -367,11 +371,11 @@
         /* === END RAIN BACKGROUND === */
 
         body.home-active {
-            background: #000;
+            background: transparent;
         }
 
         body.home-active .rain-bg {
-            display: block;
+            display: none;
         }
 
         /* Ensure all home page content sits above the rain */
@@ -477,9 +481,21 @@
             max-width: 800px;
             margin: 0 auto;
             background: var(--surface);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--surface-border);
             border-radius: 24px;
             padding: 48px;
+        }
+
+        .showcase-text-card {
+            background: var(--surface);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--surface-border);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
 
         .about-wrapper h2 {
@@ -499,65 +515,44 @@
         /* Admin page animated gradient background */
         #view-admin {
             position: relative;
-            background:
-                radial-gradient(ellipse 80% 60% at 15% 20%, rgba(37, 99, 235, 0.18) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 50% at 85% 75%, rgba(99, 102, 241, 0.14) 0%, transparent 55%),
-                radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0, 12, 40, 0.9) 0%, transparent 100%),
-                linear-gradient(135deg, #030712 0%, #050d1f 35%, #0a0e2a 65%, #030712 100%);
-            background-size: 300% 300%, 300% 300%, 100% 100%, 200% 200%;
-            animation: adminGradientShift 12s ease-in-out infinite alternate;
+            background-color: transparent;
             overflow: hidden;
         }
 
         #view-admin::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            background:
-                radial-gradient(circle 500px at var(--orb1-x, 20%) var(--orb1-y, 30%), rgba(37, 99, 235, 0.12) 0%, transparent 70%),
-                radial-gradient(circle 400px at var(--orb2-x, 75%) var(--orb2-y, 70%), rgba(99, 102, 241, 0.1) 0%, transparent 70%),
-                radial-gradient(circle 300px at 50% 10%, rgba(14, 165, 233, 0.06) 0%, transparent 60%);
-            animation: adminOrbsDrift 18s ease-in-out infinite alternate;
+            display: none;
+        }
+
+        #view-admin::after {
+            display: none;
         }
 
         #view-admin > * {
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
-        @keyframes adminGradientShift {
+        @keyframes cssRainBgAnimation {
             0% {
-                background-position: 0% 0%, 100% 100%, center, 0% 50%;
-            }
-            33% {
-                background-position: 60% 20%, 40% 80%, center, 50% 50%;
-            }
-            66% {
-                background-position: 100% 60%, 0% 40%, center, 100% 50%;
+                background-position:
+                    0px 0px, 0px 0px, 0px 0px,
+                    0px 0px, 0px 0px, 0px 0px,
+                    0px 0px, 0px 0px, 0px 0px;
             }
             100% {
-                background-position: 30% 100%, 70% 20%, center, 50% 100%;
+                background-position:
+                    0px 235px, 0px 235px, 0px 235px,
+                    0px 252px, 0px 252px, 0px 252px,
+                    0px 150px, 0px 150px, 0px 150px;
             }
         }
 
-        @keyframes adminOrbsDrift {
+        @keyframes cssRainHueAnimation {
             0% {
-                --orb1-x: 15%; --orb1-y: 25%; --orb2-x: 80%; --orb2-y: 70%;
-                opacity: 0.8;
-            }
-            40% {
-                --orb1-x: 35%; --orb1-y: 50%; --orb2-x: 60%; --orb2-y: 40%;
-                opacity: 1;
-            }
-            70% {
-                --orb1-x: 70%; --orb1-y: 30%; --orb2-x: 25%; --orb2-y: 75%;
-                opacity: 0.7;
+                backdrop-filter: var(--f) hue-rotate(0deg);
             }
             100% {
-                --orb1-x: 20%; --orb1-y: 75%; --orb2-x: 85%; --orb2-y: 20%;
-                opacity: 0.9;
+                backdrop-filter: var(--f) hue-rotate(360deg);
             }
         }
 
@@ -717,7 +712,9 @@
         }
 
         .modal-card {
-            background: #121420;
+            background: var(--surface);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--surface-border);
             border-radius: 24px;
             width: 90%;
@@ -781,8 +778,9 @@
             right: 30px;
             width: 380px;
             height: 520px;
-            background: rgba(18, 20, 32, 0.85);
+            background: rgba(13, 14, 26, 0.55);
             backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--surface-border);
             border-radius: 20px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
@@ -1612,20 +1610,20 @@
             background-color: var(--bg);
             transition: all 0.2s ease;
             box-shadow:
-                inset 0 0.3rem 0.9rem rgba(255, 255, 255, 0.3),
-                inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.7),
-                inset 0 -0.4rem 0.9rem rgba(255, 255, 255, 0.5),
-                0 3rem 3rem rgba(0, 0, 0, 0.3),
-                0 1rem 1rem -0.6rem rgba(0, 0, 0, 0.8);
+                inset 0 0.15rem 0.4rem rgba(255, 255, 255, 0.25),
+                inset 0 -0.05rem 0.2rem rgba(0, 0, 0, 0.7),
+                inset 0 -0.2rem 0.5rem rgba(255, 255, 255, 0.4),
+                0 1.5rem 1.5rem rgba(0, 0, 0, 0.2),
+                0 0.5rem 0.5rem -0.3rem rgba(0, 0, 0, 0.6);
             display: inline-block;
             text-decoration: none;
         }
 
         .button .wrap {
-            font-size: 16px;
+            font-size: 13.5px;
             font-weight: 600;
             color: rgba(255, 255, 255, 0.7);
-            padding: 16px 28px;
+            padding: 11px 22px;
             border-radius: inherit;
             position: relative;
             overflow: hidden;
@@ -1650,7 +1648,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 8px;
             margin: 0;
             transition: all 0.2s ease;
             transform: translateY(2%);
@@ -1680,7 +1678,7 @@
             top: 12%;
             bottom: 40%;
             border-radius: 22px 22px 0 0;
-            box-shadow: inset 0 10px 8px -10px rgba(255, 255, 255, 0.8);
+            box-shadow: inset 0 6px 5px -6px rgba(255, 255, 255, 0.8);
             background: linear-gradient(
                 180deg,
                 rgba(255, 255, 255, 0.3) 0%,
@@ -1691,11 +1689,11 @@
 
         .button:hover {
             box-shadow:
-                inset 0 0.3rem 0.5rem rgba(255, 255, 255, 0.4),
-                inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.7),
-                inset 0 -0.4rem 0.9rem rgba(255, 255, 255, 0.7),
-                0 3rem 3rem rgba(0, 0, 0, 0.3),
-                0 1rem 1rem -0.6rem rgba(0, 0, 0, 0.8);
+                inset 0 0.15rem 0.4rem rgba(255, 255, 255, 0.3),
+                inset 0 -0.05rem 0.2rem rgba(0, 0, 0, 0.7),
+                inset 0 -0.2rem 0.5rem rgba(255, 255, 255, 0.5),
+                0 1.5rem 1.5rem rgba(0, 0, 0, 0.2),
+                0 0.5rem 0.5rem -0.3rem rgba(0, 0, 0, 0.6);
             transform: translateY(-2px);
         }
 
@@ -1716,17 +1714,17 @@
         .button:active {
             transform: translateY(4px);
             box-shadow:
-                inset 0 0.3rem 0.5rem rgba(255, 255, 255, 0.5),
-                inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.8),
-                inset 0 -0.4rem 0.9rem rgba(255, 255, 255, 0.4),
-                0 3rem 3rem rgba(0, 0, 0, 0.3),
-                0 1rem 1rem -0.6rem rgba(0, 0, 0, 0.8);
+                inset 0 0.15rem 0.4rem rgba(255, 255, 255, 0.4),
+                inset 0 -0.05rem 0.2rem rgba(0, 0, 0, 0.8),
+                inset 0 -0.2rem 0.5rem rgba(255, 255, 255, 0.3),
+                0 1.5rem 1.5rem rgba(0, 0, 0, 0.2),
+                0 0.5rem 0.5rem -0.3rem rgba(0, 0, 0, 0.6);
         }
 
         @media (max-width: 768px) {
             .button .wrap {
-                font-size: 14px;
-                padding: 12px 20px;
+                font-size: 12.5px;
+                padding: 9px 16px;
             }
         }
 
@@ -1915,6 +1913,9 @@
 
 <body class="home-active">
 
+    <!-- GLOBAL DYNAMIC BACKDROP VIDEO -->
+    <video id="global-bg-video" muted playsinline style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: -2; pointer-events: none; opacity: 1.0; transition: opacity 0.8s ease;"></video>
+
     <!-- SVG GLOW FILTERS -->
     <svg style="position: absolute; width: 0; height: 0;">
       <filter width="300%" x="-100%" height="300%" y="-100%" id="unopaq">
@@ -2034,6 +2035,65 @@
             </div>
         </div>
 
+        <!-- ADVANCED PRODUCTION LABS SHOWCASE -->
+        <div style="margin-top: 90px; padding-top: 70px; border-top: 1px solid rgba(255,255,255,0.06); position: relative; z-index: 2;">
+            <div style="text-align: center; margin-bottom: 50px;">
+                <span style="font-size:0.75rem; color:var(--accent); font-weight:700; text-transform:uppercase; letter-spacing:3px;">Inside the Facility</span>
+                <h2 style="font-family:'Space Grotesk'; font-size: 2.6rem; margin: 8px 0 12px; font-weight:800; text-shadow: 0 0 20px rgba(34,211,238,0.15);">Featured Print Infrastructure</h2>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; font-size: 0.95rem;">Explore the high-fidelity heavy machinery and automated packaging production units behind our flawless physical outputs.</p>
+            </div>
+
+            <!-- Showcase Feature 1: Offset Press -->
+            <div class="showroom-row" style="display: flex; gap: 48px; align-items: center; margin-bottom: 70px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 320px;">
+                    <div style="position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--surface-border); box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+                        <img id="showcase1-display-img" src="/uploads/industrial_offset_press.png" style="width: 100%; height: auto; display: block; object-fit: cover; transition: transform 0.5s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'" alt="Offset Press">
+                        <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); padding: 20px; color: white;">
+                            <small style="color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Offset Engineering</small>
+                            <h4 style="margin: 4px 0 0; font-family:'Space Grotesk'; font-size: 1.2rem;">High-Speed Industrial Offset Press</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="showcase-text-card" style="flex: 1; min-width: 320px;">
+                    <h3 id="showcase1-display-title" style="font-family:'Space Grotesk'; font-size: 1.8rem; font-weight:700; color: white; margin-bottom: 16px;">Extreme Scale CMYK Lithography</h3>
+                    <p id="showcase1-display-desc" style="line-height: 1.8; color: var(--text-muted); margin-bottom: 20px;">
+                        Our primary high-volume press utilizes advanced mechanical micro-alignment arrays to run continuous printing plates at up to 18,000 sheets per hour. With fully automated ink density scanning and active color spectrum recalibration, we guarantee absolute color accuracy and sharp geometric layouts on any stock thickness.
+                    </p>
+                    <ul id="showcase1-display-points" style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; color: #c7d2fe; font-size: 0.9rem;">
+                        <li style="display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-circle-check" style="color:var(--accent);"></i> CMYK Ink Density Scan</li>
+                        <li style="display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-circle-check" style="color:var(--accent);"></i> 18,000 sheets/hour</li>
+                        <li style="display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-circle-check" style="color:var(--accent);"></i> Micro-Alignment</li>
+                        <li style="display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-circle-check" style="color:var(--accent);"></i> Active Recalibration</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Showcase Feature 2: Packaging Line -->
+            <div class="showroom-row" style="display: flex; gap: 48px; align-items: center; flex-direction: row-reverse; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 320px;">
+                    <div style="position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--surface-border); box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+                        <img id="showcase2-display-img" src="/uploads/packaging_production_line.png" style="width: 100%; height: auto; display: block; object-fit: cover; transition: transform 0.5s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'" alt="Packaging Line">
+                        <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); padding: 20px; color: white;">
+                            <small style="color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Packaging Line</small>
+                            <h4 style="margin: 4px 0 0; font-family:'Space Grotesk'; font-size: 1.2rem;">Automated Structural Box Press</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="showcase-text-card" style="flex: 1; min-width: 320px;">
+                    <h3 id="showcase2-display-title" style="font-family:'Space Grotesk'; font-size: 1.8rem; font-weight:700; color: white; margin-bottom: 16px;">Precision Structural &amp; Foil Pressing</h3>
+                    <p id="showcase2-display-desc" style="line-height: 1.8; color: var(--text-muted); margin-bottom: 20px;">
+                        Designed for luxury packaging and dimensional die-cut configurations, our automated carton pressing lines support multi-layer board folding, laser scoring, and thermal gold/silver foil embossing in a single pass. This ensures extreme seam precision and logistics resilience for premium retail brands.
+                    </p>
+                    <ul id="showcase2-display-points" style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; color: #c7d2fe; font-size: 0.9rem;">
+                        <li style="display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-circle-check" style="color:var(--accent);"></i> Laser Scoring</li>
+                        <li style="display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-circle-check" style="color:var(--accent);"></i> Gold/Silver Foil Press</li>
+                        <li style="display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-circle-check" style="color:var(--accent);"></i> Single-Pass Scoring</li>
+                        <li style="display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-circle-check" style="color:var(--accent);"></i> Multi-Layer Board Fold</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- 2. ABOUT VIEW SECTION -->
@@ -2124,6 +2184,69 @@
         <div id="adm-brand-logo-preview-container" style="margin-top: 10px; display: none;">
             <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Current Brand Logo:</span>
             <img id="adm-brand-logo-preview" src="" alt="Brand Logo Preview" style="max-height: 40px; border-radius: 4px; border: 1px solid var(--surface-border); background: rgba(255,255,255,0.05); padding: 4px;">
+        </div>
+    </div>
+    <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06);">
+        <h4 style="margin-bottom: 12px; color: var(--accent);">Featured Print Infrastructure Showcase</h4>
+        
+        <!-- Showcase 1 (Offset Press) -->
+        <div style="background:rgba(255,255,255,0.01); border:1px solid rgba(255,255,255,0.03); padding:16px; border-radius:8px; margin-bottom:16px;">
+            <h5 style="margin: 0 0 12px 0; color: white;">Showcase Unit 1 (e.g. Offset Press)</h5>
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" id="adm-showcase1-title" value="Extreme Scale CMYK Lithography">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="adm-showcase1-desc" rows="3">Our primary high-volume press utilizes advanced mechanical micro-alignment arrays to run continuous printing plates at up to 18,000 sheets per hour. With fully automated ink density scanning and active color spectrum recalibration, we guarantee absolute color accuracy and sharp geometric layouts on any stock thickness.</textarea>
+            </div>
+            <div class="form-group">
+                <label>Showcase 1 Image (JPEG/PNG)</label>
+                <input type="file" id="adm-showcase1-img" accept="image/*">
+                <div id="adm-showcase1-img-preview-container" style="margin-top: 10px; display: none;">
+                    <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Current Showcase 1 Image:</span>
+                    <img id="adm-showcase1-img-preview" src="" alt="Showcase 1 Preview" style="max-height: 80px; border-radius: 6px; border: 1px solid var(--surface-border);">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Checklist Points (4 points required)</label>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                    <input type="text" id="adm-showcase1-p1" value="CMYK Ink Density Scan">
+                    <input type="text" id="adm-showcase1-p2" value="18,000 sheets/hour">
+                    <input type="text" id="adm-showcase1-p3" value="Micro-Alignment">
+                    <input type="text" id="adm-showcase1-p4" value="Active Recalibration">
+                </div>
+            </div>
+        </div>
+
+        <!-- Showcase 2 (Packaging Line) -->
+        <div style="background:rgba(255,255,255,0.01); border:1px solid rgba(255,255,255,0.03); padding:16px; border-radius:8px;">
+            <h5 style="margin: 0 0 12px 0; color: white;">Showcase Unit 2 (e.g. Packaging Line)</h5>
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" id="adm-showcase2-title" value="Precision Structural & Foil Pressing">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="adm-showcase2-desc" rows="3">Designed for luxury packaging and dimensional die-cut configurations, our automated carton pressing lines support multi-layer board folding, laser scoring, and thermal gold/silver foil embossing in a single pass. This ensures extreme seam precision and logistics resilience for premium retail brands.</textarea>
+            </div>
+            <div class="form-group">
+                <label>Showcase 2 Image (JPEG/PNG)</label>
+                <input type="file" id="adm-showcase2-img" accept="image/*">
+                <div id="adm-showcase2-img-preview-container" style="margin-top: 10px; display: none;">
+                    <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Current Showcase 2 Image:</span>
+                    <img id="adm-showcase2-img-preview" src="" alt="Showcase 2 Preview" style="max-height: 80px; border-radius: 6px; border: 1px solid var(--surface-border);">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Checklist Points (4 points required)</label>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                    <input type="text" id="adm-showcase2-p1" value="Laser Scoring">
+                    <input type="text" id="adm-showcase2-p2" value="Gold/Silver Foil Press">
+                    <input type="text" id="adm-showcase2-p3" value="Single-Pass Scoring">
+                    <input type="text" id="adm-showcase2-p4" value="Multi-Layer Board Fold">
+                </div>
+            </div>
         </div>
     </div>
     <button class="btn" onclick="commitGlobalContent()">Save Changes</button>
@@ -2489,6 +2612,31 @@
         </div>
     </div>
 
+    <!-- EDIT SERVICE FORM MODAL -->
+    <div class="modal-overlay" id="edit-service-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Edit Printing Service</h3>
+                <button class="modal-close" onclick="closeModal('edit-service-modal')">&times;</button>
+            </div>
+            <input type="hidden" id="edit-service-index">
+            <div class="form-group">
+                <label>Service Title</label>
+                <input type="text" id="edit-service-title" placeholder="e.g. Premium Book Press">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="edit-service-desc" rows="4" placeholder="Enter service description specifications..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Reference Image <small style="color:var(--text-muted); font-weight:normal;">(Optional)</small></label>
+                <input type="file" id="edit-service-image" accept="image/*" style="width:100%; font-size:0.85rem;">
+                <div id="edit-service-img-preview" style="margin-top:10px;"></div>
+            </div>
+            <button class="btn" style="width: 100%; background: linear-gradient(to right, var(--primary), var(--accent));" onclick="submitEditService()">Save Service Changes</button>
+        </div>
+    </div>
+
     <!-- ADMINISTRATOR CALCULATOR MODAL -->
     <div class="modal-overlay" id="calculator-modal">
         <div class="modal-card" style="max-width: 320px; padding: 24px; background: #121420; border-radius: 20px;">
@@ -2670,6 +2818,53 @@
                     document.getElementById('adm-about-email').value = settings.email || "";
                     document.getElementById('adm-about-location').value = settings.location || "";
                     
+                    document.getElementById('adm-showcase1-title').value = settings.showcase1Title || "Extreme Scale CMYK Lithography";
+                    document.getElementById('adm-showcase1-desc').value = settings.showcase1Desc || "Our primary high-volume press utilizes advanced mechanical micro-alignment arrays to run continuous printing plates at up to 18,000 sheets per hour. With fully automated ink density scanning and active color spectrum recalibration, we guarantee absolute color accuracy and sharp geometric layouts on any stock thickness.";
+                    document.getElementById('adm-showcase2-title').value = settings.showcase2Title || "Precision Structural & Foil Pressing";
+                    document.getElementById('adm-showcase2-desc').value = settings.showcase2Desc || "Designed for luxury packaging and dimensional die-cut configurations, our automated carton pressing lines support multi-layer board folding, laser scoring, and thermal gold/silver foil embossing in a single pass. This ensures extreme seam precision and logistics resilience for premium retail brands.";
+                    
+                    // Parse Showcase 1 points
+                    const s1Pts = (settings.showcase1Points || "CMYK Ink Density Scan|18,000 sheets/hour|Micro-Alignment|Active Recalibration").split('|');
+                    document.getElementById('adm-showcase1-p1').value = s1Pts[0] || "";
+                    document.getElementById('adm-showcase1-p2').value = s1Pts[1] || "";
+                    document.getElementById('adm-showcase1-p3').value = s1Pts[2] || "";
+                    document.getElementById('adm-showcase1-p4').value = s1Pts[3] || "";
+                    
+                    document.getElementById('showcase1-display-points').innerHTML = s1Pts.map(pt => pt.trim() ? `
+                        <li style="display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-circle-check" style="color:var(--accent);"></i> ${pt.trim()}</li>
+                    ` : '').join('');
+
+                    // Parse Showcase 2 points
+                    const s2Pts = (settings.showcase2Points || "Laser Scoring|Gold/Silver Foil Press|Single-Pass Scoring|Multi-Layer Board Fold").split('|');
+                    document.getElementById('adm-showcase2-p1').value = s2Pts[0] || "";
+                    document.getElementById('adm-showcase2-p2').value = s2Pts[1] || "";
+                    document.getElementById('adm-showcase2-p3').value = s2Pts[2] || "";
+                    document.getElementById('adm-showcase2-p4').value = s2Pts[3] || "";
+                    
+                    document.getElementById('showcase2-display-points').innerHTML = s2Pts.map(pt => pt.trim() ? `
+                        <li style="display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-circle-check" style="color:var(--accent);"></i> ${pt.trim()}</li>
+                    ` : '').join('');
+
+                    // Handle Showcase 1 image preview and live image
+                    if (settings.showcase1ImageUrl) {
+                        document.getElementById('adm-showcase1-img-preview').src = settings.showcase1ImageUrl;
+                        document.getElementById('adm-showcase1-img-preview-container').style.display = 'block';
+                        document.getElementById('showcase1-display-img').src = settings.showcase1ImageUrl;
+                    } else {
+                        document.getElementById('adm-showcase1-img-preview-container').style.display = 'none';
+                        document.getElementById('showcase1-display-img').src = "/uploads/industrial_offset_press.png";
+                    }
+
+                    // Handle Showcase 2 image preview and live image
+                    if (settings.showcase2ImageUrl) {
+                        document.getElementById('adm-showcase2-img-preview').src = settings.showcase2ImageUrl;
+                        document.getElementById('adm-showcase2-img-preview-container').style.display = 'block';
+                        document.getElementById('showcase2-display-img').src = settings.showcase2ImageUrl;
+                    } else {
+                        document.getElementById('adm-showcase2-img-preview-container').style.display = 'none';
+                        document.getElementById('showcase2-display-img').src = "/uploads/packaging_production_line.png";
+                    }
+                    
                     // Display it live
                     document.getElementById('hero-display-title').innerText = settings.heroTitle || "";
                     document.getElementById('hero-display-desc').innerText = settings.heroDesc || "";
@@ -2679,6 +2874,11 @@
                     document.getElementById('about-display-phone2').innerText = settings.phone2 || "";
                     document.getElementById('about-display-email').innerText = settings.email || "";
                     document.getElementById('about-display-location').innerText = settings.location || "";
+                    
+                    document.getElementById('showcase1-display-title').innerText = settings.showcase1Title || "Extreme Scale CMYK Lithography";
+                    document.getElementById('showcase1-display-desc').innerText = settings.showcase1Desc || "Our primary high-volume press utilizes advanced mechanical micro-alignment arrays to run continuous printing plates at up to 18,000 sheets per hour. With fully automated ink density scanning and active color spectrum recalibration, we guarantee absolute color accuracy and sharp geometric layouts on any stock thickness.";
+                    document.getElementById('showcase2-display-title').innerText = settings.showcase2Title || "Precision Structural & Foil Pressing";
+                    document.getElementById('showcase2-display-desc').innerText = settings.showcase2Desc || "Designed for luxury packaging and dimensional die-cut configurations, our automated carton pressing lines support multi-layer board folding, laser scoring, and thermal gold/silver foil embossing in a single pass. This ensures extreme seam precision and logistics resilience for premium retail brands.";
 
                     if (settings.qrCodeUrl) {
                         document.getElementById('adm-about-qrcode-preview').src = settings.qrCodeUrl;
@@ -2729,8 +2929,13 @@
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
-                splash.style.opacity = '0';
-                setTimeout(() => splash.style.display = 'none', 800);
+                if (splash) {
+                    splash.style.opacity = '0';
+                    setTimeout(() => {
+                        splash.style.display = 'none';
+                        initGlobalVideoBackground(); // Play only after loading up webpage!
+                    }, 800);
+                }
             }, 2200);
 
             // Load live data from database
@@ -2761,6 +2966,109 @@
 
             // Show rain background only on the home page
             document.body.classList.toggle('home-active', targetViewId === 'home');
+
+            // Trigger dynamic background video segment control!
+            setVideoSegment(targetViewId);
+        }
+
+        // GLOBAL VIEWPORT BACKDROP VIDEO SEGMENTS CONTROLS
+        let currentVideoSegment = {
+            start: 0,
+            end: 2,
+            loop: false,
+            pauseAtEnd: true
+        };
+
+        function initGlobalVideoBackground() {
+            const video = document.getElementById('global-bg-video');
+            if (!video) return;
+
+            video.src = "/uploads/hero_background.mp4";
+            video.load();
+
+            // Set up fallback hiding if video is playing successfully
+            video.onplaying = () => {
+                const press = document.querySelector('.press');
+                if (press) press.style.display = 'none';
+            };
+
+            // Start smooth requestAnimationFrame boundary monitoring loop
+            requestAnimationFrame(monitorVideoSegment);
+
+            // Initially set segment to home
+            setVideoSegment('home');
+        }
+
+        function setVideoSegment(targetViewId) {
+            const video = document.getElementById('global-bg-video');
+            if (!video) return;
+
+            const heroSrc = "/uploads/hero_background.mp4";
+            const customerSrc = "/uploads/customer_background.mp4";
+
+            if (targetViewId === 'customer') {
+                // Dynamically swap source to the dedicated Customer page loop
+                if (!video.src.includes(customerSrc)) {
+                    video.src = customerSrc;
+                    video.load();
+                }
+                currentVideoSegment = { start: 0, end: video.duration || 10.0, loop: true, pauseAtEnd: false, isCustomer: true };
+                
+                video.onloadedmetadata = () => {
+                    if (currentVideoSegment.isCustomer) {
+                        currentVideoSegment.end = video.duration || 10.0;
+                    }
+                };
+                
+                video.currentTime = 0;
+                video.play().catch(e => console.log("Video playback pending user gesture:", e));
+            } else if (targetViewId === 'home') {
+                // Restore main hero video source if previously changed
+                if (!video.src.includes(heroSrc)) {
+                    video.src = heroSrc;
+                    video.load();
+                }
+                currentVideoSegment = { start: 0, end: 2.0, loop: false, pauseAtEnd: true, isCustomer: false };
+                video.currentTime = 0;
+                video.play().catch(e => console.log("Video autoplay pending user gesture:", e));
+            } else if (targetViewId === 'admin') {
+                const adminSrc = "/uploads/admin_background.mp4";
+                if (!video.src.includes(adminSrc)) {
+                    video.src = adminSrc;
+                    video.load();
+                }
+                currentVideoSegment = { start: 2.0, end: 4.0, loop: false, pauseAtEnd: true, isCustomer: false };
+                video.currentTime = 2.0;
+                video.play().catch(e => console.log("Video playback pending user gesture:", e));
+            } else if (targetViewId === 'about') {
+                // "persist the paused stage while entering in the about page..."
+                // Do not change anything: keep the currentTime and paused state intact.
+            }
+        }
+
+        function monitorVideoSegment() {
+            const video = document.getElementById('global-bg-video');
+            if (video && video.src && !video.paused) {
+                const currentTime = video.currentTime;
+                
+                // Dynamically keep track of the duration when loaded
+                if (currentVideoSegment.isCustomer && video.duration && currentVideoSegment.end !== video.duration) {
+                    currentVideoSegment.end = video.duration;
+                }
+
+                if (currentTime >= currentVideoSegment.end) {
+                    if (currentVideoSegment.loop) {
+                        video.currentTime = currentVideoSegment.start;
+                        video.play().catch(e => {});
+                    } else if (currentVideoSegment.pauseAtEnd) {
+                        video.currentTime = currentVideoSegment.end;
+                        video.pause();
+                    }
+                } else if (currentTime < currentVideoSegment.start) {
+                    video.currentTime = currentVideoSegment.start;
+                }
+            }
+            requestAnimationFrame(monitorVideoSegment);
         }
 
         // POPUP WINDOW COMPONENT CONTROLLER
@@ -2785,7 +3093,28 @@
                 selector.innerHTML = dynamicServices.map(s => `<option value="${s.title}">${s.title}</option>`).join('');
             }
             document.getElementById('order-modal-calc-cost').innerText = "₹" + (document.getElementById('ord-quantity').value * 18).toLocaleString('en-IN') + ".00";
-            openModal('order-modal');
+        }
+
+        function requestService(serviceTitle, serviceDesc) {
+            if (!activeSessionUser) {
+                window.pendingRequestServiceTitle = serviceTitle;
+                window.pendingRequestServiceDesc = serviceDesc;
+                alert("Security handshake check required. Please login or register an active account node first.");
+                openModal('auth-modal');
+                return;
+            }
+            
+            // Navigate to customer portal
+            navigateTo('customer');
+            
+            // Pre-fill the work request form fields on the customer page
+            document.getElementById('c-work-subject').value = serviceTitle;
+            document.getElementById('c-work-desc').value = serviceDesc || '';
+            
+            // Scroll to the form
+            setTimeout(() => {
+                document.getElementById('view-customer').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
         }
 
         // AUTH CONTROL ENGINE (PERSISTED TO MONGODB ATLAS)
@@ -2835,6 +3164,14 @@
                 }
 
                 renderApplicationState();
+
+                if (window.pendingRequestServiceTitle) {
+                    const title = window.pendingRequestServiceTitle;
+                    const desc = window.pendingRequestServiceDesc;
+                    window.pendingRequestServiceTitle = null;
+                    window.pendingRequestServiceDesc = null;
+                    requestService(title, desc);
+                }
             } catch (e) {
                 alert(`Authentication Failed: ${e.message}`);
             }
@@ -2949,10 +3286,29 @@
                     throw new Error(errData.error || 'Registration failed.');
                 }
 
-                alert(`Client Account [${name}] successfully registered inside database. Returning to login layout.`);
-                toggleAuthBoxes(false);
-                document.getElementById('login-user').value = name;
-                document.getElementById('login-pass').value = pass;
+                const data = await res.json();
+                activeSessionUser = data;
+
+                // Render chat widget and app state instantly
+                renderFloatingChatViewport();
+
+                alert(`Security Session instantiated for Registered Client Profile node [${data.name}].`);
+                document.getElementById('auth-trigger-btn').innerHTML = `<i class="fa-solid fa-circle-user"></i> ${data.name}`;
+                document.getElementById('auth-trigger-btn').onclick = () => navigateTo('customer');
+                document.getElementById('logout-btn').style.display = 'flex';
+                closeModal('auth-modal');
+                // Auto navigate/map to customer workspace immediately
+                navigateTo('customer');
+
+                renderApplicationState();
+
+                if (window.pendingRequestServiceTitle) {
+                    const title = window.pendingRequestServiceTitle;
+                    const desc = window.pendingRequestServiceDesc;
+                    window.pendingRequestServiceTitle = null;
+                    window.pendingRequestServiceDesc = null;
+                    requestService(title, desc);
+                }
             } catch (e) {
                 console.error(e);
                 alert(`Failed to register customer: ${e.message}`);
@@ -3324,8 +3680,8 @@
                     if (isAdmin) {
                         const escapedText = m.data.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
                         actionControls = `
-                            <button class="message-action-btn" onclick="editAdminChatMessage('${m._id}', '${escapedText}')"><i class="fa-solid fa-pen"></i></button>
-                            <button class="message-action-btn delete-btn" onclick="deleteAdminChatMessage('${m._id}')"><i class="fa-solid fa-trash-can"></i></button>
+                            <button class="message-action-btn" onclick="editAdminChatMessage('${m._id || m.id}', '${escapedText}')"><i class="fa-solid fa-pen"></i></button>
+                            <button class="message-action-btn delete-btn" onclick="deleteAdminChatMessage('${m._id || m.id}')"><i class="fa-solid fa-trash-can"></i></button>
                         `;
                     }
 
@@ -3506,8 +3862,29 @@
             const aPhone2 = document.getElementById('adm-about-phone2').value;
             const aEmail = document.getElementById('adm-about-email').value;
             const aLocation = document.getElementById('adm-about-location').value;
+            
+            const s1Title = document.getElementById('adm-showcase1-title').value;
+            const s1Desc = document.getElementById('adm-showcase1-desc').value;
+            const s2Title = document.getElementById('adm-showcase2-title').value;
+            const s2Desc = document.getElementById('adm-showcase2-desc').value;
+            
+            const s1Points = [
+                document.getElementById('adm-showcase1-p1').value,
+                document.getElementById('adm-showcase1-p2').value,
+                document.getElementById('adm-showcase1-p3').value,
+                document.getElementById('adm-showcase1-p4').value
+            ].join('|');
+            const s2Points = [
+                document.getElementById('adm-showcase2-p1').value,
+                document.getElementById('adm-showcase2-p2').value,
+                document.getElementById('adm-showcase2-p3').value,
+                document.getElementById('adm-showcase2-p4').value
+            ].join('|');
+            
             const qrCodeFile = document.getElementById('adm-about-qrcode').files[0];
             const brandLogoFile = document.getElementById('adm-brand-logo').files[0];
+            const showcase1ImgFile = document.getElementById('adm-showcase1-img').files[0];
+            const showcase2ImgFile = document.getElementById('adm-showcase2-img').files[0];
 
             const formData = new FormData();
             formData.append('heroTitle', hTitle);
@@ -3518,11 +3895,25 @@
             formData.append('phone2', aPhone2);
             formData.append('email', aEmail);
             formData.append('location', aLocation);
+            
+            formData.append('showcase1Title', s1Title);
+            formData.append('showcase1Desc', s1Desc);
+            formData.append('showcase2Title', s2Title);
+            formData.append('showcase2Desc', s2Desc);
+            formData.append('showcase1Points', s1Points);
+            formData.append('showcase2Points', s2Points);
+
             if (qrCodeFile) {
                 formData.append('qrCode', qrCodeFile);
             }
             if (brandLogoFile) {
                 formData.append('brandLogo', brandLogoFile);
+            }
+            if (showcase1ImgFile) {
+                formData.append('showcase1Image', showcase1ImgFile);
+            }
+            if (showcase2ImgFile) {
+                formData.append('showcase2Image', showcase2ImgFile);
             }
 
             try {
@@ -3546,6 +3937,8 @@
                 // Clear file inputs
                 document.getElementById('adm-about-qrcode').value = '';
                 document.getElementById('adm-brand-logo').value = '';
+                document.getElementById('adm-showcase1-img').value = '';
+                document.getElementById('adm-showcase2-img').value = '';
 
                 // Reload layout settings to fetch new image path
                 await loadApplicationData();
@@ -3598,12 +3991,12 @@
 
         async function deleteService(index) {
             const service = dynamicServices[index];
-            if (!service || !service._id) {
+            if (!service || !(service._id || service.id)) {
                 alert("Cannot delete a service without a database reference.");
                 return;
             }
             try {
-                const res = await fetch(`/api/services/${service._id}`, {
+                const res = await fetch(`/api/services/${service._id || service.id}`, {
                     method: 'DELETE'
                 });
                 if (!res.ok) throw new Error('Server error');
@@ -3613,6 +4006,66 @@
             } catch (e) {
                 console.error(e);
                 alert(`Failed to delete service: ${e.message}`);
+            }
+        }
+
+        function openEditServiceModal(index) {
+            const service = dynamicServices[index];
+            if (!service) return;
+            
+            document.getElementById('edit-service-index').value = index;
+            document.getElementById('edit-service-title').value = service.title;
+            document.getElementById('edit-service-desc').value = service.description;
+            document.getElementById('edit-service-image').value = "";
+            
+            const preview = document.getElementById('edit-service-img-preview');
+            if (service.image) {
+                preview.innerHTML = `<img src="${service.image}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;" alt="Current logo">`;
+            } else {
+                preview.innerHTML = `<span style="color:var(--text-muted); font-size:0.8rem;">No custom image uploaded</span>`;
+            }
+            
+            openModal('edit-service-modal');
+        }
+
+        async function submitEditService() {
+            const index = document.getElementById('edit-service-index').value;
+            const service = dynamicServices[index];
+            if (!service) return;
+            
+            const title = document.getElementById('edit-service-title').value;
+            const desc = document.getElementById('edit-service-desc').value;
+            const imgFile = document.getElementById('edit-service-image').files[0];
+            
+            if (!title || !desc) {
+                alert("Title and description are required operational parameters.");
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('title', title);
+            formData.append('description', desc);
+            if (imgFile) {
+                formData.append('image', imgFile);
+            }
+            
+            try {
+                const res = await fetch(`/api/services/${service._id || service.id}`, {
+                    method: 'PUT',
+                    body: formData
+                });
+                if (!res.ok) {
+                    const errData = await res.json().catch(() => ({}));
+                    throw new Error(errData.error || `Server responded with status ${res.status}`);
+                }
+                
+                alert("Service changes successfully committed and saved in database.");
+                closeModal('edit-service-modal');
+                await loadApplicationData();
+                renderApplicationState();
+            } catch (e) {
+                console.error(e);
+                alert(`Failed to save service changes: ${e.message}`);
             }
         }
 
@@ -3647,7 +4100,7 @@
                     method: 'PUT'
                 });
                 if (!res.ok) throw new Error('Server error');
-                const match = productionOrders.find(o => (o._id === orderId || o.id === orderId));
+                const match = productionOrders.find(o => (o._id == orderId || o.id == orderId));
                 if (match) {
                     match.status = "Processed/Paid";
                     renderApplicationState();
@@ -3668,7 +4121,7 @@
                         body: JSON.stringify({ price: requestedAmount })
                     });
                     if (!res.ok) throw new Error('Server error');
-                    const match = productionOrders.find(o => (o._id === orderId || o.id === orderId));
+                    const match = productionOrders.find(o => (o._id == orderId || o.id == orderId));
                     if (match) {
                         match.evaluationPrice = requestedAmount;
                         renderApplicationState();
@@ -3687,7 +4140,7 @@
                 const res = await fetch(`/api/orders/${orderId}`, { method: 'DELETE' });
                 if (!res.ok) throw new Error('Server error');
                 // Remove from local list and refresh UI
-                const idx = productionOrders.findIndex(o => (o._id === orderId || o.id === orderId));
+                const idx = productionOrders.findIndex(o => (o._id == orderId || o.id == orderId));
                 if (idx !== -1) productionOrders.splice(idx, 1);
                 renderApplicationState();
             } catch (e) {
@@ -3714,7 +4167,7 @@
 
         function openAdminCalculator(orderId) {
             activeCalcOrderId = orderId;
-            const match = productionOrders.find(o => (o._id === orderId || o.id === orderId));
+            const match = productionOrders.find(o => (o._id == orderId || o.id == orderId));
             const clientName = match ? match.client : "Client";
             const volumeStr = match ? match.volume : "Unspecified";
             
@@ -3790,7 +4243,7 @@
                 });
                 if (!res.ok) throw new Error('Server error');
                 
-                const match = productionOrders.find(o => (o._id === activeCalcOrderId || o.id === activeCalcOrderId));
+                const match = productionOrders.find(o => (o._id == activeCalcOrderId || o.id == activeCalcOrderId));
                 if (match) {
                     match.evaluationPrice = formattedPrice;
                     renderApplicationState();
@@ -3890,6 +4343,27 @@
             }
         }
 
+        function getServiceIcon(title) {
+            const t = title.toLowerCase();
+            let iconClass = 'fa-print';
+            if (t.includes('offset') || t.includes('press')) {
+                iconClass = 'fa-print';
+            } else if (t.includes('art') || t.includes('architectural') || t.includes('layout')) {
+                iconClass = 'fa-compass-drafting';
+            } else if (t.includes('packaging') || t.includes('box') || t.includes('carton')) {
+                iconClass = 'fa-box';
+            } else if (t.includes('binding') || t.includes('publication') || t.includes('book') || t.includes('catalog')) {
+                iconClass = 'fa-book-open';
+            } else {
+                iconClass = 'fa-cubes';
+            }
+            return `
+            <div style="width:72px; height:72px; background:rgba(34,211,238,0.05); border:2px solid var(--accent); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 0 15px rgba(34,211,238,0.25); margin-bottom:8px;">
+                <i class="fa-solid ${iconClass}" style="font-size:2.2rem; color:var(--accent); text-shadow:0 0 10px rgba(34,211,238,0.5);"></i>
+            </div>
+            `;
+        }
+
         // APPLICATION SYNCHRONIZED DISPLAY VIEW RENDERER
         function renderApplicationState() {
             // A. Update live services presentation on user home grid views
@@ -3906,16 +4380,12 @@
                         `background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(34,211,238,0.1) 100%);`;
 
                     return `
-                    <div class="service-3d-card">
+                    <div class="service-3d-card" onclick="requestService('${s.title.replace(/'/g, "\\\'")}', '${s.description.replace(/'/g, "\\\'")}')" style="cursor: pointer;">
                         <div class="service-3d-content">
                             <!-- Back Side: Default visible state (rotating border aura) -->
                             <div class="service-3d-back">
                                 <div class="service-3d-back-content">
-                                    <svg stroke="var(--accent)" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" height="50px" width="50px" fill="none">
-                                        <g stroke-width="1.5">
-                                            <path d="M20.84375 0.03125C20.191406 0.0703125 19.652344 0.425781 19.21875 1.53125C18.988281 2.117188 18.5 3.558594 18.03125 4.9375C17.792969 5.636719 17.570313 6.273438 17.40625 6.75C17.390625 6.796875 17.414063 6.855469 17.40625 6.90625C17.398438 6.925781 17.351563 6.949219 17.34375 6.96875L17.25 7.25C18.566406 7.65625 19.539063 8.058594 19.625 8.09375C22.597656 9.21875 28.351563 11.847656 33.28125 16.78125C38.5 22 41.183594 28.265625 42.09375 30.71875C42.113281 30.761719 42.375 31.535156 42.75 32.84375C42.757813 32.839844 42.777344 32.847656 42.78125 32.84375C43.34375 32.664063 44.953125 32.09375 46.3125 31.625C47.109375 31.351563 47.808594 31.117188 48.15625 31C49.003906 30.714844 49.542969 30.292969 49.8125 29.6875C50.074219 29.109375 50.066406 28.429688 49.75 27.6875C49.605469 27.347656 49.441406 26.917969 49.25 26.4375C47.878906 23.007813 45.007813 15.882813 39.59375 10.46875C33.613281 4.484375 25.792969 1.210938 22.125 0.21875C21.648438 0.0898438 21.234375 0.0078125 20.84375 0.03125 Z M 16.46875 9.09375L0.0625 48.625C-0.09375 48.996094 -0.00390625 49.433594 0.28125 49.71875C0.472656 49.910156 0.738281 50 1 50C1.128906 50 1.253906 49.988281 1.375 49.9375L40.90625 33.59375C40.523438 32.242188 40.222656 31.449219 40.21875 31.4375C39.351563 29.089844 36.816406 23.128906 31.875 18.1875C27.035156 13.34375 21.167969 10.804688 18.875 9.9375C18.84375 9.925781 17.8125 9.5 16.46875 9.09375 Z M 17 16C19.761719 16 22 18.238281 22 21C22 23.761719 19.761719 26 17 26C15.140625 26 13.550781 24.972656 12.6875 23.46875L15.6875 16.1875C16.101563 16.074219 16.550781 16 17 16 Z M 31 22C32.65625 22 34 23.34375 34 25C34 25.917969 33.585938 26.730469 32.9375 27.28125L32.90625 27.28125C33.570313 27.996094 34 28.949219 34 30C34 32.210938 32.210938 34 30 34C27.789063 34 26 32.210938 26 30C26 28.359375 26.996094 26.960938 28.40625 26.34375L28.3125 26.3125C28.117188 25.917969 28 25.472656 28 25C28 23.34375 29.34375 22 31 22 Z M 21 32C23.210938 32 25 33.789063 25 36C25 36.855469 24.710938 37.660156 24.25 38.3125L20.3125 39.9375C18.429688 39.609375 17 37.976563 17 36C17 33.789063 18.789063 32 21 32 Z M 9 34C10.65625 34 12 35.34375 12 37C12 38.65625 10.65625 40 9 40C7.902344 40 6.960938 39.414063 6.4375 38.53125L8.25 34.09375C8.488281 34.03125 8.742188 34 9 34Z" fill="var(--accent)" stroke="var(--accent)"></path>
-                                        </g>
-                                    </svg>
+                                    ${getServiceIcon(s.title)}
                                     <h3 style="font-family:'Space Grotesk'; font-size:1.35rem; font-weight:700; color:white; text-align:center; padding: 0 15px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">${s.title}</h3>
                                     <span style="font-size:0.75rem; color:var(--accent); font-weight:600; text-transform:uppercase; letter-spacing:1px; display:flex; align-items:center; gap:8px;">
                                         Hover to Inspect <i class="fa-solid fa-arrow-rotate-right" style="animation: rotation_481 2.5s infinite linear;"></i>
@@ -3960,7 +4430,10 @@
                         ${s.image ? `<img src="${s.image}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;" alt="">` : ''}
                         <div><strong>${s.title}</strong><br><small style="color:var(--text-muted);">${s.description}</small></div>
                     </div>
-                    <button class="btn btn-secondary" style="padding:6px 12px; color:#ef4444;" onclick="deleteService(${idx})"><i class="fa-solid fa-trash-can"></i> Remove</button>
+                    <div style="display:flex; gap:8px;">
+                        <button class="btn btn-secondary" style="padding:6px 12px; color:var(--accent); border-color:rgba(34,211,238,0.25);" onclick="openEditServiceModal(${idx})"><i class="fa-solid fa-pen"></i> Edit</button>
+                        <button class="btn btn-secondary" style="padding:6px 12px; color:#ef4444;" onclick="deleteService(${idx})"><i class="fa-solid fa-trash-can"></i> Remove</button>
+                    </div>
                 </div>
             `).join('');
 
